@@ -1,0 +1,16 @@
+{
+  "source": "/Users/taka/Documents/swift_projects/Stride/Stride/Views/ContentView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Hi, Cat!",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 16
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,39 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build iOS (device)",
+      "type": "shell",
+      "command": "xcodebuild",
+      "args": [
+        "-project", "Stride.xcodeproj",
+        // CocoaPods/xcworkspaceを使っている場合は ↑を削除して ↓に置き換え:
+        // "-workspace", "Stride.xcworkspace",
+        "-scheme", "Stride",
+        "-configuration", "Debug",
+        "-destination", "platform=iOS,id=${input:deviceUDID}",
+        "-derivedDataPath", ".vscode_build",
+        "build"
+      ],
+    },
+    {
+      "label": "Run on device",
+      "type": "shell",
+      "command": "ios-deploy",
+      "args": [
+        "--bundle", ".vscode_build/Build/Products/Debug-iphoneos/Stride.app",
+        "--id", "${input:deviceUDID}",
+        "--justlaunch"
+      ],
+      "dependsOn": "Build iOS (device)"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "deviceUDID",
+      "type": "promptString",
+      "description": "Enter iPhone UDID (use `xcrun xctrace list devices`)",
+      "default": "00008020-0019315234F1002E"
+    }
+  ]
+}

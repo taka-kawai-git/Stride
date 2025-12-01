@@ -7,11 +7,16 @@
 
 import SwiftUI
 
+@MainActor
 @main
 struct StrideApp: App {
+    @StateObject private var viewModel = StepViewModel(
+        pedometerService: PedometerService()
+    )
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView(viewModel: viewModel)
         }
     }
 }

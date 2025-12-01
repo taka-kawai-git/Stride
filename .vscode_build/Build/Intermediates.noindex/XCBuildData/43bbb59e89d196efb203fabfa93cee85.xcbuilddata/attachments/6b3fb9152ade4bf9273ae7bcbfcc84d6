@@ -1,0 +1,88 @@
+{
+  "" : {
+    "diagnostics" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/Stride-master.dia",
+    "emit-module-dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/Stride-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/Stride-master-emit-module.dia",
+    "swift-dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/Stride-master.swiftdeps"
+  },
+  "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "const-values" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftconstvalues",
+    "dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/GeneratedAssetSymbols.d",
+    "diagnostics" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/GeneratedAssetSymbols.dia",
+    "index-unit-output-path" : "/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "swift-dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/GeneratedAssetSymbols.swiftdeps",
+    "swiftmodule" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/GeneratedAssetSymbols~partial.swiftmodule"
+  },
+  "/Users/taka/Documents/swift_projects/Stride/Stride/Models/StepCount.swift" : {
+    "const-values" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepCount.swiftconstvalues",
+    "dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepCount.d",
+    "diagnostics" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepCount.dia",
+    "index-unit-output-path" : "/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepCount.o",
+    "llvm-bc" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepCount.bc",
+    "object" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepCount.o",
+    "swift-dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepCount.swiftdeps",
+    "swiftmodule" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepCount~partial.swiftmodule"
+  },
+  "/Users/taka/Documents/swift_projects/Stride/Stride/Repositories/StepRepository.swift" : {
+    "const-values" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepRepository.swiftconstvalues",
+    "dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepRepository.d",
+    "diagnostics" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepRepository.dia",
+    "index-unit-output-path" : "/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepRepository.o",
+    "llvm-bc" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepRepository.bc",
+    "object" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepRepository.o",
+    "swift-dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepRepository.swiftdeps",
+    "swiftmodule" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepRepository~partial.swiftmodule"
+  },
+  "/Users/taka/Documents/swift_projects/Stride/Stride/Services/PedometerService.swift" : {
+    "const-values" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/PedometerService.swiftconstvalues",
+    "dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/PedometerService.d",
+    "diagnostics" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/PedometerService.dia",
+    "index-unit-output-path" : "/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/PedometerService.o",
+    "llvm-bc" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/PedometerService.bc",
+    "object" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/PedometerService.o",
+    "swift-dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/PedometerService.swiftdeps",
+    "swiftmodule" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/PedometerService~partial.swiftmodule"
+  },
+  "/Users/taka/Documents/swift_projects/Stride/Stride/StrideApp.swift" : {
+    "const-values" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StrideApp.swiftconstvalues",
+    "dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StrideApp.d",
+    "diagnostics" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StrideApp.dia",
+    "index-unit-output-path" : "/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StrideApp.o",
+    "llvm-bc" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StrideApp.bc",
+    "object" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StrideApp.o",
+    "swift-dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StrideApp.swiftdeps",
+    "swiftmodule" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StrideApp~partial.swiftmodule"
+  },
+  "/Users/taka/Documents/swift_projects/Stride/Stride/ViewModels/StepViewModel.swift" : {
+    "const-values" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepViewModel.swiftconstvalues",
+    "dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepViewModel.d",
+    "diagnostics" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepViewModel.dia",
+    "index-unit-output-path" : "/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepViewModel.o",
+    "llvm-bc" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepViewModel.bc",
+    "object" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepViewModel.o",
+    "swift-dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepViewModel.swiftdeps",
+    "swiftmodule" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepViewModel~partial.swiftmodule"
+  },
+  "/Users/taka/Documents/swift_projects/Stride/Stride/Views/ContentView.swift" : {
+    "const-values" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/ContentView.d",
+    "diagnostics" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/ContentView.dia",
+    "index-unit-output-path" : "/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/ContentView.o",
+    "swift-dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/ContentView~partial.swiftmodule"
+  },
+  "/Users/taka/Documents/swift_projects/Stride/Stride/Widget/StepWidget.swift" : {
+    "const-values" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepWidget.swiftconstvalues",
+    "dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepWidget.d",
+    "diagnostics" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepWidget.dia",
+    "index-unit-output-path" : "/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepWidget.o",
+    "llvm-bc" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepWidget.bc",
+    "object" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepWidget.o",
+    "swift-dependencies" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepWidget.swiftdeps",
+    "swiftmodule" : "/Users/taka/Documents/swift_projects/Stride/.vscode_build/Build/Intermediates.noindex/Stride.build/Debug-iphoneos/Stride.build/Objects-normal/arm64/StepWidget~partial.swiftmodule"
+  }
+}

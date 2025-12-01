@@ -6,7 +6,20 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3BA1D9702EC4ECB10021DB3B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA1D96F2EC4ECB10021DB3B /* WidgetKit.framework */; };
+		3BA1D9722EC4ECB10021DB3B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA1D9712EC4ECB10021DB3B /* SwiftUI.framework */; };
+		3BA1D9832EC4ECB50021DB3B /* StrideWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3BA1D96D2EC4ECB10021DB3B /* StrideWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
+		3BA1D9812EC4ECB50021DB3B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3BB8A8F72EBD001B00096169 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3BA1D96C2EC4ECB10021DB3B;
+			remoteInfo = StrideWidgetExtension;
+		};
 		3BB8A9102EBD002000096169 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3BB8A8F72EBD001B00096169 /* Project object */;
@@ -23,15 +36,61 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3BA1D9882EC4ECB50021DB3B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				3BA1D9832EC4ECB50021DB3B /* StrideWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		3BA1D96D2EC4ECB10021DB3B /* StrideWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StrideWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BA1D96F2EC4ECB10021DB3B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		3BA1D9712EC4ECB10021DB3B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		3BA1D98A2EC4F4AC0021DB3B /* StrideWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StrideWidgetExtension.entitlements; sourceTree = "<group>"; };
 		3BB8A8FF2EBD001B00096169 /* Stride.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stride.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BB8A90F2EBD002000096169 /* StrideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StrideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BB8A9192EBD002000096169 /* StrideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StrideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		3BA1D9842EC4ECB50021DB3B /* Exceptions for "StrideWidget" folder in "StrideWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 3BA1D96C2EC4ECB10021DB3B /* StrideWidgetExtension */;
+		};
+		3BA1D9BA2ECB5D580021DB3B /* Exceptions for "Stride" folder in "Stride" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 3BB8A8FE2EBD001B00096169 /* Stride */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		3BA1D9732EC4ECB10021DB3B /* StrideWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3BA1D9842EC4ECB50021DB3B /* Exceptions for "StrideWidget" folder in "StrideWidgetExtension" target */,
+			);
+			path = StrideWidget;
+			sourceTree = "<group>";
+		};
 		3BB8A9012EBD001B00096169 /* Stride */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3BA1D9BA2ECB5D580021DB3B /* Exceptions for "Stride" folder in "Stride" target */,
+			);
 			path = Stride;
 			sourceTree = "<group>";
 		};
@@ -45,9 +104,23 @@
 			path = StrideUITests;
 			sourceTree = "<group>";
 		};
+		3BC4C6882ED2051F00F1E783 /* Shareds */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shareds;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3BA1D96A2EC4ECB10021DB3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BA1D9722EC4ECB10021DB3B /* SwiftUI.framework in Frameworks */,
+				3BA1D9702EC4ECB10021DB3B /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BB8A8FC2EBD001B00096169 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -72,13 +145,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3BA1D96E2EC4ECB10021DB3B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3BA1D96F2EC4ECB10021DB3B /* WidgetKit.framework */,
+				3BA1D9712EC4ECB10021DB3B /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3BB8A8F62EBD001B00096169 = {
 			isa = PBXGroup;
 			children = (
+				3BA1D98A2EC4F4AC0021DB3B /* StrideWidgetExtension.entitlements */,
 				3BB8A9012EBD001B00096169 /* Stride */,
 				3BB8A9122EBD002000096169 /* StrideTests */,
 				3BB8A91C2EBD002000096169 /* StrideUITests */,
+				3BA1D9732EC4ECB10021DB3B /* StrideWidget */,
+				3BA1D96E2EC4ECB10021DB3B /* Frameworks */,
 				3BB8A9002EBD001B00096169 /* Products */,
+				3BC4C6882ED2051F00F1E783 /* Shareds */,
 			);
 			sourceTree = "<group>";
 		};
@@ -88,6 +174,7 @@
 				3BB8A8FF2EBD001B00096169 /* Stride.app */,
 				3BB8A90F2EBD002000096169 /* StrideTests.xctest */,
 				3BB8A9192EBD002000096169 /* StrideUITests.xctest */,
+				3BA1D96D2EC4ECB10021DB3B /* StrideWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,6 +182,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3BA1D96C2EC4ECB10021DB3B /* StrideWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3BA1D9852EC4ECB50021DB3B /* Build configuration list for PBXNativeTarget "StrideWidgetExtension" */;
+			buildPhases = (
+				3BA1D9692EC4ECB10021DB3B /* Sources */,
+				3BA1D96A2EC4ECB10021DB3B /* Frameworks */,
+				3BA1D96B2EC4ECB10021DB3B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				3BA1D9732EC4ECB10021DB3B /* StrideWidget */,
+				3BC4C6882ED2051F00F1E783 /* Shareds */,
+			);
+			name = StrideWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = StrideWidgetExtension;
+			productReference = 3BA1D96D2EC4ECB10021DB3B /* StrideWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		3BB8A8FE2EBD001B00096169 /* Stride */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BB8A9232EBD002000096169 /* Build configuration list for PBXNativeTarget "Stride" */;
@@ -102,13 +212,16 @@
 				3BB8A8FB2EBD001B00096169 /* Sources */,
 				3BB8A8FC2EBD001B00096169 /* Frameworks */,
 				3BB8A8FD2EBD001B00096169 /* Resources */,
+				3BA1D9882EC4ECB50021DB3B /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3BA1D9822EC4ECB50021DB3B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				3BB8A9012EBD001B00096169 /* Stride */,
+				3BC4C6882ED2051F00F1E783 /* Shareds */,
 			);
 			name = Stride;
 			packageProductDependencies = (
@@ -173,6 +286,9 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					3BA1D96C2EC4ECB10021DB3B = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					3BB8A8FE2EBD001B00096169 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -203,11 +319,19 @@
 				3BB8A8FE2EBD001B00096169 /* Stride */,
 				3BB8A90E2EBD002000096169 /* StrideTests */,
 				3BB8A9182EBD002000096169 /* StrideUITests */,
+				3BA1D96C2EC4ECB10021DB3B /* StrideWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3BA1D96B2EC4ECB10021DB3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BB8A8FD2EBD001B00096169 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +356,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3BA1D9692EC4ECB10021DB3B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BB8A8FB2EBD001B00096169 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -256,6 +387,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3BA1D9822EC4ECB50021DB3B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3BA1D96C2EC4ECB10021DB3B /* StrideWidgetExtension */;
+			targetProxy = 3BA1D9812EC4ECB50021DB3B /* PBXContainerItemProxy */;
+		};
 		3BB8A9112EBD002000096169 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3BB8A8FE2EBD001B00096169 /* Stride */;
@@ -269,6 +405,72 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		3BA1D9862EC4ECB50021DB3B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StrideWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 43TAL2P26G;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StrideWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StrideWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.dev.apps.taka.Stride.StrideWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		3BA1D9872EC4ECB50021DB3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StrideWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 43TAL2P26G;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StrideWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StrideWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.dev.apps.taka.Stride.StrideWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		3BB8A9212EBD002000096169 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -393,17 +595,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Stride/Stride.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Stride/Preview Content\"";
 				DEVELOPMENT_TEAM = 43TAL2P26G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Stride/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "歩数データをStrideに共有するために使用します";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "歩数データを共有するために使用します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -411,9 +618,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.dev.apps.taka.Stride;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -422,17 +633,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Stride/Stride.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Stride/Preview Content\"";
 				DEVELOPMENT_TEAM = 43TAL2P26G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Stride/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "歩数データをStrideに共有するために使用します";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "歩数データを共有するために使用します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -440,9 +656,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.dev.apps.taka.Stride;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -454,7 +674,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 43TAL2P26G;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.dev.apps.taka.StrideTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -473,7 +693,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 43TAL2P26G;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.dev.apps.taka.StrideTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -491,6 +711,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 43TAL2P26G;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.dev.apps.taka.StrideUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -508,6 +729,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 43TAL2P26G;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.dev.apps.taka.StrideUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -521,6 +743,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3BA1D9852EC4ECB50021DB3B /* Build configuration list for PBXNativeTarget "StrideWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BA1D9862EC4ECB50021DB3B /* Debug */,
+				3BA1D9872EC4ECB50021DB3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3BB8A8FA2EBD001B00096169 /* Build configuration list for PBXProject "Stride" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
