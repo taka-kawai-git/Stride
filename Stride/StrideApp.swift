@@ -11,7 +11,7 @@ import SwiftUI
 @main
 struct StrideApp: App {
     @StateObject private var viewModel = StepViewModel(
-        pedometerService: PedometerService()
+        pedometerService: PedometerService(onStepsUpdated: { SharedStore.saveCurrentSteps($0) })
     )
 
     var body: some Scene {

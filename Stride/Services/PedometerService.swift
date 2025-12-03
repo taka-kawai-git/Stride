@@ -7,51 +7,55 @@ enum PedometerServiceError: Error {
     case healthDataUnavailable
 }
 
-extension AuthorizationState {
-    static func from(_ status: HKAuthorizationRequestStatus) -> AuthorizationState {
-        switch status {
-        case .unnecessary:    return .authorized
-        case .shouldRequest:  return .notDetermined
-        case .unknown:        return .unavailable
-        @unknown default:     return .unavailable
-        }
-    }
-}
-
 final class PedometerService {
     private let healthStore = HKHealthStore()
     private let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
     private let log = Logger(subsystem: "Stride", category: "Pedometer")
+    private let onStepsUpdated: (Int) -> Void
+    private var stepObserverQuery: HKObserverQuery?
+
+    init(onStepsUpdated: @escaping (Int) -> Void) {
+        self.onStepsUpdated = onStepsUpdated
+    }
 
     // ================ Authorization ================
     
-    func currentAuthorizationState() async -> AuthorizationState {
+    func currentRequestState() async -> RequestState {
         guard HKHealthStore.isHealthDataAvailable() else { return .unavailable }
-        return await withCheckedContinuation { cont in
-            healthStore.getRequestStatusForAuthorization(toShare: [], read: [stepType]) { status, _ in
-                cont.resume(returning: AuthorizationState.from(status))
-            }
+
+        let status = await readAuthorizationRequestStatus()
+        switch status {
+        case .shouldRequest:
+            return .shouldRequest
+        case .unnecessary:
+            return .unnecessary
+        case .unknown:
+            fallthrough
+        @unknown default:
+            return .unknown
         }
     }
     
-    func ensureObserversActiveIfAuthorized() async {
-        let state = await currentAuthorizationState()
-        guard case .authorized = state else { return }
+    func ensureObserversActive() async {
         do {
             try await enableBackgroundDelivery()
             startStepObserver()
         } catch {
-            log.error("ensureObserversActiveIfAuthorized: \(error.localizedDescription, privacy: .public)")
+            log.error("ensureObserversActive: \(error.localizedDescription, privacy: .public)")
         }
     }
 
-    func requestAuthorization() async throws {
+    func requestAuthorization() async throws -> RequestState {
         guard HKHealthStore.isHealthDataAvailable() else {
             throw PedometerServiceError.healthDataUnavailable
         }
         try await healthStore.requestAuthorization(toShare: [], read: [stepType])
-        try await enableBackgroundDelivery()
-        startStepObserver()
+        let state = await currentRequestState()
+        if case .unnecessary = state {
+            try? await enableBackgroundDelivery()
+            startStepObserver()
+        }
+        return state
     }
 
     // ================ Background Delovery ================
@@ -75,6 +79,9 @@ final class PedometerService {
     }
 
     private func startStepObserver() {
+        // Prevent multiple registrations of the same observer query.
+        guard stepObserverQuery == nil else { return }
+
         log.debug("startStepObserver: registering observer")
         let query = HKObserverQuery(sampleType: stepType, predicate: nil) { [weak self] _, completion, error in
             guard let self else { completion(); return }
@@ -86,6 +93,7 @@ final class PedometerService {
             self.log.debug("Pedometer 0000")
             self.updateData {completion()}
         }
+        stepObserverQuery = query
         healthStore.execute(query)
     }
 
@@ -95,7 +103,7 @@ final class PedometerService {
             self.log.debug("Pedometer 2222")
             if case let .success(steps) = result {
                 self.log.debug("Pedometer 3333")
-                SharedStore.saveCurrentSteps(steps)
+                self.onStepsUpdated(steps)
             }
             done()
         }
@@ -127,6 +135,8 @@ final class PedometerService {
                 return
             }
             let steps = Int(quantity.doubleValue(for: .count()))
+            self.log.debug("AAAAAA fetch success: \(steps, privacy: .public)")
+
             handler(.success(steps))
         }
         healthStore.execute(query)
@@ -159,6 +169,14 @@ final class PedometerService {
                 cont.resume(returning: result)
             }
             self.healthStore.execute(query)
+        }
+    }
+    
+    private func readAuthorizationRequestStatus() async -> HKAuthorizationRequestStatus {
+        await withCheckedContinuation { cont in
+            healthStore.getRequestStatusForAuthorization(toShare: [], read: [stepType]) { status, _ in
+                cont.resume(returning: status)
+            }
         }
     }
 }

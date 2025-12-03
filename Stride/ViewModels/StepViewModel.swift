@@ -5,11 +5,13 @@ import WidgetKit
 final class StepViewModel: ObservableObject {
     @Published var currentSteps: Int = 0
     @Published var dailyStepCounts: [Date: Int] = [:]
-    @Published var authorizationStatus: AuthorizationState = .notDetermined
+    @Published var requestState: RequestState = .shouldRequest
 
     private let pedometerService: PedometerService
     private var notifObserver: NSObjectProtocol?
     private var hasLoadedDailyCounts = false
+
+    // ================ init ================
 
     init(pedometerService: PedometerService) {
         self.pedometerService = pedometerService
@@ -17,10 +19,10 @@ final class StepViewModel: ObservableObject {
         
         Task { [weak self] in
             guard let self else { return }
-            let state = await pedometerService.currentAuthorizationState()
-            self.authorizationStatus = state
-            if case .authorized = state {
-                await pedometerService.ensureObserversActiveIfAuthorized()
+            let state = await pedometerService.currentRequestState()
+            self.requestState = state
+            if case .unnecessary = state {
+                await pedometerService.ensureObserversActive()
                 self.fetchCurrentSteps()
             }
         }
@@ -40,21 +42,25 @@ final class StepViewModel: ObservableObject {
     deinit {
         if let o = notifObserver { NotificationCenter.default.removeObserver(o) }
     }
+
+    // ================ Auth ================
     
     func requestAuthorization() {
         Task {
             do {
-                try await pedometerService.requestAuthorization()
-                authorizationStatus = .authorized
+                let state = try await pedometerService.requestAuthorization()
+                requestState = state
             } catch {
                 if let error = error as? PedometerServiceError, error == .healthDataUnavailable {
-                    authorizationStatus = .unavailable
+                    requestState = .unavailable
                 } else {
-                    authorizationStatus = .denied
+                    requestState = .unknown
                 }
             }
         }
     }
+
+    // ================ Fetching Data ================
 
     func fetchCurrentSteps() {
         var kind = StrideWidgetKind.kind
@@ -67,16 +73,14 @@ final class StepViewModel: ObservableObject {
                     SharedStore.saveCurrentSteps(steps)
                     WidgetCenter.shared.reloadTimelines(ofKind: kind)
                 case .failure:
-                    break
+                    Task { [weak self] in
+                        guard let self else { return }
+                        let state = await pedometerService.currentRequestState()
+                        self.requestState = state
+                    }
                 }
             }
         }
-    }
-
-    func loadDailyCounts(weeks: Int) async {
-        let days = weeks * 7
-        let stats = await fetchDailyStepCounts(days: days)
-        dailyStepCounts = stats
     }
 
     func ensureDailyCountsLoaded(weeks: Int) async {
@@ -85,18 +89,26 @@ final class StepViewModel: ObservableObject {
         hasLoadedDailyCounts = true
     }
 
-    func fetchDailyStepCounts(days: Int) async -> [Date: Int] {
+    // ================ Private Functions ================
+
+    private func fetchDailyStepCounts(days: Int) async -> [Date: Int] {
         do {
             return try await pedometerService.fetchDailyStepCounts(days: days)
         } catch {
             return [:]
         }
     }
+
+    private func loadDailyCounts(weeks: Int) async {
+        let days = weeks * 7
+        let stats = await fetchDailyStepCounts(days: days)
+        dailyStepCounts = stats
+    }
 }
 
-enum AuthorizationState {
-    case notDetermined
-    case authorized
-    case denied
+enum RequestState {
+    case shouldRequest
+    case unnecessary
+    case unknown
     case unavailable
 }
