@@ -11,6 +11,8 @@ enum SharedStore {
         UserDefaults(suiteName: AppGroupID.suite)
     }
 
+    // ================ Appearance ================
+
     private static let appearanceKey = "appearance"
 
     static func loadAppearance() -> SharedAppearance {
@@ -32,12 +34,13 @@ enum SharedStore {
         WidgetCenter.shared.reloadTimelines(ofKind: kind)
     }
 
+    // ================ Current Steps ================
+
     private static let stepsKey = "currentSteps"
     private static let lastUpdatedKey = "currentSteps_lastUpdated"
 
-    /// 今日の歩数を保存
     static func saveCurrentSteps(_ steps: Int) {
-        let log = Logger(subsystem: "Stride", category: "Pedometer")
+        let log = Logger(category: "root")
         guard let suite else { return }
         let now = Date()
 
@@ -54,16 +57,28 @@ enum SharedStore {
         }
     }
 
-    /// 今日の歩数を取得
     static func loadCurrentSteps() -> Int {
         guard let suite else { return 0 }
         return suite.integer(forKey: stepsKey)
     }
 
-    /// 最終更新日時
     static func loadLastUpdated() -> Date? {
         guard let suite else { return nil }
         let t = suite.double(forKey: lastUpdatedKey)
         return t > 0 ? Date(timeIntervalSince1970: t) : nil
+    }
+
+    // ================ Authorization Request Flag ================
+
+    private static let didRequestAuthorizationKey = "didRequestAuthorization"
+
+    static func saveDidRequestAuthorization(_ didRequest: Bool) {
+        guard let suite else { return }
+        suite.set(didRequest, forKey: didRequestAuthorizationKey)
+    }
+
+    static func hasRequestedAuthorization() -> Bool {
+        guard let suite else { return false }
+        return suite.bool(forKey: didRequestAuthorizationKey)
     }
 }

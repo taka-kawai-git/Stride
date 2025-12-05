@@ -1,0 +1,182 @@
+import Foundation
+import HealthKit
+import WidgetKit
+import os.log
+
+enum PedometerServiceError: Error {
+    case healthDataUnavailable
+}
+
+final class PedometerService {
+    private let healthStore = HKHealthStore()
+    private let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
+    private let log = Logger(category: "service")
+    private let onStepsUpdated: (Int) -> Void
+    private var stepObserverQuery: HKObserverQuery?
+
+    init(onStepsUpdated: @escaping (Int) -> Void) {
+        self.onStepsUpdated = onStepsUpdated
+    }
+
+    // ================ Authorization ================
+    
+    func currentRequestState() async -> RequestState {
+        guard HKHealthStore.isHealthDataAvailable() else { return .unavailable }
+
+        let status = await readAuthorizationRequestStatus()
+        switch status {
+        case .shouldRequest:
+            return .shouldRequest
+        case .unnecessary:
+            return .unnecessary
+        case .unknown:
+            fallthrough
+        @unknown default:
+            return .unknown
+        }
+    }
+    
+    func ensureObserversActive() async {
+        do {
+            try await enableBackgroundDelivery()
+            startStepObserver()
+        } catch {
+            log.error("ensureObserversActive: \(error.localizedDescription, privacy: .public)")
+        }
+    }
+
+    func requestAuthorization() async throws -> RequestState {
+        guard HKHealthStore.isHealthDataAvailable() else {
+            throw PedometerServiceError.healthDataUnavailable
+        }
+        try await healthStore.requestAuthorization(toShare: [], read: [stepType])
+        let state = await currentRequestState()
+        if case .unnecessary = state {
+            try? await enableBackgroundDelivery()
+            startStepObserver()
+        }
+        return state
+    }
+
+    // ================ Background Delovery ================
+
+    private func enableBackgroundDelivery() async throws {
+        log.debug("enableBackgroundDelivery: start")
+        try await withCheckedThrowingContinuation {(cont: CheckedContinuation<Void, Error>) in
+            healthStore.enableBackgroundDelivery(for: stepType, frequency: .immediate) { success, error in
+                if let error = error {
+                    self.log.error("enableBackgroundDelivery: error \(error.localizedDescription, privacy: .public)")
+                    cont.resume(throwing: error)
+                } else if success {
+                    self.log.debug("enableBackgroundDelivery: success")
+                    cont.resume(returning: ())
+                } else {
+                    self.log.error("enableBackgroundDelivery: failed with success=false")
+                    cont.resume(throwing: NSError(domain: "HK", code: -1))
+                }
+            }
+        }
+    }
+
+    private func startStepObserver() {
+        // Prevent multiple registrations of the same observer query.
+        guard stepObserverQuery == nil else { return }
+
+        log.debug("startStepObserver: registering observer")
+        let query = HKObserverQuery(sampleType: stepType, predicate: nil) { [weak self] _, completion, error in
+            guard let self else { completion(); return }
+            if let error {
+                self.log.error("HKObserverQuery error: \(error.localizedDescription, privacy: .public)")
+                completion()
+                return
+            }
+            self.log.debug("Pedometer 0000")
+            self.updateData {completion()}
+        }
+        stepObserverQuery = query
+        healthStore.execute(query)
+    }
+
+    private func updateData(_ done: @escaping () -> Void) {
+        log.debug("Pedometer 1111")
+        fetchCurrentSteps { result in
+            self.log.debug("Pedometer 2222")
+            if case let .success(steps) = result {
+                self.log.debug("Pedometer 3333")
+                self.onStepsUpdated(steps)
+            }
+            done()
+        }
+    }
+    
+    // ================ Fetching Data ================
+
+    func fetchCurrentSteps(handler: @escaping (Result<Int, Error>) -> Void) {
+        let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: now)
+
+        let predicate = HKQuery.predicateForSamples(
+            withStart: startOfDay,
+            end: now,
+            options: .strictStartDate
+        )
+
+        let query = HKStatisticsQuery(
+            quantityType: stepType,
+            quantitySamplePredicate: predicate,
+            options: .cumulativeSum
+        ) { _, result, error in
+            if let error = error {
+                handler(.failure(error))
+                return
+            }
+            guard let quantity = result?.sumQuantity() else {
+                handler(.success(0))
+                return
+            }
+            let steps = Int(quantity.doubleValue(for: .count()))
+            self.log.debug("AAAAAA fetch success: \(steps, privacy: .public)")
+
+            handler(.success(steps))
+        }
+        healthStore.execute(query)
+    }
+
+    func fetchDailyStepCounts(days: Int, calendar: Calendar = .current) async throws -> [Date: Int] {
+        let end = calendar.startOfDay(for: Date())
+        let start = calendar.date(byAdding: .day, value: -(days - 1), to: end)!  // 例: days=84なら84日分
+        let interval = DateComponents(day: 1)
+        let anchor = end
+
+        return try await withCheckedThrowingContinuation {(cont: CheckedContinuation<[Date: Int], Error>) in
+            let query = HKStatisticsCollectionQuery(
+                quantityType: stepType,
+                quantitySamplePredicate: nil,
+                options: .cumulativeSum,
+                anchorDate: anchor,
+                intervalComponents: interval
+            )
+            query.initialResultsHandler = { _, collection, error in
+                if let error = error { return cont.resume(throwing: error) }
+                guard let collection else { return cont.resume(returning: [:]) }
+
+                var result: [Date: Int] = [:]
+                collection.enumerateStatistics(from: start, to: end) { stats, _ in
+                    let day = calendar.startOfDay(for: stats.startDate)
+                    let count = Int(stats.sumQuantity()?.doubleValue(for: .count()) ?? 0)
+                    result[day] = count
+                }
+                cont.resume(returning: result)
+            }
+            self.healthStore.execute(query)
+        }
+    }
+    
+    private func readAuthorizationRequestStatus() async -> HKAuthorizationRequestStatus {
+        await withCheckedContinuation { cont in
+            healthStore.getRequestStatusForAuthorization(toShare: [], read: [stepType]) { status, _ in
+                cont.resume(returning: status)
+            }
+        }
+    }
+}

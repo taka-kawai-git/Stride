@@ -6,38 +6,35 @@
 import SwiftUI
 import os.log
 
-
 struct HomeView: View {
     @Environment(\.openURL) private var openURL
+    @Environment(\.scenePhase) private var scenePhase
     @StateObject private var viewModel: StepViewModel
     @State private var appearance: SharedAppearance = .default
     @State private var showingSettings = false
+
     private let weeks: Int = 12
-    private let log = Logger(subsystem: "Stride", category: "HomeView")
+    private let log = Logger(category: "view")
 
     init(viewModel: StepViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
+        appearance = SharedStore.loadAppearance()
     }
-    
+
     // ================ Body ================
 
     var body: some View {
         Group {
-            switch viewModel.requestState {
-            case .unnecessary:
-                mainContent
-            case .shouldRequest:
-                authorizationPrompt
-            case .unknown, .unavailable:
-                Text("Undefined")
+            if !viewModel.isHealthKitAvailable {
+                Text("HealthKit is not available")
+            } else if viewModel.isAuthorizationRequested {
+                mainContentView
+            } else {
+                requestAuthorizationView
             }
         }
         .task {
-            await loadInitialData()
-        }
-        .onChange(of: viewModel.requestState) { status in
-            guard case .unnecessary = status else { return }
-            Task { await loadPermittedData() }
+            await viewModel.initializePedometer()
         }
         .sheet(isPresented: $showingSettings) {
             AppearanceSettingsView(appearance: $appearance)
@@ -46,7 +43,7 @@ struct HomeView: View {
     
     // ================ UI ================
     
-    private var mainContent: some View {
+    private var mainContentView: some View {
         ScrollView {
             VStack(spacing: 24) {
 
@@ -81,9 +78,13 @@ struct HomeView: View {
             }
             .padding(.vertical)
         }
+        .onChange(of: scenePhase, initial: true) { old, new in
+            guard new == .active else { return }
+            Task { await loadMainContentData() }
+        }
     }
 
-    private var authorizationPrompt: some View {
+    private var requestAuthorizationView: some View {
         VStack(spacing: 16) {
             Text("ヘルスケアの権限が必要です")
                 .font(.title3.bold())
@@ -120,13 +121,16 @@ struct HomeView: View {
     
     // ================ Private Functions ================
     
-    private func loadInitialData() async {
-        appearance = SharedStore.loadAppearance()
-        await loadPermittedData()
-    }
+    // private func loadInitialData() async {
+    //     appearance = SharedStore.loadAppearance()
+    //     // await loadPermittedData()
+    //     await viewModel.initializePedometer()
+    // }
 
-    private func loadPermittedData() async {
-        guard case .unnecessary = viewModel.requestState else { return }
+    private func loadMainContentData() async {
+        log.tDebug("load current steps")
+        // await viewModel.initializePedometer()
+        // guard !viewModel.isHealthKitAvailable && viewModel.isAuthorizationRequested else { return }
         viewModel.fetchCurrentSteps()
         await viewModel.ensureDailyCountsLoaded(weeks: weeks)
     }
