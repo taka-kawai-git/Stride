@@ -9,35 +9,39 @@ import os.log
 struct HomeView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
-    @StateObject private var viewModel: StepViewModel
-    @State private var appearance: SharedAppearance = .default
+
+    @StateObject private var stepViewModel = StepViewModel()
+    @StateObject private var appearanceViewModel = AppearanceViewModel()
+
     @State private var showingSettings = false
 
     private let weeks: Int = 12
     private let log = Logger(category: "view")
 
-    init(viewModel: StepViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-        appearance = SharedStore.loadAppearance()
-    }
+//    init() {
+        // _viewModel = StateObject(wrappedValue: StepViewModel(pedometerService: pedometerService))
+//        _viewModel = StateObject(wrappedValue: viewModel)
+        // appearance = SharedStore.loadAppearance()
+//        self.viewModel = viewModel
+//    }
+    
 
     // ================ Body ================
 
     var body: some View {
         Group {
-            if !viewModel.isHealthKitAvailable {
+            if !appearanceViewModel.isLoaded  {
+                Color.blue.ignoresSafeArea()
+            } else if !stepViewModel.isHealthKitAvailable {
                 Text("HealthKit is not available")
-            } else if viewModel.isAuthorizationRequested {
+            } else if stepViewModel.isAuthorizationRequested {
                 mainContentView
             } else {
                 requestAuthorizationView
             }
         }
-        .task {
-            await viewModel.initializePedometer()
-        }
         .sheet(isPresented: $showingSettings) {
-            AppearanceSettingsView(appearance: $appearance)
+            AppearanceSettingsView(appearance: $appearanceViewModel.appearance)
         }
     }
     
@@ -57,22 +61,22 @@ struct HomeView: View {
                 // -------- StepProgressCard --------
 
                 StepProgressCard(
-                    steps: viewModel.currentSteps,
-                    appearance: appearance
+                    steps: stepViewModel.currentSteps,
+                    appearance: appearanceViewModel.appearance
                 )
                 .padding(.horizontal, 25)
 
-                if viewModel.currentSteps == 0 {
-                    dataMissingHint
+                if stepViewModel.currentSteps == 0 {
+                    dataMissingHintView
                         .padding(.horizontal, 25)
                 }
 
                 // -------- ContributionHeatmapCard --------
 
                 StepHeatmapCard(
-                    stats: viewModel.dailyStepCounts,
+                    stats: stepViewModel.dailyStepCounts,
                     weeks: weeks,
-                    goal: appearance.goal
+                    goal: appearanceViewModel.appearance.goal
                 )
                 .padding(.horizontal, 25)
             }
@@ -89,34 +93,55 @@ struct HomeView: View {
             Text("ヘルスケアの権限が必要です")
                 .font(.title3.bold())
             Button("権限をリクエスト") {
-                viewModel.requestAuthorization()
+                stepViewModel.requestAuthorization()
             }
             .buttonStyle(.borderedProminent)
         }
         .padding()
     }
 
-    private var dataMissingHint: some View {
-        VStack(spacing: 8) {
+    private var dataMissingHintView: some View {
+        VStack(spacing: 12) {
+            Text("🤔")
+                .font(.system(size: 44))
+
             Text("歩数が表示されませんか？")
-                .font(.footnote.bold())
+                .font(.callout.bold())
                 .foregroundStyle(.secondary)
             
-            Text("HealthKitの権限が許可されていない可能性があります。設定を確認してください。")
-                .font(.caption)
+            Text("設定アプリ > ヘルスケア > データアクセスとデバイス > Stride > 歩数をオンにしてください")
+                .font(.caption2)
                 .foregroundStyle(.tertiary)
-                .multilineTextAlignment(.center)
+                .multilineTextAlignment(.leading)
+                .padding(.horizontal, 8)
 
             Button("設定アプリを開く") {
                 openAppSettings()
             }
-            .font(.caption)
-            .buttonStyle(.bordered)
+            .font(.subheadline)
+            .buttonStyle(.borderedProminent)
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Color.secondary.opacity(0.1))
-        .cornerRadius(12)
+        .background(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            Color(.sRGB, red: 0.22, green: 0.18, blue: 0.08, opacity: 0.95),
+                            Color(.sRGB, red: 0.14, green: 0.12, blue: 0.05, opacity: 0.92)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(
+                    Color(.sRGB, red: 0.45, green: 0.35, blue: 0.10, opacity: 0.35)
+                )
+        )
     }
     
     // ================ Private Functions ================
@@ -128,15 +153,22 @@ struct HomeView: View {
     // }
 
     private func loadMainContentData() async {
-        log.tDebug("load current steps")
+        log.tDebug("load main content data")
         // await viewModel.initializePedometer()
-        // guard !viewModel.isHealthKitAvailable && viewModel.isAuthorizationRequested else { return }
-        viewModel.fetchCurrentSteps()
-        await viewModel.ensureDailyCountsLoaded(weeks: weeks)
+        // guard !stepViewModel.isHealthKitAvailable && stepViewModel.isAuthorizationRequested else { return }
+        await stepViewModel.loadCurrentSteps()
+        await stepViewModel.loadDailyStepCounts(weeks: weeks)
     }
 
     private func openAppSettings() {
-        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
-        openURL(url)
+        let rootSettingsURL = URL(string: "App-prefs:") ?? URL(string: "App-Prefs:")
+
+        if let rootSettingsURL, UIApplication.shared.canOpenURL(rootSettingsURL) {
+            openURL(rootSettingsURL)
+            return
+        }
+
+        guard let appSettingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+        openURL(appSettingsURL)
     }
 }

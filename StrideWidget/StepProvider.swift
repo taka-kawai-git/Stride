@@ -26,7 +26,7 @@ struct StepProvider: TimelineProvider {
         
         let entry = StepEntry(
             date: Date(),
-            steps: steps == 0 ? 999_999 : steps,
+            steps: steps > 0 ? steps : 0,
             emoji: appearance.emoji,
             gradientID: appearance.gradientID,
             goal: appearance.goal,

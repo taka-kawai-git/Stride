@@ -2,7 +2,6 @@ import Foundation
 import WidgetKit
 import os.log
 
-
 @MainActor
 final class StepViewModel: ObservableObject {
     @Published var currentSteps: Int = 0
@@ -10,14 +9,14 @@ final class StepViewModel: ObservableObject {
     // @Published var requestState: RequestState = .shouldRequest
     @Published var isAuthorizationRequested = false
     @Published var isHealthKitAvailable = true
+    @Published var isInitialDataLoaded = false
 
     private let pedometerService: PedometerService
     private var stepUpdatesTask: Task<Void, Never>?
-    private var isInitialized = false 
+    // private var isInitialized = false 
     
-    private var isLoadingDailyCounts = false
-    private var hasLoadedDailyCounts = false
-    
+    // private var isLoadingDailyCounts = false
+    // private var hasLoadedDailyCounts = false
     
     private var lastSavedSteps: Int = 0
     private var lastSavedDate: Date = .distantPast
@@ -26,8 +25,8 @@ final class StepViewModel: ObservableObject {
 
     // ================ init ================
 
-    init(pedometerService: PedometerService) {
-        self.pedometerService = pedometerService
+    init() {
+        self.pedometerService = PedometerService()
 
         let initialStep = SharedStore.loadCurrentSteps()
         self.currentSteps = initialStep
@@ -37,7 +36,12 @@ final class StepViewModel: ObservableObject {
         // memo: use SharedStore?
         Task {
             self.isHealthKitAvailable = await pedometerService.isHealthDataAvailable()
-        }        
+            await pedometerService.ensureBackgroundDeliveryEnabled()
+        }
+
+        if self.isAuthorizationRequested {
+            startStepUpdates()
+        }
 
         // Task { [weak self] in
         //     guard let self else { return }
@@ -50,23 +54,50 @@ final class StepViewModel: ObservableObject {
         // }
     }
 
-    func initializePedometer() async {
-        guard !isInitialized else { return }
-        isInitialized = true
-
-        // Task { [weak self] in
-        //     guard let self else { return }
-        //     let state = await pedometerService.readAuthorizationRequestStatus()
-        //     self.requestState = state
-        //     if case .unnecessary = state {
-        //         await pedometerService.ensureObserversActive()
-        //         self.fetchCurrentSteps()
-        //     }
-        // }
+    // func loadInitialData() async {
+    //     guard !isInitialDataLoaded else { return }
         
-        await pedometerService.ensureBackgroundDeliveryEnabled()
-        startStepUpdates()
-    }
+        // 1. UserDefaults等はここで非同期的に読む（メインスレッドをブロックしない）
+        // let savedSteps = SharedStore.loadCurrentSteps()
+        // let hasRequested = SharedStore.hasRequestedAuthorization()
+        
+        // 2. HealthKitの可用性チェック
+        // let isAvailable = await pedometerService.isHealthDataAvailable()
+        
+        // 3. UIへの反映（MainActorなので安全）
+        // self.currentSteps = savedSteps
+        // self.lastSavedSteps = savedSteps
+        // self.isAuthorizationRequested = hasRequested
+        // self.isHealthKitAvailable = isAvailable
+        
+        // 4. バックグラウンド配信の確認と更新開始
+    //     if isAvailable && hasRequested {
+    //         Task {
+    //             await pedometerService.ensureBackgroundDeliveryEnabled()
+    //             startStepUpdates()
+    //         }
+    //     }
+        
+    //     self.isInitialDataLoaded = true
+    // }
+
+    // func initializePedometer() async {
+    //     guard !isInitialized else { return }
+    //     isInitialized = true
+
+    //     // Task { [weak self] in
+    //     //     guard let self else { return }
+    //     //     let state = await pedometerService.readAuthorizationRequestStatus()
+    //     //     self.requestState = state
+    //     //     if case .unnecessary = state {
+    //     //         await pedometerService.ensureObserversActive()
+    //     //         self.fetchCurrentSteps()
+    //     //     }
+    //     // }
+        
+    //     await pedometerService.ensureBackgroundDeliveryEnabled()
+    //     startStepUpdates()
+    // }
     
     deinit {
         stepUpdatesTask?.cancel()
@@ -95,9 +126,9 @@ final class StepViewModel: ObservableObject {
 
     // ================ Fetching Data ================
 
-    func fetchCurrentSteps() {
-        Task { [weak self] in
-            guard let self else { return }
+    func loadCurrentSteps() async {
+        // Task { [weak self] in
+        //     guard let self else { return }
             do {
                 let steps = try await pedometerService.fetchCurrentStepsOnce()
                 // requestState = .unnecessary
@@ -106,46 +137,51 @@ final class StepViewModel: ObservableObject {
                 // requestState = .shouldRequest
                 log.tError("Failed to fetch steps: \(error)")
             }
-        }
+        // }
     }
 
-    func ensureDailyCountsLoaded(weeks: Int) async {
-        guard !hasLoadedDailyCounts && !isLoadingDailyCounts else { return }
+    // func ensureDailyCountsLoaded(weeks: Int) async {
+    //     guard !hasLoadedDailyCounts && !isLoadingDailyCounts else { return }
         
-        isLoadingDailyCounts = true
-        defer { isLoadingDailyCounts = false }
+    //     isLoadingDailyCounts = true
+    //     defer { isLoadingDailyCounts = false }
         
-        await loadDailyCounts(weeks: weeks)
-        hasLoadedDailyCounts = true
+    //     await loadDailyStepCounts(weeks: weeks)
+    //     hasLoadedDailyCounts = true
+    // }
+
+    func loadDailyStepCounts(weeks: Int) async {
+        let days = weeks * 7
+        do {
+            let stats = try await pedometerService.fetchDailyStepCounts(days: days)
+            dailyStepCounts = stats
+        } catch {
+            dailyStepCounts = [:]
+        }
     }
 
     // ================ Private Functions ================
 
-    private func fetchDailyStepCounts(days: Int) async -> [Date: Int] {
-        do {
-            return try await pedometerService.fetchDailyStepCounts(days: days)
-        } catch {
-            return [:]
-        }
-    }
-
-    private func loadDailyCounts(weeks: Int) async {
-        let days = weeks * 7
-        let stats = await fetchDailyStepCounts(days: days)
-        dailyStepCounts = stats
-    }
+    // private func loadDailyCounts(weeks: Int) async {
+    //     let stats = await fetchDailyStepCounts(weeks: weeks)
+    //     dailyStepCounts = stats
+    // }
 
     private func startStepUpdates() {
         stepUpdatesTask?.cancel()
+        stepUpdatesTask = nil
+        
         stepUpdatesTask = Task { [weak self] in
             guard let self else { return }
             do {
                 for try await steps in await pedometerService.stepUpdates() {
                     await MainActor.run {
                         // self.requestState = .unnecessary
-                        self.currentSteps = steps
-                        SharedStore.saveCurrentSteps(steps)
-                        WidgetCenter.shared.reloadTimelines(ofKind: StrideWidgetKind.kind)
+                        // self.currentSteps = steps
+                        // SharedStore.saveCurrentSteps(steps)
+                        // WidgetCenter.shared.reloadTimelines(ofKind: StrideWidgetKind.kind)
+                        self.updateStepsAndSyncIfNeeded(steps: steps, forceSync: false)
+
                     }
                 }
             } catch {

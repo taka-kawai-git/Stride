@@ -8,11 +8,12 @@ enum PedometerServiceError: Error {
 }
 
 actor PedometerService {
-    private let healthStore = HKHealthStore()
+    // private let healthStore = HKHealthStore()
+    private lazy var healthStore = HKHealthStore() 
     private let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
-    private let log = Logger(category: "service")
+    private var activeObserverQuery: HKObserverQuery?
 
-    private var activeQuery: HKObserverQuery?
+    private let log = Logger(category: "service")
 
     // ================ Health Data Availability ================
 
@@ -36,7 +37,7 @@ actor PedometerService {
         try await enableBackgroundDelivery()
     }
 
-    func readAuthorizationRequestStatus() async -> HKAuthorizationRequestStatus {
+    func authorizationRequestStatus() async -> HKAuthorizationRequestStatus {
         await withCheckedContinuation { cont in
             healthStore.getRequestStatusForAuthorization(toShare: [], read: [stepType]) { status, _ in
                 cont.resume(returning: status)
@@ -94,9 +95,10 @@ actor PedometerService {
     }
 
     private func installObserver(_ continuation: AsyncThrowingStream<Int, Error>.Continuation) async throws {
-        if let q = activeQuery {
+        // guard activeObserverQuery == nil else { return }
+        if let q = activeObserverQuery {
             healthStore.stop(q)
-            activeQuery = nil
+            activeObserverQuery = nil
         }
 
         let query = HKObserverQuery(sampleType: stepType, predicate: nil) { [weak self] _, completion, error in
@@ -117,15 +119,16 @@ actor PedometerService {
                 completion()
             }
         }
-        activeQuery = query
+        healthStore.enableBackgroundDelivery(for: stepType, frequency: .immediate) { _, _ in }
+        activeObserverQuery = query
         healthStore.execute(query)
         log.tDebug("Executed ObserverQuery for CurrentSteps")
     }
 
     private func stopObserver() {
-        if let q = activeQuery {
+        if let q = activeObserverQuery {
             healthStore.stop(q)
-            activeQuery = nil
+            activeObserverQuery = nil
         }
     }
 

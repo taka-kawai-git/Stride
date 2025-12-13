@@ -7,9 +7,8 @@ extension Notification.Name {
 }
 
 enum SharedStore {
-    private static var suite: UserDefaults? {
-        UserDefaults(suiteName: AppGroupID.suite)
-    }
+    private static let suite: UserDefaults? = UserDefaults(suiteName: AppGroupID.suite)
+    
 
     // ================ Appearance ================
 
@@ -42,6 +41,10 @@ enum SharedStore {
     static func saveCurrentSteps(_ steps: Int) {
         let log = Logger(category: "root")
         guard let suite else { return }
+        
+        let previousSteps = suite.integer(forKey: stepsKey)
+        if previousSteps == steps { return }
+        
         let now = Date()
 
         suite.set(steps, forKey: stepsKey)
