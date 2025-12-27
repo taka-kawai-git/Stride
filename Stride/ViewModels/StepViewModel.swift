@@ -25,8 +25,8 @@ final class StepViewModel: ObservableObject {
 
     // ================ init ================
 
-    init() {
-        self.pedometerService = PedometerService()
+     init(service: PedometerService) {
+        self.pedometerService = service
 
         let initialStep = SharedStore.loadCurrentSteps()
         self.currentSteps = initialStep
@@ -132,7 +132,8 @@ final class StepViewModel: ObservableObject {
             do {
                 let steps = try await pedometerService.fetchCurrentStepsOnce()
                 // requestState = .unnecessary
-                updateStepsAndSyncIfNeeded(steps: steps, forceSync: true)
+                // updateStepsAndSyncIfNeeded(steps: steps, forceSync: true)
+                self.currentSteps = steps
             } catch {
                 // requestState = .shouldRequest
                 log.tError("Failed to fetch steps: \(error)")
@@ -175,14 +176,14 @@ final class StepViewModel: ObservableObject {
             guard let self else { return }
             do {
                 for try await steps in await pedometerService.stepUpdates() {
-                    await MainActor.run {
-                        // self.requestState = .unnecessary
-                        // self.currentSteps = steps
-                        // SharedStore.saveCurrentSteps(steps)
-                        // WidgetCenter.shared.reloadTimelines(ofKind: StrideWidgetKind.kind)
-                        self.updateStepsAndSyncIfNeeded(steps: steps, forceSync: false)
-
-                    }
+                    // await MainActor.run {
+                    //     // self.requestState = .unnecessary
+                    //     // self.currentSteps = steps
+                    //     // SharedStore.saveCurrentSteps(steps)
+                    //     // WidgetCenter.shared.reloadTimelines(ofKind: StrideWidgetKind.kind)
+                    //     self.updateStepsAndSyncIfNeeded(steps: steps, forceSync: false)
+                    // }
+                    self.currentSteps = steps
                 }
             } catch {
                 if !(error is CancellationError) {
@@ -195,28 +196,28 @@ final class StepViewModel: ObservableObject {
         }
     }
 
-    private func updateStepsAndSyncIfNeeded(steps: Int, forceSync: Bool) {
-    // 1. UI用変数は即時更新（アプリの見た目はリアルタイムに）
-        self.currentSteps = steps
+    // private func updateStepsAndSyncIfNeeded(steps: Int, forceSync: Bool) {
+    // // 1. UI用変数は即時更新（アプリの見た目はリアルタイムに）
+    //     self.currentSteps = steps
 
-        // 2. ディスク保存とWidget更新の条件チェック
-        let stepDiff = abs(steps - lastSavedSteps)
-        let timeInterval = Date().timeIntervalSince(lastSavedDate)
+    //     // 2. ディスク保存とWidget更新の条件チェック
+    //     let stepDiff = abs(steps - lastSavedSteps)
+    //     let timeInterval = Date().timeIntervalSince(lastSavedDate)
 
-        // 「値が大きく変わった(50歩以上)」 または 「前回保存から時間が経った(5分以上)」 または 「強制更新」
-        // ※HealthKit利用で頻度が低いなら、stepDiffの条件はもっと小さくても良い（例: 1歩でも変われば更新など）
-        if forceSync || stepDiff >= 50 || timeInterval > 300 {
+    //     // 「値が大きく変わった(50歩以上)」 または 「前回保存から時間が経った(5分以上)」 または 「強制更新」
+    //     // ※HealthKit利用で頻度が低いなら、stepDiffの条件はもっと小さくても良い（例: 1歩でも変われば更新など）
+    //     if forceSync || stepDiff >= 50 || timeInterval > 300 {
             
-            SharedStore.saveCurrentSteps(steps)
+    //         SharedStore.saveCurrentSteps(steps)
             
-            // Widget更新は特に慎重に行う（Budget節約）
-            WidgetCenter.shared.reloadTimelines(ofKind: StrideWidgetKind.kind)
+    //         // Widget更新は特に慎重に行う（Budget節約）
+    //         WidgetCenter.shared.reloadTimelines(ofKind: StrideWidgetKind.kind)
             
-            lastSavedDate = Date()
-            lastSavedSteps = steps
-            print("Synced steps: \(steps)")
-        }
-    }
+    //         lastSavedDate = Date()
+    //         lastSavedSteps = steps
+    //         print("Synced steps: \(steps)")
+    //     }
+    // }
 
     enum RequestState {
         case shouldRequest

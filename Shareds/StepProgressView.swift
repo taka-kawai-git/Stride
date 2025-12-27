@@ -24,7 +24,7 @@ struct StepProgressView: View {
     }
 
     private var progressPercentage: String {
-        String(format: "%.0f%", progress * 100)
+        String(format: "%.0f%%", progress * 100)
     }
     
     // ================ Body ================
@@ -95,14 +95,8 @@ struct StepProgressView: View {
                         .font(unitFont)
                         .fontWeight(weight)
                     if let progressNumber {
-                        Text(" / ")
-                            .font(.custom("AvenirNext-Heavy", size: 30))
-                        Text("\(progressNumber)")
-                            .font(numberFont)
-                            .fontWeight(weight)
-                        Text("%")
-                            .font(unitFont)
-                            .fontWeight(weight)
+                        progressBadge(text: progressNumber)
+                            .padding(.leading, 15)
                     }
                 }
                 Text("目標 \(goal.formatted())歩")
@@ -110,6 +104,18 @@ struct StepProgressView: View {
                     .foregroundStyle(.secondary)
             }
         }
+    }
+
+    private func progressBadge(text: String) -> some View {
+        Text(text)
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(Color.accentColor)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(
+                Capsule(style: .continuous)
+                    .fill(Color.accentColor.opacity(0.15))
+            )
     }
 
     private func progressBar(height: CGFloat) -> some View {

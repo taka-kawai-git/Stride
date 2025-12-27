@@ -12,8 +12,13 @@ actor PedometerService {
     private lazy var healthStore = HKHealthStore() 
     private let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
     private var activeObserverQuery: HKObserverQuery?
+    private var backgroundTaskHandler: ((Int) async -> Void)?
 
     private let log = Logger(category: "service")
+
+    func configure(backgroundHandler: @escaping (Int) async -> Void) {
+        self.backgroundTaskHandler = backgroundHandler
+    }
 
     // ================ Health Data Availability ================
 
@@ -111,6 +116,7 @@ actor PedometerService {
             Task {
                 do {
                     let steps = try await self.fetchCurrentStepsOnce()
+                    await self.backgroundTaskHandler?(steps)
                     self.log.tDebug("HKObserverQuery fetched steps: \(steps) steps")
                     continuation.yield(steps)
                 } catch {

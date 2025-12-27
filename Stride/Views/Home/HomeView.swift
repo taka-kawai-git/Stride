@@ -10,7 +10,7 @@ struct HomeView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
 
-    @StateObject private var stepViewModel = StepViewModel()
+    @StateObject private var stepViewModel: StepViewModel
     @StateObject private var appearanceViewModel = AppearanceViewModel()
 
     @State private var showingSettings = false
@@ -24,6 +24,9 @@ struct HomeView: View {
         // appearance = SharedStore.loadAppearance()
 //        self.viewModel = viewModel
 //    }
+    init(pedometerService: PedometerService) {
+        _stepViewModel = StateObject(wrappedValue: StepViewModel(service: pedometerService))
+    }
     
 
     // ================ Body ================
@@ -37,7 +40,12 @@ struct HomeView: View {
             } else if stepViewModel.isAuthorizationRequested {
                 mainContentView
             } else {
-                requestAuthorizationView
+                // RequestAuthorizationView {
+                //     stepViewModel.requestAuthorization()
+                // }
+                WelcomeView {
+                    stepViewModel.requestAuthorization()
+                }
             }
         }
         .sheet(isPresented: $showingSettings) {
@@ -86,18 +94,6 @@ struct HomeView: View {
             guard new == .active else { return }
             Task { await loadMainContentData() }
         }
-    }
-
-    private var requestAuthorizationView: some View {
-        VStack(spacing: 16) {
-            Text("ヘルスケアの権限が必要です")
-                .font(.title3.bold())
-            Button("権限をリクエスト") {
-                stepViewModel.requestAuthorization()
-            }
-            .buttonStyle(.borderedProminent)
-        }
-        .padding()
     }
 
     private var dataMissingHintView: some View {
