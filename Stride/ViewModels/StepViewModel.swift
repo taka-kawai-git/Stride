@@ -40,7 +40,7 @@ final class StepViewModel: ObservableObject {
         }
 
         if self.isAuthorizationRequested {
-            startStepUpdates()
+            startObserveStepUpdates()
         }
 
         // Task { [weak self] in
@@ -112,7 +112,7 @@ final class StepViewModel: ObservableObject {
                 SharedStore.saveDidRequestAuthorization(true)
                 self.isAuthorizationRequested = true
                 // requestState = .unnecessary
-                startStepUpdates()
+                startObserveStepUpdates()
             } catch {
                 if let error = error as? PedometerServiceError, error == .healthDataUnavailable {
                     // requestState = .unavailable
@@ -134,6 +134,7 @@ final class StepViewModel: ObservableObject {
                 // requestState = .unnecessary
                 // updateStepsAndSyncIfNeeded(steps: steps, forceSync: true)
                 self.currentSteps = steps
+                await StepBackgroundManager.shared.handleStepUpdate(steps: steps)
             } catch {
                 // requestState = .shouldRequest
                 log.tError("Failed to fetch steps: \(error)")
@@ -168,14 +169,14 @@ final class StepViewModel: ObservableObject {
     //     dailyStepCounts = stats
     // }
 
-    private func startStepUpdates() {
+    private func startObserveStepUpdates() {
         stepUpdatesTask?.cancel()
         stepUpdatesTask = nil
         
         stepUpdatesTask = Task { [weak self] in
             guard let self else { return }
             do {
-                for try await steps in await pedometerService.stepUpdates() {
+                for try await steps in await pedometerService.observeCurrentSteps() {
                     // await MainActor.run {
                     //     // self.requestState = .unnecessary
                     //     // self.currentSteps = steps
@@ -184,6 +185,7 @@ final class StepViewModel: ObservableObject {
                     //     self.updateStepsAndSyncIfNeeded(steps: steps, forceSync: false)
                     // }
                     self.currentSteps = steps
+                    await StepBackgroundManager.shared.handleStepUpdate(steps: steps)
                 }
             } catch {
                 if !(error is CancellationError) {

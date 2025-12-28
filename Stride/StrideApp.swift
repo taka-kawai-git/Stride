@@ -18,12 +18,12 @@ struct StrideApp: App {
     init() {
         let service = pedometerService
         Task {
-            await service.configure { steps in
+            await service.configure(backgroundStepUpdateHandler: { steps in
                 await StepBackgroundManager.shared.handleStepUpdate(steps: steps)
-            }
+            })
             if await service.isHealthDataAvailable() {
                 Task {
-                    for try await _ in await service.stepUpdates() { break }
+                    for try await _ in await service.observeCurrentSteps() { break }
                 }
             }
         }

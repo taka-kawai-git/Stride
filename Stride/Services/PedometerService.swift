@@ -12,12 +12,12 @@ actor PedometerService {
     private lazy var healthStore = HKHealthStore() 
     private let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
     private var activeObserverQuery: HKObserverQuery?
-    private var backgroundTaskHandler: ((Int) async -> Void)?
+    private var backgroundStepUpdateHandler: ((Int) async -> Void)?
 
     private let log = Logger(category: "service")
 
-    func configure(backgroundHandler: @escaping (Int) async -> Void) {
-        self.backgroundTaskHandler = backgroundHandler
+    func configure(backgroundStepUpdateHandler: @escaping (Int) async -> Void) {
+        self.backgroundStepUpdateHandler = backgroundStepUpdateHandler
     }
 
     // ================ Health Data Availability ================
@@ -72,7 +72,7 @@ actor PedometerService {
 
      // ================ Observer ================
 
-    func stepUpdates() -> AsyncThrowingStream<Int, Error> {
+    func observeCurrentSteps() -> AsyncThrowingStream<Int, Error> {
         AsyncThrowingStream(bufferingPolicy: .bufferingNewest(1)) { continuation in
             Task { [weak self] in
                 guard let self else { return }
@@ -80,12 +80,13 @@ actor PedometerService {
 
                     // -------- Fetch initial steps --------
 
-                    let initial = try await self.fetchCurrentStepsOnce()
-                    continuation.yield(initial)
+                    let initialSteps = try await self.fetchCurrentStepsOnce()
+                    await self.backgroundStepUpdateHandler?(initialSteps)
+                    continuation.yield(initialSteps)
                     
                     // -------- Setup Observer --------
 
-                    try await self.installObserver(continuation)
+                    try await self.startObserver(continuation)
                 } catch {
                     continuation.finish(throwing: error)
                 }
@@ -99,7 +100,7 @@ actor PedometerService {
         }
     }
 
-    private func installObserver(_ continuation: AsyncThrowingStream<Int, Error>.Continuation) async throws {
+    private func startObserver(_ continuation: AsyncThrowingStream<Int, Error>.Continuation) async throws {
         // guard activeObserverQuery == nil else { return }
         if let q = activeObserverQuery {
             healthStore.stop(q)
@@ -116,7 +117,7 @@ actor PedometerService {
             Task {
                 do {
                     let steps = try await self.fetchCurrentStepsOnce()
-                    await self.backgroundTaskHandler?(steps)
+                    await self.backgroundStepUpdateHandler?(steps)
                     self.log.tDebug("HKObserverQuery fetched steps: \(steps) steps")
                     continuation.yield(steps)
                 } catch {
