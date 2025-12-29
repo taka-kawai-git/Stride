@@ -30,7 +30,7 @@ struct StepHeatmapCard: View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
                 Text("過去\(weeks)週")
-                    .font(.title3)
+                    .font(.title2)
                     .bold()
                     .padding(.horizontal, 12)
 

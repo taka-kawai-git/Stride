@@ -15,10 +15,10 @@ struct AppHeaderView: View {
             
             // -------- AppIcon --------
             
-            Image("AppIconTransparent")
-                .resizable()
-                .scaledToFit()
-                .frame(width: iconSize, height: iconSize)
+            // Image("AppIconTransparent")
+            //     .resizable()
+            //     .scaledToFit()
+            //     .frame(width: iconSize, height: iconSize)
                 
             Spacer()
             

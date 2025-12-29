@@ -66,9 +66,17 @@ struct HomeView: View {
                 }
                 .padding(.horizontal)
 
+                // -------- WeeklyProgressView --------
+
+                WeeklyProgressView(
+                    stepViewModel: stepViewModel,
+                    appearanceViewModel: appearanceViewModel
+                )
+                .padding(.horizontal, 25)
+
                 // -------- StepProgressCard --------
 
-                StepProgressCard(
+                StepProgressCardView(
                     steps: stepViewModel.currentSteps,
                     appearance: appearanceViewModel.appearance
                 )

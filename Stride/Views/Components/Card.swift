@@ -11,7 +11,7 @@ struct Card<Content: View>: View {
     var body: some View {
         let shape = RoundedRectangle(cornerRadius: 20, style: .continuous)
         content
-            .padding(16)
+            .padding(12)
             .background(shape.fill(Color(.secondarySystemBackground)))
             .overlay(
                 shape
