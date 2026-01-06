@@ -9,6 +9,7 @@ struct WeeklyProgressView: View {
     @ObservedObject var stepViewModel: StepViewModel
     @ObservedObject var appearanceViewModel: AppearanceViewModel
     @StateObject private var weeklyViewModel = WeeklyProgressViewModel()
+    @State private var showingInfo = false
 
     private var percentageFont: Font {
         .custom("AvenirNext-Bold", size: 40)
@@ -19,7 +20,7 @@ struct WeeklyProgressView: View {
     }
 
     var body: some View {
-        let weekly = weeklyViewModel.weeklyProgress
+        let weekly: WeeklyProgressViewModel.WeeklyProgress = weeklyViewModel.weeklyProgress
         let percentageValue = Int((weekly.clampedProgress * 100).rounded())
 
         VStack(alignment: .leading, spacing: 16) {
@@ -32,24 +33,20 @@ struct WeeklyProgressView: View {
                 )
 
                 VStack(alignment: .leading, spacing: -5) {
-                    HStack(alignment: .firstTextBaseline, spacing: 4) {
-                        Text("\(percentageValue)")
-                            .font(percentageFont)
+                    HStack(alignment: .firstTextBaseline, spacing: 8) {
 
-                        Text("%")
-                            .font(percentageSymbolFont)
+                        weeklyPercentage(percentageValue: percentageValue)
+                        
+                        Spacer()
+                        
+                        info()
                     }
 
-                    Text("\(weekly.totalSteps.formatted()) / \(weekly.targetSteps.formatted()) 歩")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(.secondary)
-                        .padding(.bottom, 20)
-
-                    progressBar(progress: weekly.clampedProgress)
-                        .frame(height: 14)
+                    weeklyStepsAndGoal(weekly: weekly)
+                    
+                    weeklyProgressBar(progress: weekly.clampedProgress)
                 }
-
-                Spacer()
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
         .onAppear(perform: refresh)
@@ -64,7 +61,54 @@ struct WeeklyProgressView: View {
         )
     }
 
-    private func progressBar(progress: Double) -> some View {
+    private func weeklyPercentage(percentageValue: Int) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 4) {
+            Text("\(percentageValue)")
+                .font(percentageFont)
+
+            Text("%")
+                .font(percentageSymbolFont)
+        }
+        .alignmentGuide(.firstTextBaseline) { d in d[.top] }
+    }
+
+    private func info() -> some View {
+        Button {
+            showingInfo = true
+        } label: {
+            Image(systemName: "info.circle")
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundStyle(.secondary)
+        }
+        .contentShape(Rectangle())
+        .buttonStyle(.plain)
+        .alignmentGuide(.firstTextBaseline) { d in d[.top] }
+        .popover(
+            isPresented: $showingInfo,
+            attachmentAnchor: .rect(.bounds),
+            arrowEdge: .top
+        ) {
+
+        Text("月曜~現在までの合計歩数を週の目標歩数(1日の目標歩数×7)で割った数値が表示されます")
+            .font(.footnote)
+            .multilineTextAlignment(.leading)
+            .fixedSize(horizontal: false, vertical: true)
+            .presentationCompactAdaptation(.none)
+            .padding(15)
+            .frame(maxWidth: 260, alignment: .leading)
+        }
+    }
+
+    private func weeklyStepsAndGoal(weekly:WeeklyProgressViewModel.WeeklyProgress) -> some View {
+         HStack(spacing: 0) {
+            Text("\(weekly.totalSteps.formatted()) / \(weekly.targetSteps.formatted()) 歩")
+                .font(.custom("AvenirNext-DemiBold", size: 15))
+                .foregroundStyle(.secondary)
+        }
+        .padding(.bottom, 20)
+    }
+
+    private func weeklyProgressBar(progress: Double) -> some View {
         GeometryReader { proxy in
             ZStack(alignment: .leading) {
                 Capsule()
@@ -74,5 +118,6 @@ struct WeeklyProgressView: View {
                     .frame(width: proxy.size.width * progress)
             }
         }
+        .frame(height: 14)
     }
 }

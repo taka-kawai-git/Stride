@@ -45,7 +45,7 @@ final class WeeklyProgressViewModel: ObservableObject {
         let weekStart = startOfWeek(for: today)
         let activeDays = clampedDayCount(from: weekStart, to: today)
         let totalSteps = sumSteps(dailyCounts, start: weekStart, days: activeDays)
-        let targetSteps = goal * activeDays
+        let targetSteps = goal * 7
 
         return WeeklyProgress(
             totalSteps: totalSteps,
