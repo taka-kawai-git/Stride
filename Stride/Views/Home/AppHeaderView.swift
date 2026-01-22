@@ -11,7 +11,7 @@ struct AppHeaderView: View {
     private let iconSize: CGFloat = 48
 
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 0) {
             
             // -------- AppIcon --------
             
@@ -32,7 +32,7 @@ struct AppHeaderView: View {
                     .foregroundStyle(.primary)
             }
             .accessibilityLabel("設定を開く")
-            .padding(12)
+            .padding(10)
             .background(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(Color(.secondarySystemBackground))
@@ -42,6 +42,6 @@ struct AppHeaderView: View {
                     )
             )
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, 0)
     }
 }

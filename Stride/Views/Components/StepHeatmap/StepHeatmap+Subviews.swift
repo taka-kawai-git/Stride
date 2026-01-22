@@ -34,7 +34,7 @@ extension StepHeatmap {
                             Rectangle()
                                 .fill(HeatColor.color(for: value, maxValue: maxValue))
                                 .frame(width: cellSize, height: cellSize)
-                                .cornerRadius(5)
+                                .cornerRadius(8)
                         }
                     }
                 }

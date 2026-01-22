@@ -9,6 +9,7 @@ import os.log
 struct HomeView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.colorScheme) private var colorScheme
 
     @StateObject private var stepViewModel: StepViewModel
     @StateObject private var appearanceViewModel = AppearanceViewModel()
@@ -74,6 +75,14 @@ struct HomeView: View {
                 )
                 .padding(.horizontal, 25)
 
+                // -------- PastWeeklyProgressView --------
+
+                PastWeeklyProgressView(
+                    stepViewModel: stepViewModel,
+                    appearanceViewModel: appearanceViewModel
+                )
+                .padding(.horizontal, 25)
+
                 // -------- StepProgressCard --------
 
                 StepProgressCardView(
@@ -111,11 +120,11 @@ struct HomeView: View {
 
             Text("歩数が表示されませんか？")
                 .font(.callout.bold())
-                .foregroundStyle(.secondary)
+                .foregroundStyle(colorScheme == .dark ? AnyShapeStyle(.secondary) : AnyShapeStyle(Color.black))
             
             Text("設定アプリ > ヘルスケア > データアクセスとデバイス > Stride > 歩数をオンにしてください")
                 .font(.caption2)
-                .foregroundStyle(.tertiary)
+                .foregroundStyle(colorScheme == .dark ? AnyShapeStyle(.tertiary) : AnyShapeStyle(Color.black))
                 .multilineTextAlignment(.leading)
                 .padding(.horizontal, 8)
 
@@ -131,9 +140,12 @@ struct HomeView: View {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(
                     LinearGradient(
-                        colors: [
+                        colors: colorScheme == .dark ? [
                             Color(.sRGB, red: 0.22, green: 0.18, blue: 0.08, opacity: 0.95),
                             Color(.sRGB, red: 0.14, green: 0.12, blue: 0.05, opacity: 0.92)
+                        ] : [
+                            Color(.sRGB, red: 1.0, green: 0.98, blue: 0.90, opacity: 1),
+                            Color(.sRGB, red: 1.0, green: 0.95, blue: 0.80, opacity: 1)
                         ],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
@@ -143,7 +155,9 @@ struct HomeView: View {
         .overlay(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .stroke(
-                    Color(.sRGB, red: 0.45, green: 0.35, blue: 0.10, opacity: 0.35)
+                    colorScheme == .dark
+                        ? Color(.sRGB, red: 0.45, green: 0.35, blue: 0.10, opacity: 0.35)
+                        : Color(.sRGB, red: 1.0, green: 0.8, blue: 0.4, opacity: 0.2)
                 )
         )
     }

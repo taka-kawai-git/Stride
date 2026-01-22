@@ -20,7 +20,7 @@ struct RequestAuthorizationView: View {
                             .font(.title.bold())
                             .foregroundColor(.primary)
                         
-                        Text("Strideは歩数データを活用して、毎日の活動を記録します。次の画面でヘルスケアとの連携を許可してください。")
+                        Text("Strideは歩数データを活用して、毎日の活動を記録します。次の画面でヘルスケアとの連携を許可してください。\nヘルスケアデータは端末内でのみ使用されます。")
                             .font(.subheadline)
                             .multilineTextAlignment(.leading)
                             .foregroundColor(.secondary)
