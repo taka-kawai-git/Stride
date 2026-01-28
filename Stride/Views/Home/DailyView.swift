@@ -6,52 +6,27 @@
 import SwiftUI
 import os.log
 
-struct HomeView: View {
+struct DailyView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.colorScheme) private var colorScheme
 
-    @StateObject private var stepViewModel: StepViewModel
-    @StateObject private var appearanceViewModel = AppearanceViewModel()
-
-    @State private var showingSettings = false
+    @ObservedObject var stepViewModel: StepViewModel
+    @ObservedObject var appearanceViewModel: AppearanceViewModel
 
     private let weeks: Int = 12
     private let log = Logger(category: "view")
 
-//    init() {
-        // _viewModel = StateObject(wrappedValue: StepViewModel(pedometerService: pedometerService))
-//        _viewModel = StateObject(wrappedValue: viewModel)
-        // appearance = SharedStore.loadAppearance()
-//        self.viewModel = viewModel
-//    }
-    init(pedometerService: PedometerService) {
-        _stepViewModel = StateObject(wrappedValue: StepViewModel(service: pedometerService))
+    init(stepViewModel: StepViewModel, appearanceViewModel: AppearanceViewModel) {
+        self.stepViewModel = stepViewModel
+        self.appearanceViewModel = appearanceViewModel
     }
     
 
     // ================ Body ================
 
     var body: some View {
-        Group {
-            if !appearanceViewModel.isLoaded  {
-                Color.blue.ignoresSafeArea()
-            } else if !stepViewModel.isHealthKitAvailable {
-                Text("HealthKit is not available")
-            } else if stepViewModel.isAuthorizationRequested {
-                mainContentView
-            } else {
-                // RequestAuthorizationView {
-                //     stepViewModel.requestAuthorization()
-                // }
-                WelcomeView {
-                    stepViewModel.requestAuthorization()
-                }
-            }
-        }
-        .sheet(isPresented: $showingSettings) {
-            AppearanceSettingsView(appearance: $appearanceViewModel.appearance)
-        }
+        mainContentView
     }
     
     // ================ UI ================
@@ -60,36 +35,22 @@ struct HomeView: View {
         ScrollView {
             VStack(spacing: 24) {
 
-                // -------- AppHeaderView --------
-
-                AppHeaderView {
-                    showingSettings = true
-                }
-                .padding(.horizontal)
-
-                // -------- WeeklyProgressView --------
-
-                WeeklyProgressView(
-                    stepViewModel: stepViewModel,
-                    appearanceViewModel: appearanceViewModel
-                )
-                .padding(.horizontal, 25)
-
-                // -------- PastWeeklyProgressView --------
-
-                PastWeeklyProgressView(
-                    stepViewModel: stepViewModel,
-                    appearanceViewModel: appearanceViewModel
-                )
-                .padding(.horizontal, 25)
-
                 // -------- StepProgressCard --------
 
-                StepProgressCardView(
-                    steps: stepViewModel.currentSteps,
-                    appearance: appearanceViewModel.appearance
-                )
-                .padding(.horizontal, 25)
+                VStack(spacing: 0) {
+                    Text("今日")
+                        .font(.system(size: 24, weight: .bold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 25)
+
+                    CommonProgressView(
+                        steps: stepViewModel.currentSteps,
+                        goal: appearanceViewModel.appearance.goal,
+                        gradientID: appearanceViewModel.appearance.gradientID,
+                        image: Image("ThumbsUp")
+                    )
+                    .padding(.horizontal, 50)
+                }
 
                 if stepViewModel.currentSteps == 0 {
                     dataMissingHintView

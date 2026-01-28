@@ -29,7 +29,7 @@ struct AppHeaderView: View {
             } label: {
                 Image(systemName: "gearshape.fill")
                     .font(.headline)
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(.white)
             }
             .accessibilityLabel("設定を開く")
             .padding(10)

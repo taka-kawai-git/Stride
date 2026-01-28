@@ -100,11 +100,13 @@ struct WeeklyProgressView: View {
     }
 
     private func weeklyStepsAndGoal(weekly:WeeklyProgressViewModel.WeeklyProgress) -> some View {
-         HStack(spacing: 0) {
-            Text("\(weekly.totalSteps.formatted()) / \(weekly.targetSteps.formatted()) 歩")
+         HStack(alignment: .lastTextBaseline, spacing: 2) {
+            Text("\(weekly.totalSteps.formatted()) / \(weekly.targetSteps.formatted())")
                 .font(.custom("AvenirNext-DemiBold", size: 15))
-                .foregroundStyle(.secondary)
+            Text("歩")
+                .font(.system(size: 11))
         }
+        .foregroundStyle(.secondary)
         .padding(.bottom, 20)
     }
 

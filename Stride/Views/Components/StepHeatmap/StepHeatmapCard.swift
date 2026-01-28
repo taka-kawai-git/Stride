@@ -30,9 +30,12 @@ struct StepHeatmapCard: View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
                 Text("過去\(weeks)週")
-                    .font(.title2)
-                    .bold()
-                    .padding(.horizontal, 12)
+                    .font(.system(size: 22, weight: .bold))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 10)
+                // .font(.title2)
+                // .bold()
+                // .padding(.horizontal, 12)
 
                 GeometryReader { proxy in
                     let innerWidth = proxy.size.width - inset * 2

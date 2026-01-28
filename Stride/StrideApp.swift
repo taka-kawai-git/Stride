@@ -32,7 +32,7 @@ struct StrideApp: App {
 
     var body: some Scene {
         WindowGroup {
-            HomeView(pedometerService: pedometerService)
+            RootView(pedometerService: pedometerService)
         }
     }
 }
