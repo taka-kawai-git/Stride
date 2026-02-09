@@ -9,7 +9,7 @@ struct WeeklyInfoButton: View {
             showingInfo = true
         } label: {
             Image(systemName: "info.circle")
-                .font(.system(size: 20, weight: .semibold))
+                .font(.system(size: 17, weight: .semibold))
                 .foregroundStyle(.white)
         }
         .popover(

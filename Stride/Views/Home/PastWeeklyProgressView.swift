@@ -95,7 +95,7 @@ struct AnimatedGradientBar: View {
                 // グラデーションの進捗バー
                 Capsule()
                     .fill(gradient(for: gradientID)) // ここでグラデーション関数を使用
-                    .frame(width: proxy.size.width * animatedProgress)
+                    .frame(width: animatedProgress > 0 ? max(proxy.size.width * animatedProgress, 8) : 0)
             }
         }
         // Viewが表示された瞬間にアニメーションを開始

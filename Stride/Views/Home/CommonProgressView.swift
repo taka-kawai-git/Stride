@@ -81,7 +81,7 @@ struct CommonProgressView: View {
                          .fill(Color.gray.opacity(0.15))
                      Capsule()
                          .fill(gradient(for: gradientID))
-                         .frame(width: proxy.size.width * animatedProgress)
+                         .frame(width: animatedProgress > 0 ? max(proxy.size.width * animatedProgress, 15) : 0)
                  }
              }
              .frame(height: 25)

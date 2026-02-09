@@ -136,7 +136,8 @@ final class StepViewModel: ObservableObject {
                 self.currentSteps = steps
                 await StepBackgroundManager.shared.handleStepUpdate(steps: steps)
             } catch {
-                // requestState = .shouldRequest
+                self.currentSteps = 0
+                SharedStore.saveCurrentSteps(0)
                 log.tError("Failed to fetch steps: \(error)")
             }
         // }
@@ -189,6 +190,8 @@ final class StepViewModel: ObservableObject {
                 }
             } catch {
                 if !(error is CancellationError) {
+                    self.currentSteps = 0
+                    SharedStore.saveCurrentSteps(0)
                     log.tError("Step update stream error: \(error)")
                 }
                 // await MainActor.run {

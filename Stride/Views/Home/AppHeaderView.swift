@@ -29,8 +29,9 @@ struct AppHeaderView: View {
             } label: {
                 Image(systemName: "gearshape.fill")
                     .font(.headline)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
             }
+            .buttonStyle(.plain)
             .accessibilityLabel("設定を開く")
             .padding(10)
             .background(

@@ -83,7 +83,7 @@ struct DailyView: View {
                 .font(.callout.bold())
                 .foregroundStyle(colorScheme == .dark ? AnyShapeStyle(.secondary) : AnyShapeStyle(Color.black))
             
-            Text("設定アプリ > ヘルスケア > データアクセスとデバイス > Stride > 歩数をオンにしてください")
+            Text("設定アプリ > アプリ（iOS18以上） > ヘルスケア > データアクセスとデバイス > Stride > 歩数をオンにしてください")
                 .font(.caption2)
                 .foregroundStyle(colorScheme == .dark ? AnyShapeStyle(.tertiary) : AnyShapeStyle(Color.black))
                 .multilineTextAlignment(.leading)
