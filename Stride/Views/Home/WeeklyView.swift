@@ -13,6 +13,7 @@ struct WeeklyView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
+                
                 // -------- WeeklyProgressView --------
 
                 VStack(spacing: 0) {

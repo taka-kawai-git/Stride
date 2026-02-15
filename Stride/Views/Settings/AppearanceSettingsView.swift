@@ -31,33 +31,85 @@ struct AppearanceSettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section(header: Text("カラーテーマ")) {
-                    ForEach(gradientOptions) { option in
-                        HStack {
-                            gradient(for: option.id)
-                                .frame(width: 80, height: 22)
-                                .clipShape(RoundedRectangle(cornerRadius: 11, style: .continuous))
-                            Spacer()
-                            if workingAppearance.gradientID == option.id {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.accentColor)
+
+                // -------- ColorThemeGrid --------
+
+                Section {
+                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 0), GridItem(.flexible(), spacing: 0)], spacing: 0) {
+                        ForEach(Array(gradientOptions.enumerated()), id: \.element.id) { index, option in
+                            let isSelected = workingAppearance.gradientID == option.id
+                            ZStack {
+                                gradient(for: option.id)
+                                    .frame(height: 22)
+                                    .clipShape(RoundedRectangle(cornerRadius: 11, style: .continuous))
+                                    .padding(.horizontal, 40)
+                                if isSelected {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .foregroundStyle(.white, .blue)
+                                        .font(.title3)
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 20)
+                            .background(isSelected ? AppColors.selectionHighlight : Color.clear)
+                            .overlay(alignment: .bottom) {
+                                if index / 2 < (gradientOptions.count - 1) / 2 {
+                                    Divider()
+                                }
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                workingAppearance.gradientID = option.id
                             }
                         }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            workingAppearance.gradientID = option.id
-                        }
                     }
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(AppColors.secondaryBackground)
+                    .overlay {
+                        AppColors.separator
+                            .frame(width: 1 / UIScreen.main.scale)
+                    }
+                } header: {
+                    Text("カラーテーマ")
+                        .font(.subheadline.bold())
+                        .listRowInsets(EdgeInsets())
                 }
 
-                Section(header: Text("目標歩数")) {
+                // -------- Goal Setting Section --------
+
+                Section {
                     Stepper(value: $workingAppearance.goal, in: 1_000...40_000, step: 500) {
                         Text("\(workingAppearance.goal.formatted()) 歩")
                             .font(.headline)
                     }
+                    .onChange(of: workingAppearance.goal) {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    }
+                    .listRowBackground(AppColors.secondaryBackground)
+                } header: {
+                    Text("目標歩数")
+                        .font(.subheadline.bold())
+                        .listRowInsets(EdgeInsets())
+                }
+                // -------- Widget Section --------
+
+                Section {
+                    NavigationLink {
+                        WidgetExplanationView()
+                    } label: {
+                        Label("ウィジェット", systemImage: "square.grid.2x2")
+                    }
+                    .listRowBackground(AppColors.secondaryBackground)
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(AppColors.background.ignoresSafeArea())
             .navigationTitle("設定")
+            .toolbarBackground(AppColors.background, for: .navigationBar)
+
+            // -------- Toolbar --------
+
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("キャンセル") { dismiss() }

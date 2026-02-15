@@ -101,13 +101,7 @@ struct DailyView: View {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(
                     LinearGradient(
-                        colors: colorScheme == .dark ? [
-                            Color(.sRGB, red: 0.22, green: 0.18, blue: 0.08, opacity: 0.95),
-                            Color(.sRGB, red: 0.14, green: 0.12, blue: 0.05, opacity: 0.92)
-                        ] : [
-                            Color(.sRGB, red: 1.0, green: 0.98, blue: 0.90, opacity: 1),
-                            Color(.sRGB, red: 1.0, green: 0.95, blue: 0.80, opacity: 1)
-                        ],
+                        colors: AppColors.dataMissingGradientColors(for: colorScheme),
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
@@ -115,11 +109,7 @@ struct DailyView: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(
-                    colorScheme == .dark
-                        ? Color(.sRGB, red: 0.45, green: 0.35, blue: 0.10, opacity: 0.35)
-                        : Color(.sRGB, red: 1.0, green: 0.8, blue: 0.4, opacity: 0.2)
-                )
+                .stroke(AppColors.dataMissingStrokeColor(for: colorScheme))
         )
     }
     

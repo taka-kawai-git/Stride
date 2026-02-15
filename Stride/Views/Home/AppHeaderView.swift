@@ -36,10 +36,10 @@ struct AppHeaderView: View {
             .padding(10)
             .background(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color(.secondarySystemBackground))
+                    .fill(AppColors.secondaryBackground)
                     .overlay(
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .stroke(Color.black.opacity(0.05), lineWidth: 1)
+                            .stroke(AppColors.subtleBorder, lineWidth: 1)
                     )
             )
         }

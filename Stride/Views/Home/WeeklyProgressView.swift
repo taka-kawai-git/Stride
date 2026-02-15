@@ -27,6 +27,8 @@ struct WeeklyProgressView: View {
             Text("Weekly")
                 .font(.title2.weight(.bold))
 
+            // -------- WeeklyProgressIconView --------
+
             HStack(alignment: .center, spacing: 18) {
                 WeeklyProgressIconView(
                     gradientID: appearanceViewModel.appearance.gradientID
@@ -114,7 +116,7 @@ struct WeeklyProgressView: View {
         GeometryReader { proxy in
             ZStack(alignment: .leading) {
                 Capsule()
-                    .fill(Color.gray.opacity(0.15))
+                    .fill(AppColors.progressBarTrack)
                 Capsule()
                     .fill(gradient(for: appearanceViewModel.appearance.gradientID))
                     .frame(width: proxy.size.width * progress)

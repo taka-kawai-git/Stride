@@ -7,12 +7,16 @@ struct RequestAuthorizationView: View {
         GeometryReader { proxy in
             VStack(spacing: 0) {
 
+                // -------- Emoji Icon --------
+
                 VStack(spacing: 12) {
                     Text("🏃🏻")
                         .font(.system(size: 130))
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                .background(Color.blue)
+                .background(AppColors.onboardingHero)
+
+                // -------- Authorization Message --------
 
                 VStack(spacing: 32) {
                     VStack(spacing: 16) {
@@ -34,7 +38,7 @@ struct RequestAuthorizationView: View {
                         .fontWeight(.bold)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(UIColor.systemBackground))
+                .background(AppColors.background)
             }
             .frame(width: proxy.size.width, height: proxy.size.height)
             .ignoresSafeArea(edges: .top)

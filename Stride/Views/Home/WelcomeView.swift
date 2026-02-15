@@ -13,7 +13,8 @@ struct WelcomeView: View {
                 GeometryReader { proxy in
                     VStack(spacing: 0) {
 
-                        // 上半分: アプリアイコン
+                        // -------- App Icon --------
+
                         VStack(spacing: 12) {
                             Image("AppIconTransparent")
                                 .resizable()
@@ -23,9 +24,10 @@ struct WelcomeView: View {
                                 .shadow(radius: 10)
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                        .background(Color.blue)
+                        .background(AppColors.onboardingHero)
 
-                        // 下半分: メッセージ
+                        // -------- Welcome Message --------
+                        
                         VStack(spacing: 32) {
                             VStack(spacing: 16) {
                                 Text("Strideへようこそ！")
@@ -51,7 +53,7 @@ struct WelcomeView: View {
                             .fontWeight(.bold)
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Color(UIColor.systemBackground))
+                        .background(AppColors.background)
                     }
                     .frame(width: proxy.size.width, height: proxy.size.height)
                     .ignoresSafeArea(edges: .top)

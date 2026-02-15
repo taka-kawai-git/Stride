@@ -32,6 +32,9 @@ struct CommonProgressView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
+
+            // -------- Icon --------
+
             HStack {
                 Spacer()
                 ZStack {
@@ -42,7 +45,7 @@ struct CommonProgressView: View {
                         .opacity(0.45)
 
                     Circle()
-                        .fill(Color.white.opacity(0.3))
+                        .fill(AppColors.haloGlow)
                         .frame(width: haloSize * 0.75, height: haloSize * 0.75)
                         .blur(radius: 18)
                         .opacity(0.55)
@@ -55,6 +58,8 @@ struct CommonProgressView: View {
                 }
                 Spacer()
             }
+             // -------- Step Count --------
+
              HStack(spacing: 12) {
 
                  VStack(alignment: .leading, spacing: -3) {
@@ -75,10 +80,12 @@ struct CommonProgressView: View {
                  }
              }
 
+             // -------- Progress Bar --------
+
              GeometryReader { proxy in
                  ZStack(alignment: .leading) {
                      Capsule()
-                         .fill(Color.gray.opacity(0.15))
+                         .fill(AppColors.progressBarTrack)
                      Capsule()
                          .fill(gradient(for: gradientID))
                          .frame(width: animatedProgress > 0 ? max(proxy.size.width * animatedProgress, 15) : 0)
@@ -106,12 +113,12 @@ struct CommonProgressView: View {
     private func progressBadge(text: String) -> some View {
         Text(text)
             .font(mediumBadgeNumberFont)
-            .foregroundStyle(Color.accentColor)
+            .foregroundStyle(AppColors.badgeForeground)
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
             .background(
                 Capsule(style: .continuous)
-                    .fill(Color.accentColor.opacity(0.15))
+                    .fill(AppColors.badgeBackground)
             )
     }
 }

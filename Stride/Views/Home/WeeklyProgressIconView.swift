@@ -16,7 +16,7 @@ struct WeeklyProgressIconView: View {
                 .opacity(0.45)
 
             Circle()
-                .fill(Color.white.opacity(0.3))
+                .fill(AppColors.haloGlow)
                 .frame(width: haloSize * 0.75, height: haloSize * 0.75)
                 .blur(radius: 18)
                 .opacity(0.55)

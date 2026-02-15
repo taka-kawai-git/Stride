@@ -17,25 +17,26 @@ struct PastWeeklyProgressView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             
-            // レポートリスト
+            // -------- Report List --------
+
             LazyVStack(spacing: 12) {
                 ForEach(historyViewModel.reports) { report in
                     VStack(spacing: 0) {
                         HStack(spacing: 12) { // 各要素間のスペースを指定
                         
-                        // 1. 左側のテキストエリア
+                        // -------- Date & Steps --------
                         VStack(alignment: .leading, spacing: 4) {
                             Text(report.dateRangeString())
                                 .font(.headline)
                                 .lineLimit(1) // 改行防止
                                 .minimumScaleFactor(0.8) // 文字が長い場合に少し縮小を許容
                             Text("\(report.totalSteps) 歩")
-                                .font(.subheadline)
+                                .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                         .frame(width: 110, alignment: .leading) // ★ここが重要: 幅を固定して揃える
                         
-                        // 2. プログレスバー (Spacerの代わりに配置)
+                        // -------- Progress Bar --------
                         AnimatedGradientBar(
                                 progress: report.progress,
                                 // お使いのappearanceViewModelにcolorIDなどがなければ、
@@ -44,10 +45,12 @@ struct PastWeeklyProgressView: View {
                             )
                             .frame(height: 12) // バーの高さを少し太く調整（好みで）
                         
-                        // 3. 右側のパーセンテージ
+                        // -------- Percentage --------
                         VStack(alignment: .trailing, spacing: 4) {
-                            Text("\(report.percentageValue)%")
-                                .font(.title3.bold())
+                            (Text("\(report.percentageValue)")
+                                .font(.custom("AvenirNext-Bold", size: 20))
+                            + Text("%")
+                                .font(.custom("AvenirNext-Bold", size: 12)))
                                 .foregroundStyle(report.progress >= 1.0 ? .green : .primary)
                         }
                         .frame(width: 50, alignment: .trailing) 
@@ -90,7 +93,7 @@ struct AnimatedGradientBar: View {
             ZStack(alignment: .leading) {
                 // 背景のトラック
                 Capsule()
-                    .fill(Color.gray.opacity(0.15))
+                    .fill(AppColors.progressBarTrack)
                 
                 // グラデーションの進捗バー
                 Capsule()

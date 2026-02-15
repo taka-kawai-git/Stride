@@ -48,6 +48,7 @@ struct MainTabContainerView: View {
         }
         .sheet(isPresented: $showingSettings) {
             AppearanceSettingsView(appearance: $appearanceViewModel.appearance)
+                .presentationBackground(AppColors.background)
         }
     }
 }
