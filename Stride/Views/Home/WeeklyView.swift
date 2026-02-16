@@ -9,6 +9,7 @@ struct WeeklyView: View {
     @ObservedObject var stepViewModel: StepViewModel
     @ObservedObject var appearanceViewModel: AppearanceViewModel
     @StateObject private var weeklyViewModel = WeeklyProgressViewModel()
+    @State private var showingSettings = false
     
     var body: some View {
         ScrollView {
@@ -31,7 +32,8 @@ struct WeeklyView: View {
                         steps: weeklyViewModel.weeklyProgress.totalSteps,
                         goal: weeklyViewModel.weeklyProgress.targetSteps,
                         gradientID: appearanceViewModel.appearance.gradientID,
-                        image: Image("AppIconTransparent")
+                        image: Image("AppIconTransparent"),
+                        onGoalTap: { showingSettings = true }
                     )
                     .padding(.horizontal, 50)
                 }
@@ -64,6 +66,10 @@ struct WeeklyView: View {
         }
         .onChange(of: appearanceViewModel.appearance.goal) { _ in
             updateWeeklyProgress()
+        }
+        .sheet(isPresented: $showingSettings) {
+            AppearanceSettingsView(appearance: $appearanceViewModel.appearance)
+                .presentationBackground(AppColors.background)
         }
     }
 

@@ -14,6 +14,8 @@ struct DailyView: View {
     @ObservedObject var stepViewModel: StepViewModel
     @ObservedObject var appearanceViewModel: AppearanceViewModel
 
+    @State private var showingSettings = false
+
     private let weeks: Int = 12
     private let log = Logger(category: "view")
 
@@ -47,7 +49,8 @@ struct DailyView: View {
                         steps: stepViewModel.currentSteps,
                         goal: appearanceViewModel.appearance.goal,
                         gradientID: appearanceViewModel.appearance.gradientID,
-                        image: Image("ThumbsUp")
+                        image: Image("ThumbsUp"),
+                        onGoalTap: { showingSettings = true }
                     )
                     .padding(.horizontal, 50)
                 }
@@ -71,6 +74,10 @@ struct DailyView: View {
         .onChange(of: scenePhase, initial: true) { old, new in
             guard new == .active else { return }
             Task { await loadMainContentData() }
+        }
+        .sheet(isPresented: $showingSettings) {
+            AppearanceSettingsView(appearance: $appearanceViewModel.appearance)
+                .presentationBackground(AppColors.background)
         }
     }
 
