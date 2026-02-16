@@ -19,7 +19,7 @@ struct PastWeeklyProgressView: View {
             
             // -------- Report List --------
 
-            LazyVStack(spacing: 12) {
+            LazyVStack(spacing: 0) {
                 ForEach(historyViewModel.reports) { report in
                     VStack(spacing: 0) {
                         HStack(spacing: 12) { // 各要素間のスペースを指定
