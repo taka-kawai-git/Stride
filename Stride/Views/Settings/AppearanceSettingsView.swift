@@ -40,20 +40,13 @@ struct AppearanceSettingsView: View {
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 0), GridItem(.flexible(), spacing: 0)], spacing: 0) {
                         ForEach(Array(gradientOptions.enumerated()), id: \.element.id) { index, option in
                             let isSelected = workingAppearance.gradientID == option.id
-                            ZStack {
-                                gradient(for: option.id)
-                                    .frame(height: 22)
-                                    .clipShape(RoundedRectangle(cornerRadius: 11, style: .continuous))
-                                    .padding(.horizontal, 40)
-                                if isSelected {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .foregroundStyle(.white, .blue)
-                                        .font(.title3)
-                                }
-                            }
+                            gradient(for: option.id)
+                                .frame(height: 22)
+                                .clipShape(RoundedRectangle(cornerRadius: 11, style: .continuous))
+                                .padding(.horizontal, 40)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 20)
-                            .background(isSelected ? AppColors.selectionHighlight : Color.clear)
+                            .background(isSelected ? Color.accentColor.opacity(0.25) : Color.clear)
                             .overlay(alignment: .bottom) {
                                 if index / 2 < (gradientOptions.count - 1) / 2 {
                                     Divider()
