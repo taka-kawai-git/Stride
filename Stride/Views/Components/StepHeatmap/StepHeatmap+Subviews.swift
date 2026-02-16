@@ -22,6 +22,7 @@ extension StepHeatmap {
         let cellSize: CGFloat
         let spacing: CGFloat
         let maxValue: Int
+        @Binding var selectedDate: Date?
 
         var body: some View {
             HStack(alignment: .top, spacing: spacing) {
@@ -31,10 +32,21 @@ extension StepHeatmap {
                         ForEach(0..<7, id: \.self) { weekday in
                             let date = StepHeatmap.cellDate(forWeek: week, weekday: weekday)
                             let value = date.flatMap { stats[$0] } ?? 0
+                            let isSelected = date != nil && selectedDate == date
                             Rectangle()
                                 .fill(HeatColor.color(for: value, maxValue: maxValue))
                                 .frame(width: cellSize, height: cellSize)
                                 .cornerRadius(8)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(isSelected ? Color.accentColor : Color.clear, lineWidth: 2)
+                                )
+                                .onTapGesture {
+                                    guard let date = date else { return }
+                                    withAnimation(.easeInOut(duration: 0.15)) {
+                                        selectedDate = selectedDate == date ? nil : date
+                                    }
+                                }
                         }
                     }
                 }

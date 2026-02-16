@@ -7,6 +7,7 @@ struct StepHeatmap: View {
     let availableWidth: CGFloat
     let spacing: CGFloat
     let goal: Int
+    @Binding var selectedDate: Date?
 
     static let calendar = Calendar(identifier: .gregorian)
     static let monthFormatter: DateFormatter = {
@@ -33,13 +34,15 @@ struct StepHeatmap: View {
         weeks: Int = 12,
         availableWidth: CGFloat,
         spacing: CGFloat = 2,
-        goal: Int
+        goal: Int,
+        selectedDate: Binding<Date?>
     ) {
         self.stats = stats
         self.weeks = weeks
         self.availableWidth = availableWidth
         self.spacing = spacing
         self.goal = goal
+        self._selectedDate = selectedDate
     }
 
     var body: some View {
@@ -53,7 +56,8 @@ struct StepHeatmap: View {
                 stats: stats,
                 cellSize: data.layout.cellSize,
                 spacing: spacing,
-                maxValue: goal
+                maxValue: goal,
+                selectedDate: $selectedDate
             )
             .padding(.top, Self.labelRowHeight + Self.labelSpacing)
         }
