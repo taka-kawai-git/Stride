@@ -11,8 +11,17 @@ struct StepHeatmapCard: View {
     let goal: Int
     let availableWidth: CGFloat
 
+    @State private var selectedDate: Date?
+
     private let inset: CGFloat = 8
     private let spacing: CGFloat = 2
+
+    private static let dateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.locale = Locale.current
+        f.dateFormat = "M/d（E）"
+        return f
+    }()
 
     init(
         stats: [Date: Int],
@@ -29,13 +38,22 @@ struct StepHeatmapCard: View {
     var body: some View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
-                Text("過去\(weeks)週")
-                    .font(.system(size: 22, weight: .bold))
+                if let date = selectedDate, let steps = stats[date] {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(Self.dateFormatter.string(from: date))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        Text("\(steps.formatted())歩")
+                            .font(.system(size: 22, weight: .bold))
+                    }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 10)
-                // .font(.title2)
-                // .bold()
-                // .padding(.horizontal, 12)
+                } else {
+                    Text("過去\(weeks)週")
+                        .font(.system(size: 22, weight: .bold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 10)
+                }
 
                 GeometryReader { proxy in
                     let innerWidth = proxy.size.width - inset * 2
@@ -47,7 +65,8 @@ struct StepHeatmapCard: View {
                         weeks: weeks,
                         availableWidth: innerWidth,
                         spacing: spacing,
-                        goal: goal
+                        goal: goal,
+                        selectedDate: $selectedDate
                     )
                     .frame(width: contentWidth, height: heatmapHeight, alignment: .topLeading)
                     .frame(maxWidth: .infinity)

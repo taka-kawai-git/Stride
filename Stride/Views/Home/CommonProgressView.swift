@@ -7,6 +7,7 @@ struct CommonProgressView: View {
     var goal: Int
     var gradientID: String
     var image: Image = Image(systemName: "figure.run")
+    var onGoalTap: (() -> Void)? = nil
 
     private let iconSize: CGFloat = 100
     private var haloSize: CGFloat { iconSize * 0.9 }
@@ -62,6 +63,9 @@ struct CommonProgressView: View {
                      Text("目標 \(goal.formatted())歩")
                          .font(.caption2)
                          .foregroundStyle(.secondary)
+                         .onTapGesture {
+                             onGoalTap?()
+                         }
                  }
              }
 

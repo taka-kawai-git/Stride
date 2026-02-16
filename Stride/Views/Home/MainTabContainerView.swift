@@ -39,15 +39,18 @@ struct MainTabContainerView: View {
                 
                 DailyView(
                     stepViewModel: stepViewModel,
-                    appearanceViewModel: appearanceViewModel
+                    appearanceViewModel: appearanceViewModel,
+                    onGoalTap: { showingSettings = true }
                 )
                 .tag(0)
 
                 // -------- WeeklyView --------
-                
+
+
                 WeeklyView(
                     stepViewModel: stepViewModel,
-                    appearanceViewModel: appearanceViewModel
+                    appearanceViewModel: appearanceViewModel,
+                    onGoalTap: { showingSettings = true }
                 )
                 .tag(1)
             }

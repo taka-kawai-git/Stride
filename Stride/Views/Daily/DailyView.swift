@@ -13,15 +13,17 @@ struct DailyView: View {
 
     @ObservedObject var stepViewModel: StepViewModel
     @ObservedObject var appearanceViewModel: AppearanceViewModel
+    var onGoalTap: (() -> Void)? = nil
 
     private let weeks: Int = 12
     private let log = Logger(category: "view")
 
     // -------- init --------
 
-    init(stepViewModel: StepViewModel, appearanceViewModel: AppearanceViewModel) {
+    init(stepViewModel: StepViewModel, appearanceViewModel: AppearanceViewModel, onGoalTap: (() -> Void)? = nil) {
         self.stepViewModel = stepViewModel
         self.appearanceViewModel = appearanceViewModel
+        self.onGoalTap = onGoalTap
     }
     
     // -------- body --------
@@ -42,7 +44,8 @@ struct DailyView: View {
                         steps: stepViewModel.currentSteps,
                         goal: appearanceViewModel.appearance.goal,
                         gradientID: appearanceViewModel.appearance.gradientID,
-                        image: Image("ThumbsUp")
+                        image: Image("ThumbsUp"),
+                        onGoalTap: onGoalTap
                     )
                     .padding(.horizontal, 50)
                 }

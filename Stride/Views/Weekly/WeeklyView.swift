@@ -8,6 +8,7 @@ import SwiftUI
 struct WeeklyView: View {
     @ObservedObject var stepViewModel: StepViewModel
     @ObservedObject var appearanceViewModel: AppearanceViewModel
+    var onGoalTap: (() -> Void)? = nil
     @StateObject private var weeklyViewModel = WeeklyProgressViewModel()
 
     // -------- Body --------
@@ -33,7 +34,8 @@ struct WeeklyView: View {
                         steps: weeklyViewModel.weeklyProgress.totalSteps,
                         goal: weeklyViewModel.weeklyProgress.targetSteps,
                         gradientID: appearanceViewModel.appearance.gradientID,
-                        image: Image("AppIconTransparent")
+                        image: Image("AppIconTransparent"),
+                        onGoalTap: onGoalTap
                     )
                     .padding(.horizontal, 50)
                 }
