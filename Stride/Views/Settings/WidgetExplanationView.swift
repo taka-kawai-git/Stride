@@ -54,11 +54,14 @@ struct WidgetExplanationView: View {
                     stepRow(number: 2, text: "左上の「編集」ボタンをタップします")
                     stepRow(number: 3, text: "検索欄で「Stride」と入力します")
                     stepRow(number: 4, text: "好きなサイズを選んで「ウィジェットを追加」をタップします")
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(AppColors.secondaryBackground, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
 
-                    Divider()
+                // -------- Notes --------
 
-                    // -------- Notes --------
-
+                VStack(alignment: .leading, spacing: 12) {
                     Label("注意", systemImage: "exclamationmark.triangle.fill")
                         .font(.subheadline.bold())
                         .foregroundStyle(.secondary)
@@ -73,8 +76,7 @@ struct WidgetExplanationView: View {
                     )
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-                .background(AppColors.secondaryBackground, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .padding(.horizontal, 16)
             }
             .padding()
         }
