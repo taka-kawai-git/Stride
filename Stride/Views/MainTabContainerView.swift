@@ -34,13 +34,15 @@ struct MainTabContainerView: View {
             TabView(selection: $selectedTab) {
                 DailyView(
                     stepViewModel: stepViewModel,
-                    appearanceViewModel: appearanceViewModel
+                    appearanceViewModel: appearanceViewModel,
+                    onGoalTap: { showingSettings = true }
                 )
                 .tag(0)
-                
+
                 WeeklyView(
                     stepViewModel: stepViewModel,
-                    appearanceViewModel: appearanceViewModel
+                    appearanceViewModel: appearanceViewModel,
+                    onGoalTap: { showingSettings = true }
                 )
                 .tag(1)
             }
