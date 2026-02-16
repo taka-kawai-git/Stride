@@ -12,13 +12,6 @@ struct AppHeaderView: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            
-            // -------- AppIcon --------
-            
-            // Image("AppIconTransparent")
-            //     .resizable()
-            //     .scaledToFit()
-            //     .frame(width: iconSize, height: iconSize)
                 
             Spacer()
             

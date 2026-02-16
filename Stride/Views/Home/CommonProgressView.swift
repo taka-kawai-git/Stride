@@ -1,19 +1,5 @@
 import SwiftUI
 
-private let smallNumberFont = Font.custom("AvenirNext-Bold", size: 28)
-private let mediumNumberFont = Font.custom("AvenirNext-Bold", size: 34)
-private let mediumBadgeNumberFont = Font.custom("AvenirNext-Bold", size: 12)
-
-private func stepProgressRate(steps: Int, goal: Int) -> CGFloat {
-    guard goal > 0 else { return 0 }
-    return min(CGFloat(steps) / CGFloat(goal), 1)
-}
-
-private func stepProgressPercentageText(rate: CGFloat) -> String {
-    String(format: "%.0f%%", rate * 100)
-}
-
-
 // MARK: - Medium
 
 struct CommonProgressView: View {
@@ -25,7 +11,6 @@ struct CommonProgressView: View {
     private let iconSize: CGFloat = 100
     private var haloSize: CGFloat { iconSize * 0.9 }
     private var targetProgress: CGFloat { stepProgressRate(steps: steps, goal: goal) }
-    // 表示用のテキスト（最終値を表示）
     private var progressPercentage: String { stepProgressPercentageText(rate: targetProgress) }
 
      @State private var animatedProgress: CGFloat = 0
@@ -58,7 +43,7 @@ struct CommonProgressView: View {
                 }
                 Spacer()
             }
-             // -------- Step Count --------
+             // -------- Step Count and %, goal--------
 
              HStack(spacing: 12) {
 
@@ -98,12 +83,14 @@ struct CommonProgressView: View {
                 animatedProgress = targetProgress
             }
         }
-        // ★歩数や目標が変わった場合もアニメーションで追従
         .onChange(of: steps) { _ in updateProgress() }
         .onChange(of: goal) { _ in updateProgress() }
     }
     
-    // アニメーション更新用メソッド
+
+   // ======================================== Private Functions ========================================
+    
+
     private func updateProgress() {
         withAnimation(.easeOut(duration: 1.0)) {
             animatedProgress = targetProgress

@@ -16,7 +16,7 @@ struct StrideWidgetEntryView: View {
                 Text("Today")
                     .font(.subheadline)
                     .bold()
-                StepProgressViewMedium(
+                MediumWidget(
                     steps: entry.steps,
                     goal: entry.goal,
                     emoji: entry.emoji,
@@ -29,7 +29,7 @@ struct StrideWidgetEntryView: View {
                 Text("Today")
                     .font(.subheadline)
                     .bold()
-                StepProgressViewSmall(
+                SmallWidget(
                     steps: entry.steps,
                     goal: entry.goal,
                     emoji: entry.emoji,

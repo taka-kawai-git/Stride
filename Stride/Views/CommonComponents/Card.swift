@@ -18,6 +18,5 @@ struct Card<Content: View>: View {
                     .stroke(AppColors.subtleBorder, lineWidth: 1)
             )
             .clipShape(shape)
-//            .shadow(color: Color.black.opacity(0.08), radius: 8, x: 0, y: 4)
     }
 }

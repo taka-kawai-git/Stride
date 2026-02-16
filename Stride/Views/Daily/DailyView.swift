@@ -17,21 +17,16 @@ struct DailyView: View {
     private let weeks: Int = 12
     private let log = Logger(category: "view")
 
+    // -------- init --------
+
     init(stepViewModel: StepViewModel, appearanceViewModel: AppearanceViewModel) {
         self.stepViewModel = stepViewModel
         self.appearanceViewModel = appearanceViewModel
     }
     
-
-    // ================ Body ================
+    // -------- body --------
 
     var body: some View {
-        mainContentView
-    }
-    
-    // ================ UI ================
-    
-    private var mainContentView: some View {
         ScrollView {
             VStack(spacing: 24) {
 
@@ -52,12 +47,14 @@ struct DailyView: View {
                     .padding(.horizontal, 50)
                 }
 
+                // -------- if data is missing, show HintView --------
+
                 if stepViewModel.currentSteps == 0 {
                     dataMissingHintView
                         .padding(.horizontal, 25)
                 }
 
-                // -------- ContributionHeatmapCard --------
+                // -------- HeatmapCard --------
 
                 StepHeatmapCard(
                     stats: stepViewModel.dailyStepCounts,
@@ -73,6 +70,10 @@ struct DailyView: View {
             Task { await loadMainContentData() }
         }
     }
+
+
+    // ======================================== Private Functions ========================================
+
 
     private var dataMissingHintView: some View {
         VStack(spacing: 12) {
@@ -113,18 +114,8 @@ struct DailyView: View {
         )
     }
     
-    // ================ Private Functions ================
-    
-    // private func loadInitialData() async {
-    //     appearance = SharedStore.loadAppearance()
-    //     // await loadPermittedData()
-    //     await viewModel.initializePedometer()
-    // }
-
     private func loadMainContentData() async {
         log.tDebug("load main content data")
-        // await viewModel.initializePedometer()
-        // guard !stepViewModel.isHealthKitAvailable && stepViewModel.isAuthorizationRequested else { return }
         await stepViewModel.loadCurrentSteps()
         await stepViewModel.loadDailyStepCounts(weeks: weeks)
     }

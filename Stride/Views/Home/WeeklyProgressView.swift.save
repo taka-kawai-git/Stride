@@ -19,6 +19,8 @@ struct WeeklyProgressView: View {
         .custom("AvenirNext-Bold", size: 24)
     }
 
+    // -------- Body --------
+
     var body: some View {
         let weekly: WeeklyProgressViewModel.WeeklyProgress = weeklyViewModel.weeklyProgress
         let percentageValue = Int((weekly.clampedProgress * 100).rounded())
@@ -27,9 +29,10 @@ struct WeeklyProgressView: View {
             Text("Weekly")
                 .font(.title2.weight(.bold))
 
-            // -------- WeeklyProgressIconView --------
-
             HStack(alignment: .center, spacing: 18) {
+                
+                // -------- Icon --------
+
                 WeeklyProgressIconView(
                     gradientID: appearanceViewModel.appearance.gradientID
                 )
@@ -37,14 +40,22 @@ struct WeeklyProgressView: View {
                 VStack(alignment: .leading, spacing: -5) {
                     HStack(alignment: .firstTextBaseline, spacing: 8) {
 
+                        // -------- Percentage --------
+
                         weeklyPercentage(percentageValue: percentageValue)
                         
                         Spacer()
+
+                        // -------- Info --------
                         
                         info()
                     }
 
+                    // -------- Steps and Goal --------
+
                     weeklyStepsAndGoal(weekly: weekly)
+
+                    // -------- Percentage Bar --------
                     
                     weeklyProgressBar(progress: weekly.clampedProgress)
                 }
@@ -55,6 +66,10 @@ struct WeeklyProgressView: View {
         .onChange(of: stepViewModel.dailyStepCounts) { _ in refresh() }
         .onChange(of: appearanceViewModel.appearance.goal) { _ in refresh() }
     }
+
+
+    // ======================================== Private Functions ========================================
+
 
     private func refresh() {
         weeklyViewModel.update(

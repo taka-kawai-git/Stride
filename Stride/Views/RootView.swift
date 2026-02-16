@@ -19,19 +19,27 @@ struct RootView: View {
     var body: some View {
         Group {
             if !appearanceViewModel.isLoaded {
-                // ローディング画面
+
+                // -------- loading --------
+
                 Color.blue.ignoresSafeArea()
             } else if !stepViewModel.isHealthKitAvailable {
-                // HealthKit利用不可
+                
+                // -------- HealthKit is not available --------
+                
                 Text("HealthKit is not available")
             } else if stepViewModel.isAuthorizationRequested {
-                // 認証済み → タブビュー
+                
+                // -------- Authorize already requested --------
+                
                 MainTabContainerView(
                     stepViewModel: stepViewModel,
                     appearanceViewModel: appearanceViewModel
                 )
             } else {
-                // 未認証 → ウェルカム画面
+
+                // -------- Authorize not requested --------
+
                 WelcomeView {
                     stepViewModel.requestAuthorization()
                 }

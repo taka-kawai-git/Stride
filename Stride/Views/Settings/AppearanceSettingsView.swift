@@ -11,6 +11,8 @@ struct AppearanceSettingsView: View {
 
     @State private var workingAppearance: SharedAppearance
 
+    // -------- Gradient themes --------
+
     private let gradientOptions: [GradientOption] = [
         .init(id: "redBlueCyan"),
         .init(id: "greenMintBlue"),
@@ -32,7 +34,7 @@ struct AppearanceSettingsView: View {
         NavigationStack {
             Form {
 
-                // -------- ColorThemeGrid --------
+                // -------- Color Theme Grid --------
 
                 Section {
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 0), GridItem(.flexible(), spacing: 0)], spacing: 0) {
@@ -76,7 +78,7 @@ struct AppearanceSettingsView: View {
                         .listRowInsets(EdgeInsets())
                 }
 
-                // -------- Goal Setting Section --------
+                // -------- Goal Setting --------
 
                 Section {
                     Stepper(value: $workingAppearance.goal, in: 1_000...40_000, step: 500) {
@@ -92,13 +94,14 @@ struct AppearanceSettingsView: View {
                         .font(.subheadline.bold())
                         .listRowInsets(EdgeInsets())
                 }
+
                 // -------- Widget Section --------
 
                 Section {
                     NavigationLink {
                         WidgetExplanationView()
                     } label: {
-                        Label("ウィジェット", systemImage: "square.grid.2x2")
+                        Label("ウィジェットについて", systemImage: "square.grid.2x2")
                     }
                     .listRowBackground(AppColors.secondaryBackground)
                 }
@@ -108,7 +111,7 @@ struct AppearanceSettingsView: View {
             .navigationTitle("設定")
             .toolbarBackground(AppColors.background, for: .navigationBar)
 
-            // -------- Toolbar --------
+            // -------- Cancel / Save button --------
 
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -120,6 +123,10 @@ struct AppearanceSettingsView: View {
             }
         }
     }
+
+
+    // ======================================== Private functions ========================================
+
 
     private func saveChanges() {
         appearance = workingAppearance

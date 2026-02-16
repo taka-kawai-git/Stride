@@ -17,7 +17,7 @@ struct WeeklyInfoButton: View {
             attachmentAnchor: .rect(.bounds),
             arrowEdge: .top
         ) {
-            Text("月曜~現在までの合計歩数を週の目標歩数(1日の目標歩数×7)で割った数値が表示されます")
+            Text("月曜〜現在までの合計歩数を週の目標歩数(1日の目標歩数×7)で割った数値が表示されます")
                 .font(.footnote)
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)

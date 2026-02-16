@@ -5,14 +5,16 @@ struct PastWeeklyProgressView: View {
     @ObservedObject var stepViewModel: StepViewModel
     @ObservedObject var appearanceViewModel: AppearanceViewModel
     
-    // 作成したViewModel
     @StateObject private var historyViewModel = PastWeeklyProgressViewModel()
     
-    // 明示的なイニシャライザ
+    // -------- init --------
+
     init(stepViewModel: StepViewModel, appearanceViewModel: AppearanceViewModel) {
         self._stepViewModel = ObservedObject(wrappedValue: stepViewModel)
         self._appearanceViewModel = ObservedObject(wrappedValue: appearanceViewModel)
     }
+
+    // -------- body --------
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -22,38 +24,39 @@ struct PastWeeklyProgressView: View {
             LazyVStack(spacing: 12) {
                 ForEach(historyViewModel.reports) { report in
                     VStack(spacing: 0) {
-                        HStack(spacing: 12) { // 各要素間のスペースを指定
+                        HStack(spacing: 12) {
                         
-                        // -------- Date & Steps --------
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(report.dateRangeString())
-                                .font(.headline)
-                                .lineLimit(1) // 改行防止
-                                .minimumScaleFactor(0.8) // 文字が長い場合に少し縮小を許容
-                            Text("\(report.totalSteps) 歩")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
-                        .frame(width: 110, alignment: .leading) // ★ここが重要: 幅を固定して揃える
-                        
-                        // -------- Progress Bar --------
-                        AnimatedGradientBar(
-                                progress: report.progress,
-                                // お使いのappearanceViewModelにcolorIDなどがなければ、
-                                // 任意のID文字列や、reportの状態に応じたIDを渡してください
-                                gradientID: self.appearanceViewModel.appearance.gradientID
-                            )
-                            .frame(height: 12) // バーの高さを少し太く調整（好みで）
-                        
-                        // -------- Percentage --------
-                        VStack(alignment: .trailing, spacing: 4) {
-                            (Text("\(report.percentageValue)")
-                                .font(.custom("AvenirNext-Bold", size: 20))
-                            + Text("%")
-                                .font(.custom("AvenirNext-Bold", size: 12)))
-                                .foregroundStyle(report.progress >= 1.0 ? .green : .primary)
-                        }
-                        .frame(width: 50, alignment: .trailing) 
+                            // -------- Date & Steps --------
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(report.dateRangeString())
+                                    .font(.headline)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.8)
+                                Text("\(report.totalSteps) 歩")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .frame(width: 110, alignment: .leading)
+                            
+                            // -------- Progress Bar --------
+
+                            AnimatedGradientBar(
+                                    progress: report.progress,
+                                    gradientID: self.appearanceViewModel.appearance.gradientID
+                                )
+                                .frame(height: 12)
+                            
+                            // -------- Percentage --------
+
+                            VStack(alignment: .trailing, spacing: 4) {
+                                (Text("\(report.percentageValue)")
+                                    .font(.custom("AvenirNext-Bold", size: 20))
+                                + Text("%")
+                                    .font(.custom("AvenirNext-Bold", size: 12)))
+                                    .foregroundStyle(report.progress >= 1.0 ? .green : .primary)
+                            }
+                            .frame(width: 50, alignment: .trailing) 
                         }
                         .padding(.vertical, 12)
                         
@@ -71,9 +74,12 @@ struct PastWeeklyProgressView: View {
         .onChange(of: stepViewModel.dailyStepCounts) { _ in refreshData() }
         .onChange(of: appearanceViewModel.appearance.goal) { _ in refreshData() }
     }
+
+
+    // ======================================== Private Functions ========================================
+    
     
     private func refreshData() {
-        // ここで依存を注入して計算させる
         historyViewModel.calculateHistory(
             dailySteps: stepViewModel.dailyStepCounts,
             dailyGoal: appearanceViewModel.appearance.goal

@@ -1,21 +1,8 @@
 import SwiftUI
 
-private let smallNumberFont = Font.custom("AvenirNext-Bold", size: 28)
-private let mediumNumberFont = Font.custom("AvenirNext-Bold", size: 34)
-private let mediumBadgeNumberFont = Font.custom("AvenirNext-Bold", size: 12)
-
-private func stepProgressRate(steps: Int, goal: Int) -> CGFloat {
-    guard goal > 0 else { return 0 }
-    return min(CGFloat(steps) / CGFloat(goal), 1)
-}
-
-private func stepProgressPercentageText(rate: CGFloat) -> String {
-    String(format: "%.0f%%", rate * 100)
-}
-
 // MARK: - Small
 
-struct StepProgressViewSmall: View {
+struct SmallWidget: View {
     var steps: Int
     var goal: Int = 10_000
     var emoji: String = "🥾"
@@ -62,7 +49,7 @@ struct StepProgressViewSmall: View {
 
 // MARK: - Medium
 
-struct StepProgressViewMedium: View {
+struct MediumWidget: View {
     var steps: Int
     var goal: Int = 10_000
     var emoji: String = "🥾"

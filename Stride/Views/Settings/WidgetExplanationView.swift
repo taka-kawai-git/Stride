@@ -12,14 +12,15 @@ struct WidgetExplanationView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 32) {
 
-                // -------- Header --------
-
                 VStack(spacing: 12) {
+
+                    // -------- Widget Sample --------
+                    
                     VStack(alignment: .leading, spacing: 0) {
                         Text("Today")
                             .font(.subheadline)
                             .bold()
-                        StepProgressViewSmall(steps: 6_248)
+                        SmallWidget(steps: 6_248)
                     }
                     .padding()
                     .frame(width: 155, height: 155)
@@ -38,6 +39,8 @@ struct WidgetExplanationView: View {
 
                     Spacer().frame(height: 4)
 
+                    // -------- Message --------
+
                     Text("ホーム画面にウィジェットを追加しよう")
                         .font(.title.bold())
                         .multilineTextAlignment(.leading)
@@ -47,7 +50,7 @@ struct WidgetExplanationView: View {
                 .padding(.top, 16)
                 .padding(.top, 12)
 
-                // -------- Steps --------
+                // -------- How to add Widgets --------
 
                 VStack(alignment: .leading, spacing: 16) {
                     stepRow(number: 1, text: "ホーム画面の空白部分を長押しします")
@@ -81,9 +84,11 @@ struct WidgetExplanationView: View {
         .navigationTitle("ウィジェット")
         .navigationBarTitleDisplayMode(.inline)
     }
+    
 
-    // MARK: - Subviews
+    // ======================================== Private Functions ========================================
 
+    
     private func stepRow(number: Int, text: String) -> some View {
         HStack(alignment: .center, spacing: 14) {
             Text("\(number)")

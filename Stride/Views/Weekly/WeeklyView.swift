@@ -9,6 +9,8 @@ struct WeeklyView: View {
     @ObservedObject var stepViewModel: StepViewModel
     @ObservedObject var appearanceViewModel: AppearanceViewModel
     @StateObject private var weeklyViewModel = WeeklyProgressViewModel()
+
+    // -------- Body --------
     
     var body: some View {
         ScrollView {

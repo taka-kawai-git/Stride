@@ -24,19 +24,26 @@ struct MainTabContainerView: View {
             }
            .padding(.horizontal)
 
-            // 上部タブバー
+            // -------- Tab Bar --------
+
             TopTabBar(selectedTab: $selectedTab, tabs: tabs)
                 .padding(.top, 8)
             
             Divider()
             
-            // タブコンテンツ
+            // -------- Tab Contents --------
+
             TabView(selection: $selectedTab) {
+
+                // -------- DailyView --------
+                
                 DailyView(
                     stepViewModel: stepViewModel,
                     appearanceViewModel: appearanceViewModel
                 )
                 .tag(0)
+
+                // -------- WeeklyView --------
                 
                 WeeklyView(
                     stepViewModel: stepViewModel,
@@ -47,6 +54,9 @@ struct MainTabContainerView: View {
             .tabViewStyle(.page(indexDisplayMode: .never))
         }
         .sheet(isPresented: $showingSettings) {
+
+            // -------- Show AppearanceSettingsView if gear is tapped --------
+
             AppearanceSettingsView(appearance: $appearanceViewModel.appearance)
                 .presentationBackground(AppColors.background)
         }
