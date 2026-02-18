@@ -1,0 +1,39 @@
+{
+  "sourceLanguage" : "ja",
+  "strings" : {
+    "Today" : {
+      "comment" : "Label shown at the top of the widget",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日"
+          }
+        }
+      }
+    },
+    "歩" : {
+      "comment" : "Step count unit character displayed next to a number",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "steps"
+          }
+        }
+      }
+    },
+    "目標 %@歩" : {
+      "comment" : "Goal step count label (e.g. Goal 10,000 steps)",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goal %@ steps"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

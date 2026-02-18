@@ -7,7 +7,7 @@ import SwiftUI
 
 struct TopTabBar: View {
     @Binding var selectedTab: Int
-    let tabs: [String]
+    let tabs: [LocalizedStringKey]
     
     @Namespace private var animation
     

@@ -25,7 +25,7 @@ struct AppHeaderView: View {
                     .foregroundStyle(.primary)
             }
             .buttonStyle(.plain)
-            .accessibilityLabel("設定を開く")
+            .accessibilityLabel(Text("設定を開く"))
             .padding(10)
             .background(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)

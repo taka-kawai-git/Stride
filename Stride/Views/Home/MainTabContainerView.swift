@@ -12,7 +12,7 @@ struct MainTabContainerView: View {
     @State private var selectedTab: Int = 0
     @State private var showingSettings = false
     
-    private let tabs = ["Daily", "Weekly"]
+    private let tabs: [LocalizedStringKey] = ["Daily", "Weekly"]
     
     var body: some View {
         VStack(spacing: 0) {

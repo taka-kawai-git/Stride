@@ -91,7 +91,7 @@ struct WidgetExplanationView: View {
     // ======================================== Private Functions ========================================
 
     
-    private func stepRow(number: Int, text: String) -> some View {
+    private func stepRow(number: Int, text: LocalizedStringKey) -> some View {
         HStack(alignment: .center, spacing: 14) {
             Text("\(number)")
                 .font(.subheadline.bold())
@@ -105,7 +105,7 @@ struct WidgetExplanationView: View {
         }
     }
 
-    private func noteRow(systemName: String, text: String) -> some View {
+    private func noteRow(systemName: String, text: LocalizedStringKey) -> some View {
         HStack(alignment: .center, spacing: 12) {
             Image(systemName: systemName)
                 .font(.footnote)

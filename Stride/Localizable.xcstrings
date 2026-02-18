@@ -1,0 +1,413 @@
+{
+  "sourceLanguage" : "ja",
+  "strings" : {
+    "%@ 歩" : {
+      "comment" : "Step count with unit (space before 歩, used in Settings stepper)",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ steps"
+          }
+        }
+      }
+    },
+    "%@歩" : {
+      "comment" : "Step count with unit (no space, used in heatmap)",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ steps"
+          }
+        }
+      }
+    },
+    "%lld 歩" : {
+      "comment" : "Integer step count with unit (used in weekly history list)",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld steps"
+          }
+        }
+      }
+    },
+    "HealthKit is not available" : {
+      "comment" : "Error message shown when HealthKit is unavailable",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HealthKitが利用できません"
+          }
+        }
+      }
+    },
+    "Today" : {
+      "comment" : "Widget sample label in widget explanation view",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日"
+          }
+        }
+      }
+    },
+    "iOSの仕組みにより、ウィジェットの歩数は１時間に１回程度更新されます" : {
+      "comment" : "Widget update frequency note",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due to iOS behavior, widget step counts update approximately once per hour"
+          }
+        }
+      }
+    },
+    "iOSの制限により、バッテリーを低電力モードにしている場合は更新がされません" : {
+      "comment" : "Widget low power mode note",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Due to iOS restrictions, updates are paused when Low Power Mode is enabled"
+          }
+        }
+      }
+    },
+    "ウィジェット" : {
+      "comment" : "Navigation title for widget explanation screen",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widget"
+          }
+        }
+      }
+    },
+    "ウィジェットについて" : {
+      "comment" : "Settings row label linking to widget explanation",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About Widget"
+          }
+        }
+      }
+    },
+    "カラーテーマ" : {
+      "comment" : "Section header for color theme picker in settings",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color Theme"
+          }
+        }
+      }
+    },
+    "キャンセル" : {
+      "comment" : "Cancel button in settings sheet",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Strideへようこそ！" : {
+      "comment" : "Welcome screen title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to Stride!"
+          }
+        }
+      }
+    },
+    "Strideは一目で歩数データを確認できる美しいアプリです" : {
+      "comment" : "Welcome screen description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A beautiful app to check your step data at a glance"
+          }
+        }
+      }
+    },
+    "Strideは歩数データを活用して、毎日の活動を記録します。次の画面でヘルスケアとの連携を許可してください。\nヘルスケアデータは端末内でのみ使用されます。" : {
+      "comment" : "Authorization request explanation text",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stride uses your step data to track your daily activity. Please allow Health access on the next screen.\nHealth data is only used on your device."
+          }
+        }
+      }
+    },
+    "はじめる" : {
+      "comment" : "Get Started button on welcome screen",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get Started"
+          }
+        }
+      }
+    },
+    "ホーム画面にウィジェットを追加しよう" : {
+      "comment" : "Widget explanation screen main title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Widget to Home Screen"
+          }
+        }
+      }
+    },
+    "ホーム画面の空白部分を長押しします" : {
+      "comment" : "Widget add instruction step 1",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Long press an empty area of your Home Screen"
+          }
+        }
+      }
+    },
+    "保存" : {
+      "comment" : "Save button in settings sheet",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
+    },
+    "今週" : {
+      "comment" : "Weekly view section header",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This Week"
+          }
+        }
+      }
+    },
+    "今日" : {
+      "comment" : "Daily view section header",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        }
+      }
+    },
+    "左上の「編集」ボタンをタップします" : {
+      "comment" : "Widget add instruction step 2",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap the \"Edit\" button in the top left"
+          }
+        }
+      }
+    },
+    "好きなサイズを選んで「ウィジェットを追加」をタップします" : {
+      "comment" : "Widget add instruction step 4",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select your preferred size and tap \"Add Widget\""
+          }
+        }
+      }
+    },
+    "月曜〜現在までの合計歩数を週の目標歩数(1日の目標歩数×7)で割った数値が表示されます" : {
+      "comment" : "Weekly progress info popover description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Displays total steps from Monday to now, divided by the weekly step goal (daily goal × 7)"
+          }
+        }
+      }
+    },
+    "検索欄で「Stride」と入力します" : {
+      "comment" : "Widget add instruction step 3",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type \"Stride\" in the search field"
+          }
+        }
+      }
+    },
+    "歩" : {
+      "comment" : "Step count unit character displayed next to a number",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "steps"
+          }
+        }
+      }
+    },
+    "歩数データの連携" : {
+      "comment" : "Authorization screen title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step Data Access"
+          }
+        }
+      }
+    },
+    "歩数が表示されませんか？" : {
+      "comment" : "Hint title shown when step count is zero",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Steps not showing?"
+          }
+        }
+      }
+    },
+    "注意" : {
+      "comment" : "Notes section header in widget explanation",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Note"
+          }
+        }
+      }
+    },
+    "目標 %@歩" : {
+      "comment" : "Goal step count label (e.g. Goal 10,000 steps)",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goal %@ steps"
+          }
+        }
+      }
+    },
+    "目標歩数" : {
+      "comment" : "Section header for step goal stepper in settings",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step Goal"
+          }
+        }
+      }
+    },
+    "設定" : {
+      "comment" : "Navigation title for settings screen",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        }
+      }
+    },
+    "設定アプリ > アプリ（iOS18以上） > ヘルスケア > データアクセスとデバイス > Stride > 歩数をオンにしてください" : {
+      "comment" : "Step-by-step instruction to enable step access in Settings",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings > Apps (iOS 18+) > Health > Data Access & Devices > Stride > Enable Steps"
+          }
+        }
+      }
+    },
+    "設定アプリを開く" : {
+      "comment" : "Button to open the Settings app",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "設定を開く" : {
+      "comment" : "Accessibility label for the settings gear button",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "続行" : {
+      "comment" : "Continue button on authorization request screen",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        }
+      }
+    },
+    "過去%lld週" : {
+      "comment" : "Heatmap card header showing number of past weeks",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Past %lld Weeks"
+          }
+        }
+      }
+    },
+    "過去12週" : {
+      "comment" : "Weekly view past 12 weeks section header",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Past 12 Weeks"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
