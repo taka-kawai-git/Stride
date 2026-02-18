@@ -1,13 +1,13 @@
 {
   "sourceLanguage" : "ja",
   "strings" : {
-    "Today" : {
+    "今日" : {
       "comment" : "Label shown at the top of the widget",
       "localizations" : {
-        "ja" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "今日"
+            "value" : "Today"
           }
         }
       }

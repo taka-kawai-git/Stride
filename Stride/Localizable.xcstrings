@@ -34,24 +34,13 @@
         }
       }
     },
-    "HealthKit is not available" : {
+    "HealthKitが利用できません" : {
       "comment" : "Error message shown when HealthKit is unavailable",
       "localizations" : {
-        "ja" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "HealthKitが利用できません"
-          }
-        }
-      }
-    },
-    "Today" : {
-      "comment" : "Widget sample label in widget explanation view",
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "今日"
+            "value" : "HealthKit is not available"
           }
         }
       }

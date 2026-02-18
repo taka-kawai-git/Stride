@@ -13,7 +13,7 @@ struct StrideWidgetEntryView: View {
     private var contentView: some View {
         if family == .systemMedium {
             VStack(alignment: .leading, spacing: 0){
-                Text("Today")
+                Text("今日")
                     .font(.subheadline)
                     .bold()
                 MediumWidget(
@@ -26,7 +26,7 @@ struct StrideWidgetEntryView: View {
             .padding(.horizontal,5)
         } else {
             VStack(alignment: .leading, spacing: 0){
-                Text("Today")
+                Text("今日")
                     .font(.subheadline)
                     .bold()
                 SmallWidget(

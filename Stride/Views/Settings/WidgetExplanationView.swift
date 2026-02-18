@@ -17,7 +17,7 @@ struct WidgetExplanationView: View {
                     // -------- Widget Sample --------
                     
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("Today")
+                        Text("今日")
                             .font(.subheadline)
                             .bold()
                         SmallWidget(steps: 6_248)

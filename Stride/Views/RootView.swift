@@ -27,7 +27,7 @@ struct RootView: View {
                 
                 // -------- HealthKit is not available --------
                 
-                Text("HealthKit is not available")
+                Text("HealthKitが利用できません")
             } else if stepViewModel.isAuthorizationRequested {
                 
                 // -------- Authorize already requested --------
