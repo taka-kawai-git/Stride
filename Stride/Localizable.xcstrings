@@ -34,6 +34,17 @@
         }
       }
     },
+    "活動ヒートマップ" : {
+      "comment" : "Accessibility label for the step heatmap",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activity heatmap"
+          }
+        }
+      }
+    },
     "HealthKitが利用できません" : {
       "comment" : "Error message shown when HealthKit is unavailable",
       "localizations" : {

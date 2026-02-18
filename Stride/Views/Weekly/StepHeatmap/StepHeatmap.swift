@@ -62,7 +62,7 @@ struct StepHeatmap: View {
             .padding(.top, Self.labelRowHeight + Self.labelSpacing)
         }
         .frame(width: data.layout.contentWidth, height: data.layout.totalHeight, alignment: .topLeading)
-        .accessibilityLabel("Activity heatmap")
+        .accessibilityLabel(Text("活動ヒートマップ"))
     }
 
 }
