@@ -1,6 +1,42 @@
 {
   "sourceLanguage" : "ja",
   "strings" : {
+    "%lld" : {
+
+    },
+    "Bottom %@" : {
+
+    },
+    "Configuration" : {
+
+    },
+    "Favorite Emoji" : {
+
+    },
+    "Hello %@" : {
+
+    },
+    "L" : {
+
+    },
+    "Leading" : {
+
+    },
+    "Shows your current step count." : {
+
+    },
+    "Stride Steps" : {
+
+    },
+    "T %@" : {
+
+    },
+    "This is an example widget." : {
+
+    },
+    "Trailing" : {
+
+    },
     "今日" : {
       "comment" : "Label shown at the top of the widget",
       "localizations" : {
@@ -8,6 +44,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Today"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天"
           }
         }
       }
@@ -20,6 +62,12 @@
             "state" : "translated",
             "value" : "steps"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "步"
+          }
         }
       }
     },
@@ -30,6 +78,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Goal %@ steps"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目标 %@步"
           }
         }
       }

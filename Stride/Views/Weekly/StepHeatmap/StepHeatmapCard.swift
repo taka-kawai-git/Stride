@@ -43,13 +43,13 @@ struct StepHeatmapCard: View {
                         Text(Self.dateFormatter.string(from: date))
                             .font(.caption)
                             .foregroundColor(.secondary)
-                        Text("\(steps.formatted())歩")
+                        Text(String(format: String(localized: "%@歩"), steps.formatted()))
                             .font(.system(size: 22, weight: .bold))
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 10)
                 } else {
-                    Text("過去\(weeks)週")
+                    Text(String(format: String(localized: "過去%lld週"), weeks))
                         .font(.system(size: 22, weight: .bold))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 10)

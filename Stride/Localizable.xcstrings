@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "ja",
   "strings" : {
+    "%" : {
+
+    },
     "%@ 歩" : {
       "comment" : "Step count with unit (space before 歩, used in Settings stepper)",
       "localizations" : {
@@ -8,6 +11,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ steps"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 步"
           }
         }
       }
@@ -20,8 +29,17 @@
             "state" : "translated",
             "value" : "%@ steps"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@步"
+          }
         }
       }
+    },
+    "%lld" : {
+
     },
     "%lld 歩" : {
       "comment" : "Integer step count with unit (used in weekly history list)",
@@ -31,19 +49,23 @@
             "state" : "translated",
             "value" : "%lld steps"
           }
-        }
-      }
-    },
-    "活動ヒートマップ" : {
-      "comment" : "Accessibility label for the step heatmap",
-      "localizations" : {
-        "en" : {
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Activity heatmap"
+            "value" : "%lld 步"
           }
         }
       }
+    },
+    "🏃🏻" : {
+
+    },
+    "🤔" : {
+
+    },
+    "Daily" : {
+
     },
     "HealthKitが利用できません" : {
       "comment" : "Error message shown when HealthKit is unavailable",
@@ -52,6 +74,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "HealthKit is not available"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HealthKit 不可用"
           }
         }
       }
@@ -64,6 +92,12 @@
             "state" : "translated",
             "value" : "Due to iOS behavior, widget step counts update approximately once per hour"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "由于 iOS 系统限制，小组件步数大约每小时更新一次"
+          }
         }
       }
     },
@@ -75,60 +109,11 @@
             "state" : "translated",
             "value" : "Due to iOS restrictions, updates are paused when Low Power Mode is enabled"
           }
-        }
-      }
-    },
-    "ウィジェット" : {
-      "comment" : "Navigation title for widget explanation screen",
-      "localizations" : {
-        "en" : {
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Widget"
-          }
-        }
-      }
-    },
-    "ウィジェットについて" : {
-      "comment" : "Settings row label linking to widget explanation",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "About Widget"
-          }
-        }
-      }
-    },
-    "カラーテーマ" : {
-      "comment" : "Section header for color theme picker in settings",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Color Theme"
-          }
-        }
-      }
-    },
-    "キャンセル" : {
-      "comment" : "Cancel button in settings sheet",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cancel"
-          }
-        }
-      }
-    },
-    "Strideへようこそ！" : {
-      "comment" : "Welcome screen title",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Welcome to Stride!"
+            "value" : "由于 iOS 限制，开启低电量模式时将暂停更新"
           }
         }
       }
@@ -141,6 +126,12 @@
             "state" : "translated",
             "value" : "A beautiful app to check your step data at a glance"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一款美观的应用，让您一目了然地查看步数数据"
+          }
         }
       }
     },
@@ -151,6 +142,100 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stride uses your step data to track your daily activity. Please allow Health access on the next screen.\nHealth data is only used on your device."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stride 使用您的步数数据记录每日活动。请在下一屏幕允许访问健康数据。\n健康数据仅在您的设备上使用。"
+          }
+        }
+      }
+    },
+    "Strideへようこそ！" : {
+      "comment" : "Welcome screen title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to Stride!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "欢迎使用 Stride！"
+          }
+        }
+      }
+    },
+    "Weekly" : {
+
+    },
+    "ウィジェット" : {
+      "comment" : "Navigation title for widget explanation screen",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widget"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小组件"
+          }
+        }
+      }
+    },
+    "ウィジェットについて" : {
+      "comment" : "Settings row label linking to widget explanation",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About Widget"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于小组件"
+          }
+        }
+      }
+    },
+    "カラーテーマ" : {
+      "comment" : "Section header for color theme picker in settings",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color Theme"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "颜色主题"
+          }
+        }
+      }
+    },
+    "キャンセル" : {
+      "comment" : "Cancel button in settings sheet",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
           }
         }
       }
@@ -163,6 +248,12 @@
             "state" : "translated",
             "value" : "Get Started"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始"
+          }
         }
       }
     },
@@ -173,6 +264,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add Widget to Home Screen"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将小组件添加到主屏幕"
           }
         }
       }
@@ -185,27 +282,11 @@
             "state" : "translated",
             "value" : "Long press an empty area of your Home Screen"
           }
-        }
-      }
-    },
-    "保存" : {
-      "comment" : "Save button in settings sheet",
-      "localizations" : {
-        "en" : {
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Save"
-          }
-        }
-      }
-    },
-    "今週" : {
-      "comment" : "Weekly view section header",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This Week"
+            "value" : "长按主屏幕空白处"
           }
         }
       }
@@ -218,16 +299,45 @@
             "state" : "translated",
             "value" : "Today"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天"
+          }
         }
       }
     },
-    "左上の「編集」ボタンをタップします" : {
-      "comment" : "Widget add instruction step 2",
+    "今週" : {
+      "comment" : "Weekly view section header",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap the \"Edit\" button in the top left"
+            "value" : "This Week"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本周"
+          }
+        }
+      }
+    },
+    "保存" : {
+      "comment" : "Save button in settings sheet",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存"
           }
         }
       }
@@ -240,6 +350,29 @@
             "state" : "translated",
             "value" : "Select your preferred size and tap \"Add Widget\""
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择喜欢的尺寸，轻触「添加小组件」"
+          }
+        }
+      }
+    },
+    "左上の「編集」ボタンをタップします" : {
+      "comment" : "Widget add instruction step 2",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap the \"Edit\" button in the top left"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轻触左上角的「编辑」按钮"
+          }
         }
       }
     },
@@ -250,6 +383,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Displays total steps from Monday to now, divided by the weekly step goal (daily goal × 7)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示从周一至今的累计步数除以每周目标步数（每日目标×7）的比例"
           }
         }
       }
@@ -262,6 +401,12 @@
             "state" : "translated",
             "value" : "Type \"Stride\" in the search field"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在搜索栏输入「Stride」"
+          }
         }
       }
     },
@@ -273,16 +418,11 @@
             "state" : "translated",
             "value" : "steps"
           }
-        }
-      }
-    },
-    "歩数データの連携" : {
-      "comment" : "Authorization screen title",
-      "localizations" : {
-        "en" : {
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Step Data Access"
+            "value" : "步"
           }
         }
       }
@@ -295,6 +435,29 @@
             "state" : "translated",
             "value" : "Steps not showing?"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "步数未显示？"
+          }
+        }
+      }
+    },
+    "歩数データの連携" : {
+      "comment" : "Authorization screen title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step Data Access"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "步数数据访问"
+          }
         }
       }
     },
@@ -305,6 +468,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Note"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "注意"
+          }
+        }
+      }
+    },
+    "活動ヒートマップ" : {
+      "comment" : "Accessibility label for the step heatmap",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activity heatmap"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "活动热图"
           }
         }
       }
@@ -317,6 +503,12 @@
             "state" : "translated",
             "value" : "Goal %@ steps"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目标 %@步"
+          }
         }
       }
     },
@@ -328,49 +520,11 @@
             "state" : "translated",
             "value" : "Step Goal"
           }
-        }
-      }
-    },
-    "設定" : {
-      "comment" : "Navigation title for settings screen",
-      "localizations" : {
-        "en" : {
+        },
+        "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Settings"
-          }
-        }
-      }
-    },
-    "設定アプリ > アプリ（iOS18以上） > ヘルスケア > データアクセスとデバイス > Stride > 歩数をオンにしてください" : {
-      "comment" : "Step-by-step instruction to enable step access in Settings",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Settings > Apps (iOS 18+) > Health > Data Access & Devices > Stride > Enable Steps"
-          }
-        }
-      }
-    },
-    "設定アプリを開く" : {
-      "comment" : "Button to open the Settings app",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Open Settings"
-          }
-        }
-      }
-    },
-    "設定を開く" : {
-      "comment" : "Accessibility label for the settings gear button",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Open Settings"
+            "value" : "目标步数"
           }
         }
       }
@@ -383,6 +537,80 @@
             "state" : "translated",
             "value" : "Continue"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续"
+          }
+        }
+      }
+    },
+    "設定" : {
+      "comment" : "Navigation title for settings screen",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置"
+          }
+        }
+      }
+    },
+    "設定アプリ > アプリ（iOS18以上） > ヘルスケア > データアクセスとデバイス > Stride > 歩数をオンにしてください" : {
+      "comment" : "Step-by-step instruction to enable step access in Settings",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings > Apps (iOS 18+) > Health > Data Access & Devices > Stride > Enable Steps"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置 > 应用（iOS 18+）> 健康 > 数据访问与设备 > Stride > 开启步数"
+          }
+        }
+      }
+    },
+    "設定アプリを開く" : {
+      "comment" : "Button to open the Settings app",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开设置"
+          }
+        }
+      }
+    },
+    "設定を開く" : {
+      "comment" : "Accessibility label for the settings gear button",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "打开设置"
+          }
         }
       }
     },
@@ -394,6 +622,12 @@
             "state" : "translated",
             "value" : "Past %lld Weeks"
           }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "过去 %lld 周"
+          }
         }
       }
     },
@@ -404,6 +638,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Past 12 Weeks"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "过去 12 周"
           }
         }
       }

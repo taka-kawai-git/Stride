@@ -75,7 +75,7 @@ struct AppearanceSettingsView: View {
 
                 Section {
                     Stepper(value: $workingAppearance.goal, in: 1_000...40_000, step: 500) {
-                        Text("\(workingAppearance.goal.formatted()) 歩")
+                        Text(String(format: String(localized: "%@ 歩"), workingAppearance.goal.formatted()))
                             .font(.headline)
                     }
                     .onChange(of: workingAppearance.goal) {

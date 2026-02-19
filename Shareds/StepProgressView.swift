@@ -26,7 +26,7 @@ struct SmallWidget: View {
                             .fontWeight(.bold)
                     }
 
-                    Text("目標 \(goal.formatted())歩")
+                    Text(String(format: String(localized: "目標 %@歩"), goal.formatted()))
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                 }
@@ -76,7 +76,7 @@ struct MediumWidget: View {
                             .padding(.leading, 15)
                             .offset(y: -5)                    }
 
-                    Text("目標 \(goal.formatted())歩")
+                    Text(String(format: String(localized: "目標 %@歩"), goal.formatted()))
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                 }
