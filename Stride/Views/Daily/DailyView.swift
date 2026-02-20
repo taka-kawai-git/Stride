@@ -44,7 +44,7 @@ struct DailyView: View {
                         steps: stepViewModel.currentSteps,
                         goal: appearanceViewModel.appearance.goal,
                         gradientID: appearanceViewModel.appearance.gradientID,
-                        image: Image("ThumbsUp"),
+                        image: progressIcon,
                         onGoalTap: onGoalTap
                     )
                     .padding(.horizontal, 50)
@@ -77,6 +77,20 @@ struct DailyView: View {
 
     // ======================================== Private Functions ========================================
 
+
+    private var progressIcon: Image {
+        let progress = stepProgressRate(steps: stepViewModel.currentSteps, goal: appearanceViewModel.appearance.goal)
+        switch progress {
+        case ..<0.25:
+            return Image(systemName: "figure.stand")
+        case 0.25..<0.5:
+            return Image(systemName: "figure.walk")
+        case 0.5..<0.75:
+            return Image(systemName: "figure.run")
+        default:
+            return Image(systemName: "trophy.fill")
+        }
+    }
 
     private var dataMissingHintView: some View {
         VStack(spacing: 12) {
