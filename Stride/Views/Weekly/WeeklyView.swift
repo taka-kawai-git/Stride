@@ -34,7 +34,7 @@ struct WeeklyView: View {
                         steps: weeklyViewModel.weeklyProgress.totalSteps,
                         goal: weeklyViewModel.weeklyProgress.targetSteps,
                         gradientID: appearanceViewModel.appearance.gradientID,
-                        image: Image("AppIconTransparent"),
+                        image: progressIcon,
                         onGoalTap: onGoalTap
                     )
                     .padding(.horizontal, 50)
@@ -68,6 +68,20 @@ struct WeeklyView: View {
         }
         .onChange(of: appearanceViewModel.appearance.goal) { _ in
             updateWeeklyProgress()
+        }
+    }
+
+    private var progressIcon: Image {
+        let progress = stepProgressRate(steps: weeklyViewModel.weeklyProgress.totalSteps, goal: weeklyViewModel.weeklyProgress.targetSteps)
+        switch progress {
+        case ..<0.25:
+            return Image(systemName: "figure.stand")
+        case 0.25..<0.5:
+            return Image(systemName: "figure.walk")
+        case 0.5..<0.75:
+            return Image(systemName: "figure.run")
+        default:
+            return Image(systemName: "trophy.fill")
         }
     }
 
