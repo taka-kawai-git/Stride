@@ -45,6 +45,7 @@ struct DailyView: View {
                         goal: appearanceViewModel.appearance.goal,
                         gradientID: appearanceViewModel.appearance.gradientID,
                         image: progressIcon,
+                        iconScale: 0.9,
                         onGoalTap: onGoalTap
                     )
                     .padding(.horizontal, 50)
@@ -82,13 +83,13 @@ struct DailyView: View {
         let progress = stepProgressRate(steps: stepViewModel.currentSteps, goal: appearanceViewModel.appearance.goal)
         switch progress {
         case ..<0.25:
-            return Image(systemName: "figure.stand")
+            return Image("ThinkingFace")
         case 0.25..<0.5:
-            return Image(systemName: "figure.walk")
+            return Image("ThumbsUp")
         case 0.5..<0.75:
-            return Image(systemName: "figure.run")
+            return Image("Trophy")
         default:
-            return Image(systemName: "trophy.fill")
+            return Image("PartyPopper")
         }
     }
 

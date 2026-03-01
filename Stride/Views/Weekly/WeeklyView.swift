@@ -75,13 +75,13 @@ struct WeeklyView: View {
         let progress = stepProgressRate(steps: weeklyViewModel.weeklyProgress.totalSteps, goal: weeklyViewModel.weeklyProgress.targetSteps)
         switch progress {
         case ..<0.25:
-            return Image(systemName: "figure.stand")
+            return Image("AppIconTransparent")
         case 0.25..<0.5:
-            return Image(systemName: "figure.walk")
+            return Image("ShoeBronze")
         case 0.5..<0.75:
-            return Image(systemName: "figure.run")
+            return Image("ShoeSilver")
         default:
-            return Image(systemName: "trophy.fill")
+            return Image("ShoeGold")
         }
     }
 

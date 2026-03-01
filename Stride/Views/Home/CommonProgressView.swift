@@ -7,6 +7,7 @@ struct CommonProgressView: View {
     var goal: Int
     var gradientID: String
     var image: Image = Image(systemName: "figure.run")
+    var iconScale: CGFloat = 1.0
     var onGoalTap: (() -> Void)? = nil
 
     private let iconSize: CGFloat = 100
@@ -40,6 +41,7 @@ struct CommonProgressView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(height: iconSize)
+                        .scaleEffect(iconScale)
                         .padding(.vertical, 18)
                 }
                 Spacer()
