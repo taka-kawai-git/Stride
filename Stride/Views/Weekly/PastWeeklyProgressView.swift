@@ -4,14 +4,16 @@ import SwiftUI
 struct PastWeeklyProgressView: View {
     @ObservedObject var stepViewModel: StepViewModel
     @ObservedObject var appearanceViewModel: AppearanceViewModel
-    
+    let weeks: Int?
+
     @StateObject private var historyViewModel = PastWeeklyProgressViewModel()
-    
+
     // -------- init --------
 
-    init(stepViewModel: StepViewModel, appearanceViewModel: AppearanceViewModel) {
+    init(stepViewModel: StepViewModel, appearanceViewModel: AppearanceViewModel, weeks: Int? = nil) {
         self._stepViewModel = ObservedObject(wrappedValue: stepViewModel)
         self._appearanceViewModel = ObservedObject(wrappedValue: appearanceViewModel)
+        self.weeks = weeks
     }
 
     // -------- body --------
@@ -82,7 +84,8 @@ struct PastWeeklyProgressView: View {
     private func refreshData() {
         historyViewModel.calculateHistory(
             dailySteps: stepViewModel.dailyStepCounts,
-            dailyGoal: appearanceViewModel.appearance.goal
+            dailyGoal: appearanceViewModel.appearance.goal,
+            weeks: weeks
         )
     }
 }

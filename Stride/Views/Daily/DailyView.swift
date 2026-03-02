@@ -15,21 +15,25 @@ struct DailyView: View {
     @ObservedObject var appearanceViewModel: AppearanceViewModel
     var onGoalTap: (() -> Void)? = nil
 
-    private let weeks: Int = 12
+    @Binding var showOneYearView: Bool
+
+    private let displayWeeks: Int = 12
+    private let fetchWeeks: Int = 52
     private let log = Logger(category: "view")
 
     // -------- init --------
 
-    init(stepViewModel: StepViewModel, appearanceViewModel: AppearanceViewModel, onGoalTap: (() -> Void)? = nil) {
+    init(stepViewModel: StepViewModel, appearanceViewModel: AppearanceViewModel, showOneYearView: Binding<Bool>, onGoalTap: (() -> Void)? = nil) {
         self.stepViewModel = stepViewModel
         self.appearanceViewModel = appearanceViewModel
+        self._showOneYearView = showOneYearView
         self.onGoalTap = onGoalTap
     }
     
     // -------- body --------
 
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 24) {
 
                 // -------- StepProgressCard --------
@@ -62,9 +66,32 @@ struct DailyView: View {
 
                 StepHeatmapCard(
                     stats: stepViewModel.dailyStepCounts,
-                    weeks: weeks,
+                    weeks: displayWeeks,
                     goal: appearanceViewModel.appearance.goal
                 )
+                .padding(.horizontal, 25)
+
+                // -------- OneYear Link Card --------
+
+                Button {
+                    showOneYearView = true
+                } label: {
+                    Card {
+                        HStack {
+                            Image(systemName: "lock.fill")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                            Text("過去1年のアクティビティを見る")
+                                .font(.subheadline.bold())
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                        .padding(10)
+                    }
+                }
+                .buttonStyle(.plain)
                 .padding(.horizontal, 25)
             }
             .padding(.vertical)
@@ -135,7 +162,7 @@ struct DailyView: View {
     private func loadMainContentData() async {
         log.tDebug("load main content data")
         await stepViewModel.loadCurrentSteps()
-        await stepViewModel.loadDailyStepCounts(weeks: weeks)
+        await stepViewModel.loadDailyStepCounts(weeks: fetchWeeks)
     }
 
     private func openAppSettings() {

@@ -24,8 +24,8 @@ extension StepHeatmap {
         let labelEntries: [MonthLabelEntry]
     }
 
-    static func makeHeatmapData(weeks: Int, width: CGFloat, spacing: CGFloat) -> HeatmapData {
-        let today = calendar.startOfDay(for: Date())
+    static func makeHeatmapData(weeks: Int, width: CGFloat, spacing: CGFloat, endDate: Date? = nil) -> HeatmapData {
+        let today = calendar.startOfDay(for: endDate ?? Date())
         let start = calendar.date(byAdding: .day, value: -(weeks * 7 - 1), to: today)!
         let days = dateRange(from: start, to: today)
         let columns = groupByWeek(days)
@@ -35,13 +35,13 @@ extension StepHeatmap {
         return HeatmapData(columns: columns, layout: layout, labelEntries: entries)
     }
 
-    static func preferredHeight(for width: CGFloat, weeks: Int, spacing: CGFloat = 2) -> CGFloat {
-        let columnCount = columnCount(for: weeks)
+    static func preferredHeight(for width: CGFloat, weeks: Int, spacing: CGFloat = 2, endDate: Date? = nil) -> CGFloat {
+        let columnCount = columnCount(for: weeks, endDate: endDate)
         return layout(for: width, columnCount: columnCount, spacing: spacing).totalHeight
     }
 
-    static func preferredContentWidth(for width: CGFloat, weeks: Int, spacing: CGFloat = 2) -> CGFloat {
-        let columnCount = columnCount(for: weeks)
+    static func preferredContentWidth(for width: CGFloat, weeks: Int, spacing: CGFloat = 2, endDate: Date? = nil) -> CGFloat {
+        let columnCount = columnCount(for: weeks, endDate: endDate)
         return layout(for: width, columnCount: columnCount, spacing: spacing).contentWidth
     }
 
@@ -64,8 +64,8 @@ extension StepHeatmap {
         return LayoutMetrics(cellSize: cellSize, contentWidth: contentWidth, gridHeight: gridHeight)
     }
 
-    private static func columnCount(for weeks: Int) -> Int {
-        let today = calendar.startOfDay(for: Date())
+    private static func columnCount(for weeks: Int, endDate: Date? = nil) -> Int {
+        let today = calendar.startOfDay(for: endDate ?? Date())
         let clampedWeeks = max(weeks, 1)
         guard let start = calendar.date(byAdding: .day, value: -(clampedWeeks * 7 - 1), to: today) else {
             return clampedWeeks

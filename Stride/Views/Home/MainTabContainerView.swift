@@ -11,50 +11,69 @@ struct MainTabContainerView: View {
     
     @State private var selectedTab: Int = 0
     @State private var showingSettings = false
+    @State private var showDailyOneYearView = false
+    @State private var showWeeklyOneYearView = false
     
     private let tabs: [LocalizedStringKey] = ["Daily", "Weekly"]
     
     var body: some View {
-        VStack(spacing: 0) {
+        NavigationStack {
+            VStack(spacing: 0) {
 
-            // -------- AppHeaderView --------
+                // -------- AppHeaderView --------
 
-            AppHeaderView {
-                showingSettings = true
+                AppHeaderView {
+                    showingSettings = true
+                }
+               .padding(.horizontal)
+
+                // -------- Tab Bar --------
+
+                TopTabBar(selectedTab: $selectedTab, tabs: tabs)
+                    .padding(.top, 8)
+
+                Divider()
+
+                // -------- Tab Contents --------
+
+                TabView(selection: $selectedTab) {
+
+                    // -------- DailyView --------
+
+                    DailyView(
+                        stepViewModel: stepViewModel,
+                        appearanceViewModel: appearanceViewModel,
+                        showOneYearView: $showDailyOneYearView,
+                        onGoalTap: { showingSettings = true }
+                    )
+                    .tag(0)
+
+                    // -------- WeeklyView --------
+
+                    WeeklyView(
+                        stepViewModel: stepViewModel,
+                        appearanceViewModel: appearanceViewModel,
+                        onGoalTap: { showingSettings = true },
+                        showOneYearView: $showWeeklyOneYearView
+                    )
+                    .tag(1)
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
             }
-           .padding(.horizontal)
-
-            // -------- Tab Bar --------
-
-            TopTabBar(selectedTab: $selectedTab, tabs: tabs)
-                .padding(.top, 8)
-            
-            Divider()
-            
-            // -------- Tab Contents --------
-
-            TabView(selection: $selectedTab) {
-
-                // -------- DailyView --------
-                
-                DailyView(
-                    stepViewModel: stepViewModel,
-                    appearanceViewModel: appearanceViewModel,
-                    onGoalTap: { showingSettings = true }
+            .toolbar(.hidden, for: .navigationBar)
+            .navigationDestination(isPresented: $showDailyOneYearView) {
+                DailyProgressViewForOneYear(
+                    stats: stepViewModel.dailyStepCounts,
+                    goal: appearanceViewModel.appearance.goal,
+                    totalWeeks: 52
                 )
-                .tag(0)
-
-                // -------- WeeklyView --------
-
-
-                WeeklyView(
-                    stepViewModel: stepViewModel,
-                    appearanceViewModel: appearanceViewModel,
-                    onGoalTap: { showingSettings = true }
-                )
-                .tag(1)
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
+            .navigationDestination(isPresented: $showWeeklyOneYearView) {
+                WeeklyProgressViewForOneYear(
+                    stepViewModel: stepViewModel,
+                    appearanceViewModel: appearanceViewModel
+                )
+            }
         }
         .sheet(isPresented: $showingSettings) {
 

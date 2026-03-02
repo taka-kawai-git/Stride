@@ -631,6 +631,12 @@
         }
       }
     },
+    "過去1年" : {
+
+    },
+    "過去1年のアクティビティを見る" : {
+
+    },
     "過去12週" : {
       "comment" : "Weekly view past 12 weeks section header",
       "localizations" : {

@@ -9,6 +9,7 @@ struct StepHeatmapCard: View {
     let stats: [Date: Int]
     let weeks: Int
     let goal: Int
+    let endDate: Date?
     let availableWidth: CGFloat
 
     @State private var selectedDate: Date?
@@ -23,15 +24,24 @@ struct StepHeatmapCard: View {
         return f
     }()
 
+    private static let monthYearFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.locale = Locale.current
+        f.setLocalizedDateFormatFromTemplate("yyyy/M")
+        return f
+    }()
+
     init(
         stats: [Date: Int],
         weeks: Int,
         goal: Int,
+        endDate: Date? = nil,
         availableWidth: CGFloat = UIScreen.main.bounds.width - 32
     ) {
         self.stats = stats
         self.weeks = weeks
         self.goal = goal
+        self.endDate = endDate
         self.availableWidth = availableWidth
     }
 
@@ -49,7 +59,7 @@ struct StepHeatmapCard: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 10)
                 } else {
-                    Text(String(format: String(localized: "過去%lld週"), weeks))
+                    Text(headerTitle)
                         .font(.system(size: 22, weight: .bold))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 10)
@@ -57,8 +67,8 @@ struct StepHeatmapCard: View {
 
                 GeometryReader { proxy in
                     let innerWidth = proxy.size.width - inset * 2
-                    let heatmapHeight = StepHeatmap.preferredHeight(for: innerWidth, weeks: weeks, spacing: spacing)
-                    let contentWidth = StepHeatmap.preferredContentWidth(for: innerWidth, weeks: weeks, spacing: spacing)
+                    let heatmapHeight = StepHeatmap.preferredHeight(for: innerWidth, weeks: weeks, spacing: spacing, endDate: endDate)
+                    let contentWidth = StepHeatmap.preferredContentWidth(for: innerWidth, weeks: weeks, spacing: spacing, endDate: endDate)
 
                     StepHeatmap(
                         stats: stats,
@@ -66,6 +76,7 @@ struct StepHeatmapCard: View {
                         availableWidth: innerWidth,
                         spacing: spacing,
                         goal: goal,
+                        endDate: endDate,
                         selectedDate: $selectedDate
                     )
                     .frame(width: contentWidth, height: heatmapHeight, alignment: .topLeading)
@@ -73,9 +84,24 @@ struct StepHeatmapCard: View {
                     .padding(.horizontal, inset)
                 }
                 // tmp: too much margin, substract 30
-                .frame(height: StepHeatmap.preferredHeight(for: availableWidth - inset * 2 - 30, weeks: weeks, spacing: spacing))
+                .frame(height: StepHeatmap.preferredHeight(for: availableWidth - inset * 2 - 30, weeks: weeks, spacing: spacing, endDate: endDate))
             }
             .padding(.top, 10)
+            .padding(.bottom, 6)
         }
+    }
+
+    private var headerTitle: String {
+        guard let end = endDate else {
+            return String(format: String(localized: "過去%lld週"), weeks)
+        }
+        let calendar = Calendar(identifier: .gregorian)
+        let start = calendar.date(byAdding: .day, value: -(weeks * 7 - 1), to: end)!
+        let startStr = Self.monthYearFormatter.string(from: start)
+        let endStr = Self.monthYearFormatter.string(from: end)
+        if startStr == endStr {
+            return startStr
+        }
+        return "\(startStr) - \(endStr)"
     }
 }

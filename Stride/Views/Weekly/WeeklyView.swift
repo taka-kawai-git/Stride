@@ -9,12 +9,13 @@ struct WeeklyView: View {
     @ObservedObject var stepViewModel: StepViewModel
     @ObservedObject var appearanceViewModel: AppearanceViewModel
     var onGoalTap: (() -> Void)? = nil
+    @Binding var showOneYearView: Bool
     @StateObject private var weeklyViewModel = WeeklyProgressViewModel()
 
     // -------- Body --------
     
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 24) {
                 
                 // -------- WeeklyProgressView --------
@@ -52,10 +53,34 @@ struct WeeklyView: View {
 
                         PastWeeklyProgressView(
                             stepViewModel: stepViewModel,
-                            appearanceViewModel: appearanceViewModel
+                            appearanceViewModel: appearanceViewModel,
+                            weeks: 12
                         )
                     }
                 }
+                .padding(.horizontal, 25)
+
+                // -------- OneYear Link Card --------
+
+                Button {
+                    showOneYearView = true
+                } label: {
+                    Card {
+                        HStack {
+                            Image(systemName: "calendar")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                            Text("過去1年のアクティビティを見る")
+                                .font(.subheadline.bold())
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                        }
+                        .padding(10)
+                    }
+                }
+                .buttonStyle(.plain)
                 .padding(.horizontal, 25)
             }
             .padding(.vertical)

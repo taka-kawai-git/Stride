@@ -43,7 +43,9 @@ final class PastWeeklyProgressViewModel: ObservableObject {
     }
 
     /// StepViewModelのデータと目標値を受け取って計算を行う
-    func calculateHistory(dailySteps: [Date: Int], dailyGoal: Int) {
+    /// - Parameters:
+    ///   - weeks: 表示する週数（nilの場合は全データ）
+    func calculateHistory(dailySteps: [Date: Int], dailyGoal: Int, weeks: Int? = nil) {
         // バックグラウンドスレッドで重い計算を行う場合を考慮してTaskで囲むことも可能ですが、
         // データ量が膨大でなければMainActor上で処理しても通常は問題ありません。
         // ここでは安全に計算ロジックを実装します。
@@ -76,6 +78,10 @@ final class PastWeeklyProgressViewModel: ObservableObject {
             )
         }
         
-        self.reports = newReports
+        if let weeks = weeks {
+            self.reports = Array(newReports.prefix(weeks))
+        } else {
+            self.reports = newReports
+        }
     }
 }
