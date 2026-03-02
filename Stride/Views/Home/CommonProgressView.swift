@@ -9,6 +9,7 @@ struct CommonProgressView: View {
     var image: Image = Image(systemName: "figure.run")
     var iconScale: CGFloat = 1.0
     var onGoalTap: (() -> Void)? = nil
+    var onIconTap: (() -> Void)? = nil
 
     private let iconSize: CGFloat = 100
     private var haloSize: CGFloat { iconSize * 0.9 }
@@ -43,6 +44,9 @@ struct CommonProgressView: View {
                         .frame(height: iconSize)
                         .scaleEffect(iconScale)
                         .padding(.vertical, 18)
+                }
+                .onTapGesture {
+                    onIconTap?()
                 }
                 Spacer()
             }
