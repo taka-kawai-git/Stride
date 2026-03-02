@@ -21,14 +21,10 @@ struct DailyIconLegendSheet: View {
         LegendItem(imageName: "PartyPopper",   range: "75〜100%", description: "目標達成！"),
     ]
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("アイコンの説明")
-                .font(.headline)
-                .padding(.horizontal, 20)
-                .padding(.top, 20)
-                .padding(.bottom, 12)
+    @State private var contentHeight: CGFloat = 0
 
+    var body: some View {
+        VStack(spacing: 0) {
             ForEach(items.indices, id: \.self) { i in
                 let item = items[i]
                 let isActive = isActiveItem(index: i)
@@ -38,38 +34,34 @@ struct DailyIconLegendSheet: View {
                         Image(item.imageName)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 48, height: 48)
+                            .frame(width: 36, height: 36)
 
                         VStack(alignment: .leading, spacing: 2) {
                             Text(item.range)
-                                .font(.subheadline.bold())
+                                .font(.headline)
                             Text(item.description)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
-
-                        Spacer()
-
-                        if isActive {
-                            Image(systemName: "checkmark.circle.fill")
-                                .font(.title3)
-                                .foregroundStyle(.green)
-                        }
                     }
-                    .padding(.horizontal, 20)
+                    .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
                     .background(isActive ? Color(.systemGray6) : Color.clear)
 
                     if i < items.count - 1 {
                         Divider()
-                            .padding(.leading, 84)
                     }
                 }
             }
-
-            Spacer()
         }
-        .presentationDetents([.medium])
+        .padding(.top, 30)
+        .background(
+            GeometryReader { geo in
+                Color.clear
+                    .onAppear { contentHeight = geo.size.height }
+            }
+        )
+        .presentationDetents([.height(contentHeight)])
         .presentationDragIndicator(.visible)
     }
 
