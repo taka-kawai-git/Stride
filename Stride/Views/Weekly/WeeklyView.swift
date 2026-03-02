@@ -12,6 +12,8 @@ struct WeeklyView: View {
     @Binding var showOneYearView: Bool
     @StateObject private var weeklyViewModel = WeeklyProgressViewModel()
 
+    @State private var showIconLegend = false
+
     // -------- Body --------
     
     var body: some View {
@@ -36,7 +38,8 @@ struct WeeklyView: View {
                         goal: weeklyViewModel.weeklyProgress.targetSteps,
                         gradientID: appearanceViewModel.appearance.gradientID,
                         image: progressIcon,
-                        onGoalTap: onGoalTap
+                        onGoalTap: onGoalTap,
+                        onIconTap: { showIconLegend = true }
                     )
                     .padding(.horizontal, 50)
                 }
@@ -93,6 +96,14 @@ struct WeeklyView: View {
         }
         .onChange(of: appearanceViewModel.appearance.goal) { _ in
             updateWeeklyProgress()
+        }
+        .sheet(isPresented: $showIconLegend) {
+            WeeklyIconLegendSheet(
+                currentProgress: stepProgressRate(
+                    steps: weeklyViewModel.weeklyProgress.totalSteps,
+                    goal: weeklyViewModel.weeklyProgress.targetSteps
+                )
+            )
         }
     }
 

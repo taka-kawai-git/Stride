@@ -19,6 +19,8 @@ struct DailyView: View {
 
     private let displayWeeks: Int = 12
     private let fetchWeeks: Int = 52
+    @State private var showIconLegend = false
+
     private let log = Logger(category: "view")
 
     // -------- init --------
@@ -50,7 +52,8 @@ struct DailyView: View {
                         gradientID: appearanceViewModel.appearance.gradientID,
                         image: progressIcon,
                         iconScale: 0.9,
-                        onGoalTap: onGoalTap
+                        onGoalTap: onGoalTap,
+                        onIconTap: { showIconLegend = true }
                     )
                     .padding(.horizontal, 50)
                 }
@@ -99,6 +102,14 @@ struct DailyView: View {
         .onChange(of: scenePhase, initial: true) { old, new in
             guard new == .active else { return }
             Task { await loadMainContentData() }
+        }
+        .sheet(isPresented: $showIconLegend) {
+            DailyIconLegendSheet(
+                currentProgress: stepProgressRate(
+                    steps: stepViewModel.currentSteps,
+                    goal: appearanceViewModel.appearance.goal
+                )
+            )
         }
     }
 
