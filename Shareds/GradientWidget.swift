@@ -48,6 +48,27 @@ func gradient(for id: String) -> LinearGradient {
         return LinearGradient(colors: [.purple, .indigo, .black.opacity(0.7)], startPoint: .bottomLeading, endPoint: .topTrailing)
     case "mono":
         return LinearGradient(colors: [.gray], startPoint: .bottomLeading, endPoint: .topTrailing)
+
+    // Pastel solid colors
+    case "pastelPink":
+        return LinearGradient(colors: [Color(red: 1.0, green: 0.78, blue: 0.85)], startPoint: .bottomLeading, endPoint: .topTrailing)
+    case "pastelMint":
+        return LinearGradient(colors: [Color(red: 0.70, green: 0.95, blue: 0.85)], startPoint: .bottomLeading, endPoint: .topTrailing)
+    case "pastelLavender":
+        return LinearGradient(colors: [Color(red: 0.83, green: 0.78, blue: 0.97)], startPoint: .bottomLeading, endPoint: .topTrailing)
+    case "pastelSky":
+        return LinearGradient(colors: [Color(red: 0.72, green: 0.88, blue: 0.98)], startPoint: .bottomLeading, endPoint: .topTrailing)
+
+    // Pastel gradients
+    case "pastelSunrise":
+        return LinearGradient(colors: [Color(red: 1.0, green: 0.76, blue: 0.84), Color(red: 1.0, green: 0.88, blue: 0.72), Color(red: 1.0, green: 0.97, blue: 0.70)], startPoint: .bottomLeading, endPoint: .topTrailing)
+    case "pastelOcean":
+        return LinearGradient(colors: [Color(red: 0.70, green: 0.93, blue: 0.87), Color(red: 0.70, green: 0.87, blue: 0.97), Color(red: 0.82, green: 0.78, blue: 0.97)], startPoint: .bottomLeading, endPoint: .topTrailing)
+    case "pastelCottonCandy":
+        return LinearGradient(colors: [Color(red: 1.0, green: 0.78, blue: 0.88), Color(red: 0.85, green: 0.78, blue: 0.97)], startPoint: .bottomLeading, endPoint: .topTrailing)
+    case "pastelMeadow":
+        return LinearGradient(colors: [Color(red: 0.98, green: 0.96, blue: 0.72), Color(red: 0.72, green: 0.95, blue: 0.83), Color(red: 0.70, green: 0.87, blue: 0.97)], startPoint: .bottomLeading, endPoint: .topTrailing)
+
     default:
         return LinearGradient(colors: [.green, .mint, .blue], startPoint: .leading, endPoint: .trailing)
     }

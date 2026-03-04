@@ -20,7 +20,17 @@ struct AppearanceSettingsView: View {
         .init(id: "magentaVioletIndigo"),
         .init(id: "peachCoralOrange"),
         .init(id: "lavenderPurpleIndigo"),
-        .init(id: "oliveBrown")
+        .init(id: "oliveBrown"),
+        // Pastel solid
+        .init(id: "pastelPink"),
+        .init(id: "pastelMint"),
+        .init(id: "pastelLavender"),
+        .init(id: "pastelSky"),
+        // Pastel gradient
+        .init(id: "pastelSunrise"),
+        .init(id: "pastelOcean"),
+        .init(id: "pastelCottonCandy"),
+        .init(id: "pastelMeadow")
     ]
 
     var body: some View {
