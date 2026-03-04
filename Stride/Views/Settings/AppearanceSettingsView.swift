@@ -23,6 +23,19 @@ struct AppearanceSettingsView: View {
         .init(id: "oliveBrown")
     ]
 
+    // -------- Solid color themes --------
+
+    private let solidOptions: [SolidOption] = [
+        .init(id: "solidWhite"),
+        .init(id: "solidBlack"),
+        .init(id: "solidRed"),
+        .init(id: "solidBlue"),
+        .init(id: "solidGreen"),
+        .init(id: "solidOrange"),
+        .init(id: "solidPurple"),
+        .init(id: "solidYellow")
+    ]
+
     // -------- Pastel themes --------
 
     private let pastelOptions: [PastelOption] = [
@@ -81,6 +94,49 @@ struct AppearanceSettingsView: View {
                     }
                 } header: {
                     Text("カラーテーマ")
+                        .font(.caption)
+                        .listRowInsets(EdgeInsets())
+                }
+
+                // -------- Solid Color Grid --------
+
+                Section {
+                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 0), GridItem(.flexible(), spacing: 0)], spacing: 0) {
+                        ForEach(Array(solidOptions.enumerated()), id: \.element.id) { index, option in
+                            let isSelected = appearance.gradientID == option.id
+                            solidColor(for: option.id)
+                                .frame(width: 80, height: 22)
+                                .clipShape(RoundedRectangle(cornerRadius: 11, style: .continuous))
+                                .overlay(alignment: .trailing) {
+                                    if isSelected {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .foregroundStyle(.blue)
+                                            .offset(x: 28)
+                                    }
+                                }
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 20)
+                            .overlay(alignment: .bottom) {
+                                if index / 2 < (solidOptions.count - 1) / 2 {
+                                    Divider()
+                                }
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                appearance.gradientID = option.id
+                                SharedStore.saveAppearance(appearance)
+                            }
+                        }
+                    }
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(AppColors.secondaryBackground)
+                    .overlay {
+                        AppColors.separator
+                            .frame(width: 1 / UIScreen.main.scale)
+                    }
+                } header: {
+                    Text("単色")
                         .font(.caption)
                         .listRowInsets(EdgeInsets())
                 }
@@ -183,5 +239,9 @@ private struct GradientOption: Identifiable {
 }
 
 private struct PastelOption: Identifiable {
+    let id: String
+}
+
+private struct SolidOption: Identifiable {
     let id: String
 }
