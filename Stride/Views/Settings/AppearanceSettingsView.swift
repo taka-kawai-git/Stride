@@ -9,8 +9,6 @@ struct AppearanceSettingsView: View {
     @Binding var appearance: SharedAppearance
     @Environment(\.dismiss) private var dismiss
 
-    @State private var workingAppearance: SharedAppearance
-
     // -------- Gradient themes --------
 
     private let gradientOptions: [GradientOption] = [
@@ -25,11 +23,6 @@ struct AppearanceSettingsView: View {
         .init(id: "oliveBrown")
     ]
 
-    init(appearance: Binding<SharedAppearance>) {
-        _appearance = appearance
-        _workingAppearance = State(initialValue: appearance.wrappedValue)
-    }
-
     var body: some View {
         NavigationStack {
             Form {
@@ -39,14 +32,19 @@ struct AppearanceSettingsView: View {
                 Section {
                     LazyVGrid(columns: [GridItem(.flexible(), spacing: 0), GridItem(.flexible(), spacing: 0)], spacing: 0) {
                         ForEach(Array(gradientOptions.enumerated()), id: \.element.id) { index, option in
-                            let isSelected = workingAppearance.gradientID == option.id
+                            let isSelected = appearance.gradientID == option.id
                             gradient(for: option.id)
-                                .frame(height: 22)
+                                .frame(width: 80, height: 22)
                                 .clipShape(RoundedRectangle(cornerRadius: 11, style: .continuous))
-                                .padding(.horizontal, 40)
+                                .overlay(alignment: .trailing) {
+                                    if isSelected {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .foregroundStyle(.blue)
+                                            .offset(x: 28)
+                                    }
+                                }
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 20)
-                            .background(isSelected ? Color.accentColor.opacity(0.25) : Color.clear)
                             .overlay(alignment: .bottom) {
                                 if index / 2 < (gradientOptions.count - 1) / 2 {
                                     Divider()
@@ -55,7 +53,8 @@ struct AppearanceSettingsView: View {
                             .contentShape(Rectangle())
                             .onTapGesture {
                                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                                workingAppearance.gradientID = option.id
+                                appearance.gradientID = option.id
+                                SharedStore.saveAppearance(appearance)
                             }
                         }
                     }
@@ -67,24 +66,25 @@ struct AppearanceSettingsView: View {
                     }
                 } header: {
                     Text("カラーテーマ")
-                        .font(.subheadline.bold())
+                        .font(.caption)
                         .listRowInsets(EdgeInsets())
                 }
 
                 // -------- Goal Setting --------
 
                 Section {
-                    Stepper(value: $workingAppearance.goal, in: 1_000...40_000, step: 500) {
-                        Text(String(format: String(localized: "%@ 歩"), workingAppearance.goal.formatted()))
+                    Stepper(value: $appearance.goal, in: 1_000...40_000, step: 500) {
+                        Text(String(format: String(localized: "%@ 歩"), appearance.goal.formatted()))
                             .font(.headline)
                     }
-                    .onChange(of: workingAppearance.goal) {
+                    .onChange(of: appearance.goal) {
                         UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                        SharedStore.saveAppearance(appearance)
                     }
                     .listRowBackground(AppColors.secondaryBackground)
                 } header: {
                     Text("目標歩数")
-                        .font(.subheadline.bold())
+                        .font(.caption)
                         .listRowInsets(EdgeInsets())
                 }
 
@@ -96,36 +96,28 @@ struct AppearanceSettingsView: View {
                     } label: {
                         Label("ウィジェットについて", systemImage: "square.grid.2x2")
                     }
+                    .foregroundStyle(.primary)
                     .listRowBackground(AppColors.secondaryBackground)
                 }
             }
             .scrollContentBackground(.hidden)
             .background(AppColors.background.ignoresSafeArea())
-            .navigationTitle("設定")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(AppColors.background, for: .navigationBar)
 
-            // -------- Cancel / Save button --------
-
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("キャンセル") { dismiss() }
+                ToolbarItem(placement: .principal) {
+                    Text("設定")
+                        .font(.headline)
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("保存") { saveChanges() }
+                    Button("完了") { dismiss() }
                 }
             }
         }
     }
 
 
-    // ======================================== Private functions ========================================
-
-
-    private func saveChanges() {
-        appearance = workingAppearance
-        SharedStore.saveAppearance(workingAppearance)
-        dismiss()
-    }
 }
 
 private struct GradientOption: Identifiable {

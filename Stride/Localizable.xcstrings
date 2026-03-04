@@ -225,6 +225,7 @@
     },
     "キャンセル" : {
       "comment" : "Cancel button in settings sheet",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -327,6 +328,7 @@
     },
     "保存" : {
       "comment" : "Save button in settings sheet",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -358,6 +360,9 @@
           }
         }
       }
+    },
+    "完了" : {
+
     },
     "左上の「編集」ボタンをタップします" : {
       "comment" : "Widget add instruction step 2",
