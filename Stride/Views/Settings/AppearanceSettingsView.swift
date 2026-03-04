@@ -20,13 +20,18 @@ struct AppearanceSettingsView: View {
         .init(id: "magentaVioletIndigo"),
         .init(id: "peachCoralOrange"),
         .init(id: "lavenderPurpleIndigo"),
-        .init(id: "oliveBrown"),
-        // Pastel solid
+        .init(id: "oliveBrown")
+    ]
+
+    // -------- Pastel themes --------
+
+    private let pastelOptions: [PastelOption] = [
+        // Solid
         .init(id: "pastelPink"),
         .init(id: "pastelMint"),
         .init(id: "pastelLavender"),
         .init(id: "pastelSky"),
-        // Pastel gradient
+        // Gradient
         .init(id: "pastelSunrise"),
         .init(id: "pastelOcean"),
         .init(id: "pastelCottonCandy"),
@@ -76,6 +81,49 @@ struct AppearanceSettingsView: View {
                     }
                 } header: {
                     Text("カラーテーマ")
+                        .font(.caption)
+                        .listRowInsets(EdgeInsets())
+                }
+
+                // -------- Pastel Theme Grid --------
+
+                Section {
+                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 0), GridItem(.flexible(), spacing: 0)], spacing: 0) {
+                        ForEach(Array(pastelOptions.enumerated()), id: \.element.id) { index, option in
+                            let isSelected = appearance.gradientID == option.id
+                            gradient(for: option.id)
+                                .frame(width: 80, height: 22)
+                                .clipShape(RoundedRectangle(cornerRadius: 11, style: .continuous))
+                                .overlay(alignment: .trailing) {
+                                    if isSelected {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .foregroundStyle(.blue)
+                                            .offset(x: 28)
+                                    }
+                                }
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 20)
+                            .overlay(alignment: .bottom) {
+                                if index / 2 < (pastelOptions.count - 1) / 2 {
+                                    Divider()
+                                }
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                appearance.gradientID = option.id
+                                SharedStore.saveAppearance(appearance)
+                            }
+                        }
+                    }
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(AppColors.secondaryBackground)
+                    .overlay {
+                        AppColors.separator
+                            .frame(width: 1 / UIScreen.main.scale)
+                    }
+                } header: {
+                    Text("パステルカラー")
                         .font(.caption)
                         .listRowInsets(EdgeInsets())
                 }
@@ -131,5 +179,9 @@ struct AppearanceSettingsView: View {
 }
 
 private struct GradientOption: Identifiable {
+    let id: String
+}
+
+private struct PastelOption: Identifiable {
     let id: String
 }
