@@ -258,6 +258,9 @@
         }
       }
     },
+    "パステルカラー" : {
+
+    },
     "ホーム画面にウィジェットを追加しよう" : {
       "comment" : "Widget explanation screen main title",
       "localizations" : {
@@ -343,6 +346,9 @@
           }
         }
       }
+    },
+    "単色" : {
+
     },
     "好きなサイズを選んで「ウィジェットを追加」をタップします" : {
       "comment" : "Widget add instruction step 4",

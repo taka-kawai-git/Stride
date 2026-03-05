@@ -51,13 +51,13 @@ func gradient(for id: String) -> LinearGradient {
 
     // Pastel solid colors
     case "pastelPink":
-        return LinearGradient(colors: [Color(red: 1.0, green: 0.78, blue: 0.85)], startPoint: .bottomLeading, endPoint: .topTrailing)
+        return LinearGradient(colors: [Color(red: 1.0, green: 0.84, blue: 0.90), Color(red: 0.93, green: 0.68, blue: 0.78)], startPoint: .bottomLeading, endPoint: .topTrailing)
     case "pastelMint":
-        return LinearGradient(colors: [Color(red: 0.70, green: 0.95, blue: 0.85)], startPoint: .bottomLeading, endPoint: .topTrailing)
+        return LinearGradient(colors: [Color(red: 0.78, green: 0.98, blue: 0.90), Color(red: 0.60, green: 0.88, blue: 0.78)], startPoint: .bottomLeading, endPoint: .topTrailing)
     case "pastelLavender":
-        return LinearGradient(colors: [Color(red: 0.83, green: 0.78, blue: 0.97)], startPoint: .bottomLeading, endPoint: .topTrailing)
+        return LinearGradient(colors: [Color(red: 0.88, green: 0.84, blue: 1.0), Color(red: 0.75, green: 0.70, blue: 0.92)], startPoint: .bottomLeading, endPoint: .topTrailing)
     case "pastelSky":
-        return LinearGradient(colors: [Color(red: 0.72, green: 0.88, blue: 0.98)], startPoint: .bottomLeading, endPoint: .topTrailing)
+        return LinearGradient(colors: [Color(red: 0.78, green: 0.92, blue: 1.0), Color(red: 0.62, green: 0.80, blue: 0.93)], startPoint: .bottomLeading, endPoint: .topTrailing)
 
     // Pastel gradients
     case "pastelSunrise":
@@ -68,6 +68,24 @@ func gradient(for id: String) -> LinearGradient {
         return LinearGradient(colors: [Color(red: 1.0, green: 0.78, blue: 0.88), Color(red: 0.85, green: 0.78, blue: 0.97)], startPoint: .bottomLeading, endPoint: .topTrailing)
     case "pastelMeadow":
         return LinearGradient(colors: [Color(red: 0.98, green: 0.96, blue: 0.72), Color(red: 0.72, green: 0.95, blue: 0.83), Color(red: 0.70, green: 0.87, blue: 0.97)], startPoint: .bottomLeading, endPoint: .topTrailing)
+
+    // Solid colors
+    case "solidWhite":
+        return LinearGradient(colors: [.white, Color(red: 0.90, green: 0.90, blue: 0.92)], startPoint: .bottomLeading, endPoint: .topTrailing)
+    case "solidBlack":
+        return LinearGradient(colors: [Color(red: 0.18, green: 0.18, blue: 0.20), .black], startPoint: .bottomLeading, endPoint: .topTrailing)
+    case "solidRed":
+        return LinearGradient(colors: [Color(red: 0.95, green: 0.28, blue: 0.28), Color(red: 0.78, green: 0.12, blue: 0.12)], startPoint: .bottomLeading, endPoint: .topTrailing)
+    case "solidBlue":
+        return LinearGradient(colors: [Color(red: 0.30, green: 0.50, blue: 0.95), Color(red: 0.15, green: 0.30, blue: 0.80)], startPoint: .bottomLeading, endPoint: .topTrailing)
+    case "solidGreen":
+        return LinearGradient(colors: [Color(red: 0.28, green: 0.82, blue: 0.38), Color(red: 0.15, green: 0.65, blue: 0.22)], startPoint: .bottomLeading, endPoint: .topTrailing)
+    case "solidOrange":
+        return LinearGradient(colors: [Color(red: 1.00, green: 0.62, blue: 0.20), Color(red: 0.92, green: 0.45, blue: 0.05)], startPoint: .bottomLeading, endPoint: .topTrailing)
+    case "solidPurple":
+        return LinearGradient(colors: [Color(red: 0.68, green: 0.30, blue: 0.95), Color(red: 0.50, green: 0.12, blue: 0.80)], startPoint: .bottomLeading, endPoint: .topTrailing)
+    case "solidYellow":
+        return LinearGradient(colors: [Color(red: 1.00, green: 0.90, blue: 0.20), Color(red: 0.92, green: 0.78, blue: 0.05)], startPoint: .bottomLeading, endPoint: .topTrailing)
 
     default:
         return LinearGradient(colors: [.green, .mint, .blue], startPoint: .leading, endPoint: .trailing)
