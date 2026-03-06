@@ -8,6 +8,7 @@ import SwiftUI
 struct ColorThemeSettingsView: View {
     @Binding var appearance: SharedAppearance
     @StateObject private var subscription = SubscriptionViewModel.shared
+    @State private var showPaywall = false
 
     /// 無料で使えるグラデーションテーマ数
     private let freeGradientCount = 6
@@ -92,7 +93,7 @@ struct ColorThemeSettingsView: View {
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            guard !isLocked else { return }
+                            if isLocked { showPaywall = true; return }
                             UIImpactFeedbackGenerator(style: .light).impactOccurred()
                             appearance.gradientID = option.id
                             SharedStore.saveAppearance(appearance)
@@ -146,7 +147,7 @@ struct ColorThemeSettingsView: View {
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            guard !isLocked else { return }
+                            if isLocked { showPaywall = true; return }
                             UIImpactFeedbackGenerator(style: .light).impactOccurred()
                             appearance.gradientID = option.id
                             SharedStore.saveAppearance(appearance)
@@ -200,7 +201,7 @@ struct ColorThemeSettingsView: View {
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            guard !isLocked else { return }
+                            if isLocked { showPaywall = true; return }
                             UIImpactFeedbackGenerator(style: .light).impactOccurred()
                             appearance.gradientID = option.id
                             SharedStore.saveAppearance(appearance)
@@ -228,6 +229,25 @@ struct ColorThemeSettingsView: View {
                 Text("カラーテーマ")
                     .font(.headline)
             }
+            if !subscription.isPremium {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showPaywall = true
+                    } label: {
+                        Label("プレミアム", systemImage: "crown.fill")
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(
+                                LinearGradient(
+                                    colors: [Color(red: 0.95, green: 0.76, blue: 0.25), Color(red: 0.90, green: 0.55, blue: 0.10)],
+                                    startPoint: .leading, endPoint: .trailing
+                                )
+                            )
+                    }
+                }
+            }
+        }
+        .sheet(isPresented: $showPaywall) {
+            PaywallView()
         }
     }
 }

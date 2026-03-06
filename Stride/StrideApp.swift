@@ -6,6 +6,10 @@
 //
 
 import SwiftUI
+import RevenueCat
+
+// TODO: Replace with your actual RevenueCat API key from the RevenueCat dashboard
+private let kRevenueCatAPIKey = "appl_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 @MainActor
 @main
@@ -16,6 +20,10 @@ struct StrideApp: App {
     private let pedometerService = PedometerService()
 
     init() {
+        Purchases.configure(withAPIKey: kRevenueCatAPIKey)
+        // Uncomment to enable verbose logging during development:
+        // Purchases.logLevel = .debug
+
         let service = pedometerService
         Task {
             await service.configure(backgroundStepUpdateHandler: { steps in

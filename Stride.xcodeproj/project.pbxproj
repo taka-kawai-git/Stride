@@ -10,6 +10,7 @@
 		3BA1D9702EC4ECB10021DB3B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA1D96F2EC4ECB10021DB3B /* WidgetKit.framework */; };
 		3BA1D9722EC4ECB10021DB3B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA1D9712EC4ECB10021DB3B /* SwiftUI.framework */; };
 		3BA1D9832EC4ECB50021DB3B /* StrideWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3BA1D96D2EC4ECB10021DB3B /* StrideWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DEADBEEF0000000000000003 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = DEADBEEF0000000000000002 /* RevenueCat */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEADBEEF0000000000000003 /* RevenueCat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,6 +235,7 @@
 			);
 			name = Stride;
 			packageProductDependencies = (
+				DEADBEEF0000000000000002 /* RevenueCat */,
 			);
 			productName = Stride;
 			productReference = 3BB8A8FF2EBD001B00096169 /* Stride.app */;
@@ -323,6 +326,9 @@
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3BB8A9002EBD001B00096169 /* Products */;
+			packageReferences = (
+				DEADBEEF0000000000000001 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
+			);
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -413,6 +419,25 @@
 			targetProxy = 3BB8A91A2EBD002000096169 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DEADBEEF0000000000000001 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DEADBEEF0000000000000002 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DEADBEEF0000000000000001 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3BA1D9862EC4ECB50021DB3B /* Debug */ = {
