@@ -110,17 +110,17 @@ struct PaywallView: View {
             featureRow(
                 icon: "calendar",
                 gradientColors: [.orange, .yellow],
-                title: "過去１年間のデータが閲覧可能"
+                title: String(localized: "過去１年間のデータが閲覧可能")
             )
             featureRow(
                 icon: "paintpalette.fill",
                 gradientColors: [.pink, .purple],
-                title: "より多くのカラーデザインが利用可能"
+                title: String(localized: "より多くのカラーデザインが利用可能")
             )
             featureRow(
                 icon: "square.2.layers.3d.fill",
                 gradientColors: [.indigo, .blue],
-                title: "より多くのウィジェットが利用可能\u{00A0}(予定)"
+                title: String(localized: "より多くのウィジェットが利用可能 (予定)")
             )
         }
         .padding(.horizontal, 28)
@@ -159,25 +159,25 @@ struct PaywallView: View {
         HStack(spacing: 10) {
             planCard(
                 plan: .monthly,
-                title: "月間",
+                title: String(localized: "月間"),
                 priceLabel: monthlyPriceLabel,
-                subLabel: "いつでも解約",
+                subLabel: String(localized: "いつでも解約"),
                 badge: nil,
                 isRecommended: false
             )
             planCard(
                 plan: .annual,
-                title: "年間",
+                title: String(localized: "年間"),
                 priceLabel: annualPriceLabel,
-                subLabel: annualPerMonthLabel ?? "いつでも解約",
-                badge: "おすすめ",
+                subLabel: annualPerMonthLabel ?? String(localized: "いつでも解約"),
+                badge: String(localized: "おすすめ"),
                 isRecommended: true
             )
             planCard(
                 plan: .lifetime,
-                title: "買い切り",
+                title: String(localized: "買い切り"),
                 priceLabel: lifetimePriceLabel,
-                subLabel: "一回限りの支払い",
+                subLabel: String(localized: "一回限りの支払い"),
                 badge: nil,
                 isRecommended: false
             )
