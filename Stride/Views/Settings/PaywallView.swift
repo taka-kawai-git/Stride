@@ -16,33 +16,30 @@ struct PaywallView: View {
         startPoint: .topLeading, endPoint: .bottomTrailing
     )
 
-    // CTA button gradient (tealBlueIndigo theme)
+    // CTA button gradient
     private let ctaGradient = LinearGradient(
-        colors: [.teal, .blue, .indigo],
+        colors: [Color(red: 0.20, green: 0.40, blue: 0.95), Color(red: 0.15, green: 0.30, blue: 0.85)],
         startPoint: .leading, endPoint: .trailing
     )
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                Spacer()
-                    .frame(maxHeight: 40)
-
                 // -------- Title --------
                 titleSection
 
                 // -------- Features Grid --------
                 featuresGrid
-                    .padding(.top, 36)
+                    .padding(.top, 28)
 
                 // -------- Plan Selector --------
                 planSelector
-                    .padding(.top, 24)
+                    .padding(.top, 32)
                     .padding(.horizontal, 20)
 
                 // -------- CTA Button --------
                 ctaButton
-                    .padding(.top, 16)
+                    .padding(.top, 24)
                     .padding(.horizontal, 20)
 
                 // -------- Footer --------
@@ -83,30 +80,48 @@ struct PaywallView: View {
     // MARK: - Title Section
 
     private var titleSection: some View {
-        VStack(spacing: 14) {
-            HStack(alignment: .firstTextBaseline, spacing: 8) {
-                Text("Stride")
-                    .font(.custom("Avenir-Black", size: 36))
-                Text("PRO")
-                    .font(.custom("Avenir-Black", size: 13))
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 9)
-                    .padding(.vertical, 4)
-                    .background(goldGradient, in: Capsule())
-                    .offset(y: -8)
+        ZStack {
+            GeometryReader { geo in
+                Image("AppIconTransparent")
+                    .resizable()
+                    .scaledToFill()
+                    .scaleEffect(0.5)
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .clipped()
             }
 
-            Text("すべての機能を\nアンロックしよう")
-                .font(.system(size: 24, weight: .bold, design: .rounded))
-                .multilineTextAlignment(.center)
-                .lineSpacing(4)
+            Color.black.opacity(0.7)
+
+            VStack(spacing: 14) {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Text("Stride")
+                        .font(.custom("Avenir-Black", size: 36))
+                    Text("PRO")
+                        .font(.custom("Avenir-Black", size: 13))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 9)
+                        .padding(.vertical, 4)
+                        .background(goldGradient, in: Capsule())
+                        .offset(y: -8)
+                }
+
+                Text("すべての機能を\nアンロックしよう")
+                    .font(.system(size: 24, weight: .bold))
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(4)
+            }
+            .padding(.vertical, 26)
         }
+        .foregroundStyle(.white)
+        .frame(maxWidth: .infinity)
+        .clipped()
+        .ignoresSafeArea(edges: .top)
     }
 
     // MARK: - Features List
 
     private var featuresGrid: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 14) {
             featureRow(
                 icon: "calendar",
                 gradientColors: [.orange, .yellow],
@@ -128,26 +143,21 @@ struct PaywallView: View {
 
     private func featureRow(icon: String, gradientColors: [Color], title: String) -> some View {
         HStack(spacing: 14) {
-            ZStack {
-                Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: gradientColors.map { $0.opacity(0.2) },
-                            startPoint: .topLeading, endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 40, height: 40)
-                Image(systemName: icon)
-                    .font(.system(size: 18))
-                    .foregroundStyle(
-                        LinearGradient(
-                            colors: gradientColors,
-                            startPoint: .topLeading, endPoint: .bottomTrailing
-                        )
-                    )
-            }
+           Image(systemName: icon)
+               .font(.system(size: 18))
+               .foregroundStyle(
+                   LinearGradient(
+                       colors: gradientColors,
+                       startPoint: .topLeading, endPoint: .bottomTrailing
+                   )
+               )
+               .frame(width: 24)
+            // Image(systemName: "checkmark.circle.fill")
+            //     .font(.system(size: 20))
+            //     .foregroundStyle(.green)
+            //     .frame(width: 24)
             Text(title)
-                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                .font(.system(size: 16, weight: .semibold))
                 .foregroundStyle(.primary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -199,29 +209,28 @@ struct PaywallView: View {
         } label: {
             VStack(spacing: 8) {
                 Text(title)
-                    .font(.system(size: 18, weight: .bold, design: .rounded))
+                    .font(.system(size: 18, weight: .bold))
 
                 Text(priceLabel)
-                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .font(.system(size: 16, weight: .bold))
 
                 Text(subLabel)
-                    .font(.system(size: 11, design: .rounded))
+                    .font(.system(size: 11))
                     .foregroundStyle(.secondary)
                     .lineLimit(2)
                     .minimumScaleFactor(0.8)
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, isRecommended ? 22 : 18)
+            .frame(maxWidth: .infinity, minHeight: isRecommended ? 140 : 120)
             .padding(.horizontal, 4)
             .background(
                 RoundedRectangle(cornerRadius: 14, style: .continuous)
                     .fill(isSelected && isRecommended
-                          ? Color.accentColor.opacity(0.08)
+                          ? Color(red: 0.20, green: 0.40, blue: 0.95).opacity(0.08)
                           : AppColors.secondaryBackground)
                     .overlay(
                         RoundedRectangle(cornerRadius: 14, style: .continuous)
                             .stroke(
-                                isSelected ? Color.accentColor : Color.secondary.opacity(0.15),
+                                isSelected ? Color(red: 0.20, green: 0.40, blue: 0.95) : Color.secondary.opacity(0.15),
                                 lineWidth: isSelected ? 2 : 1
                             )
                     )
@@ -229,7 +238,7 @@ struct PaywallView: View {
             .overlay(alignment: .top) {
                 if let badge {
                     Text(badge)
-                        .font(.system(size: 10, weight: .bold, design: .rounded))
+                        .font(.system(size: 10, weight: .bold))
                         .foregroundStyle(.white)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 3)
@@ -262,7 +271,7 @@ struct PaywallView: View {
                         .tint(.white)
                 } else {
                     Text("Subscribe")
-                        .font(.system(size: 17, weight: .bold, design: .rounded))
+                        .font(.system(size: 17, weight: .bold))
                 }
             }
             .frame(maxWidth: .infinity)
@@ -282,17 +291,17 @@ struct PaywallView: View {
                 Task { await subscription.restore() }
             } label: {
                 Text("復元")
-                    .font(.system(size: 12, design: .rounded))
+                    .font(.system(size: 12))
                     .foregroundStyle(.secondary)
             }
             .disabled(subscription.isLoading)
 
             Text("利用規約")
-                .font(.system(size: 12, design: .rounded))
+                .font(.system(size: 12))
                 .foregroundStyle(.secondary)
 
             Text("プライバシー")
-                .font(.system(size: 12, design: .rounded))
+                .font(.system(size: 12))
                 .foregroundStyle(.secondary)
         }
     }
