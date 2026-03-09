@@ -118,6 +118,18 @@
         }
       }
     },
+    "OK" : {
+
+    },
+    "PRO" : {
+
+    },
+    "Stride" : {
+
+    },
+    "Stride Pro" : {
+
+    },
     "Strideは一目で歩数データを確認できる美しいアプリです" : {
       "comment" : "Welcome screen description",
       "localizations" : {
@@ -169,8 +181,44 @@
         }
       }
     },
+    "Subscribe" : {
+
+    },
     "Weekly" : {
 
+    },
+    "いい調子！" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good pace!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "状态不错！"
+          }
+        }
+      }
+    },
+    "いつでも解約" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel anytime"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "随时取消"
+          }
+        }
+      }
     },
     "ウィジェット" : {
       "comment" : "Navigation title for widget explanation screen",
@@ -202,6 +250,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "关于小组件"
+          }
+        }
+      }
+    },
+    "エラー" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "错误"
+          }
+        }
+      }
+    },
+    "おすすめ" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Best Value"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "推荐"
           }
         }
       }
@@ -241,6 +322,54 @@
         }
       }
     },
+    "ゴールド達成！" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gold achieved!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "达成金牌！"
+          }
+        }
+      }
+    },
+    "すごい！" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amazing!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "太棒了！"
+          }
+        }
+      }
+    },
+    "すべての機能を\nアンロックしよう" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock All Features"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "解锁所有功能"
+          }
+        }
+      }
+    },
     "はじめる" : {
       "comment" : "Get Started button on welcome screen",
       "localizations" : {
@@ -259,7 +388,52 @@
       }
     },
     "パステルカラー" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pastel"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "柔和色"
+          }
+        }
+      }
+    },
+    "プライバシー" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐私政策"
+          }
+        }
+      }
+    },
+    "プレミアム" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高级版"
+          }
+        }
+      }
     },
     "ホーム画面にウィジェットを追加しよう" : {
       "comment" : "Widget explanation screen main title",
@@ -291,6 +465,105 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "长按主屏幕空白处"
+          }
+        }
+      }
+    },
+    "まだまだこれから" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Just getting started"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "才刚开始"
+          }
+        }
+      }
+    },
+    "もうひと踏ん張り！" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Almost there!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "再加把劲！"
+          }
+        }
+      }
+    },
+    "もう少し頑張れる！" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep it up!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "再努力一下！"
+          }
+        }
+      }
+    },
+    "より多くのウィジェットが利用可能 (予定)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More widgets available (coming soon)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更多小组件可用（即将推出）"
+          }
+        }
+      }
+    },
+    "より多くのカラーデザインが利用可能" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More color designs available"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更多颜色设计可用"
+          }
+        }
+      }
+    },
+    "一回限りの支払い" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One-time purchase"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一次性付款"
           }
         }
       }
@@ -347,8 +620,37 @@
         }
       }
     },
+    "利用規約" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Use"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用条款"
+          }
+        }
+      }
+    },
     "単色" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solid"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "纯色"
+          }
+        }
+      }
     },
     "好きなサイズを選んで「ウィジェットを追加」をタップします" : {
       "comment" : "Widget add instruction step 4",
@@ -367,8 +669,37 @@
         }
       }
     },
+    "始まったばかり" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Just started"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刚刚开始"
+          }
+        }
+      }
+    },
     "完了" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成"
+          }
+        }
+      }
     },
     "左上の「編集」ボタンをタップします" : {
       "comment" : "Widget add instruction step 2",
@@ -387,6 +718,39 @@
         }
       }
     },
+    "年間" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annual"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "年付"
+          }
+        }
+      }
+    },
+    "復元" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "恢复购买"
+          }
+        }
+      }
+    },
     "月曜〜現在までの合計歩数を週の目標歩数(1日の目標歩数×7)で割った数値が表示されます" : {
       "comment" : "Weekly progress info popover description",
       "localizations" : {
@@ -400,6 +764,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "显示从周一至今的累计步数除以每周目标步数（每日目标×7）的比例"
+          }
+        }
+      }
+    },
+    "月間" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monthly"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "月付"
           }
         }
       }
@@ -540,6 +921,38 @@
         }
       }
     },
+    "目標達成！" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goal reached!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "达成目标！"
+          }
+        }
+      }
+    },
+    "約 %@/月" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "≈ %@/mo"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "约 %@/月"
+          }
+        }
+      }
+    },
     "続行" : {
       "comment" : "Continue button on authorization request screen",
       "localizations" : {
@@ -625,6 +1038,23 @@
         }
       }
     },
+    "買い切り" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lifetime"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "买断"
+          }
+        }
+      }
+    },
     "過去%lld週" : {
       "comment" : "Heatmap card header showing number of past weeks",
       "localizations" : {
@@ -643,10 +1073,53 @@
       }
     },
     "過去1年" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Past Year"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "过去1年"
+          }
+        }
+      }
     },
     "過去1年のアクティビティを見る" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View Past Year Activity"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查看过去1年的活动"
+          }
+        }
+      }
+    },
+    "過去１年間のデータが閲覧可能" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View up to 1 year of past data"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可查看过去1年的数据"
+          }
+        }
+      }
     },
     "過去12週" : {
       "comment" : "Weekly view past 12 weeks section header",

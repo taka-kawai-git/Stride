@@ -8,6 +8,7 @@ import SwiftUI
 struct AppearanceSettingsView: View {
     @Binding var appearance: SharedAppearance
     @Environment(\.dismiss) private var dismiss
+    @State private var showPaywall = false
 
     var body: some View {
         NavigationStack {
@@ -29,6 +30,18 @@ struct AppearanceSettingsView: View {
                     Text("目標歩数")
                         .font(.caption)
                         .listRowInsets(EdgeInsets())
+                }
+
+                // -------- Stride Pro --------
+
+                Section {
+                    Button {
+                        showPaywall = true
+                    } label: {
+                        Label("Stride Pro", systemImage: "crown.fill")
+                            .foregroundStyle(.orange)
+                    }
+                    .listRowBackground(AppColors.secondaryBackground)
                 }
 
                 // -------- Links Section --------
@@ -56,6 +69,9 @@ struct AppearanceSettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(AppColors.background, for: .navigationBar)
 
+            .sheet(isPresented: $showPaywall) {
+                PaywallView()
+            }
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text("設定")
