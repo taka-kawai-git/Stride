@@ -3,9 +3,10 @@ import RevenueCat
 
 // MARK: - Product ID
 // TODO: Replace with actual product ID from App Store Connect / RevenueCat dashboard
-private let kPremiumEntitlementID = "premium"
-private let kMonthlyProductID     = "stride_premium_monthly"
-private let kAnnualProductID      = "stride_premium_annual"
+private let kPremiumEntitlementID = "Stride Pro"
+private let kMonthlyProductID     = "com.gmail.dev.apps.taka.Stride.monthly"
+private let kAnnualProductID      = "com.gmail.dev.apps.taka.Stride.yearly"
+private let kLifetimeProductID    = "com.gmail.dev.apps.taka.Stride.lifetime"
 
 @MainActor
 class SubscriptionViewModel: ObservableObject {
@@ -14,12 +15,11 @@ class SubscriptionViewModel: ObservableObject {
     @Published var isPremium: Bool = false
     @Published var monthlyPackage: Package?
     @Published var annualPackage: Package?
+    @Published var lifetimePackage: Package?
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
 
-    private init() {
-        Task { await refreshStatus() }
-    }
+    private init() {}
 
     // MARK: - Public API
 
@@ -40,24 +40,23 @@ class SubscriptionViewModel: ObservableObject {
             let offerings = try await Purchases.shared.offerings()
             let packages = offerings.current?.availablePackages ?? []
             monthlyPackage = packages.first { $0.storeProduct.productIdentifier == kMonthlyProductID }
-            annualPackage  = packages.first { $0.storeProduct.productIdentifier == kAnnualProductID }
+            annualPackage   = packages.first { $0.storeProduct.productIdentifier == kAnnualProductID }
+            lifetimePackage = packages.first { $0.storeProduct.productIdentifier == kLifetimeProductID }
         } catch {
             errorMessage = error.localizedDescription
         }
     }
 
-    func purchase(_ package: Package) async throws {
+    func purchase(_ package: Package) async {
         isLoading = true
         defer { isLoading = false }
         errorMessage = nil
         do {
             let result = try await Purchases.shared.purchase(package: package)
+            if result.userCancelled { return }
             isPremium = result.customerInfo.entitlements[kPremiumEntitlementID]?.isActive == true
-        } catch let err as ErrorCode where err == .purchaseCancelledError {
-            // User cancelled – not an error
         } catch {
             errorMessage = error.localizedDescription
-            throw error
         }
     }
 

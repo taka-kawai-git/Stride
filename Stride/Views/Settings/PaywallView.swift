@@ -2,56 +2,55 @@ import SwiftUI
 import RevenueCat
 
 struct PaywallView: View {
-    @StateObject private var subscription = SubscriptionViewModel.shared
+    @ObservedObject private var subscription = SubscriptionViewModel.shared
     @Environment(\.dismiss) private var dismiss
 
     /// The plan the user has tapped. Defaults to annual (best value).
     @State private var selectedPlan: Plan = .annual
 
-    enum Plan { case monthly, annual }
+    enum Plan { case monthly, annual, lifetime }
 
-    // MARK: - Preview gradients for the hero banner
+    // Gold gradient for PRO badge
+    private let goldGradient = LinearGradient(
+        colors: [Color(red: 0.95, green: 0.80, blue: 0.30), Color(red: 0.85, green: 0.55, blue: 0.15)],
+        startPoint: .topLeading, endPoint: .bottomTrailing
+    )
 
-    private let previewGradients: [LinearGradient] = [
-        gradient(for: "peachCoralOrange"),
-        gradient(for: "lavenderPurpleIndigo"),
-        gradient(for: "oliveBrown"),
-        gradient(for: "pastelSunrise"),
-        gradient(for: "pastelOcean"),
-        gradient(for: "solidPurple"),
-        gradient(for: "solidBlue"),
-        gradient(for: "pastelCottonCandy"),
-    ]
+    // CTA button gradient (tealBlueIndigo theme)
+    private let ctaGradient = LinearGradient(
+        colors: [.teal, .blue, .indigo],
+        startPoint: .leading, endPoint: .trailing
+    )
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 0) {
+            VStack(spacing: 0) {
+                Spacer()
+                    .frame(maxHeight: 40)
 
-                    // -------- Hero --------
-                    heroSection
+                // -------- Title --------
+                titleSection
 
-                    // -------- Feature List --------
-                    featuresSection
-                        .padding(.top, 32)
+                // -------- Features Grid --------
+                featuresGrid
+                    .padding(.top, 36)
 
-                    // -------- Plan Selector --------
-                    planSelector
-                        .padding(.top, 28)
-                        .padding(.horizontal, 20)
+                // -------- Plan Selector --------
+                planSelector
+                    .padding(.top, 24)
+                    .padding(.horizontal, 20)
 
-                    // -------- CTA Button --------
-                    ctaButton
-                        .padding(.top, 20)
-                        .padding(.horizontal, 20)
+                // -------- CTA Button --------
+                ctaButton
+                    .padding(.top, 16)
+                    .padding(.horizontal, 20)
 
-                    // -------- Restore / Legal --------
-                    legalFooter
-                        .padding(.top, 16)
-                        .padding(.bottom, 40)
-                }
+                // -------- Footer --------
+                legalFooter
+                    .padding(.top, 14)
+
+                Spacer()
             }
-            .scrollContentBackground(.hidden)
             .background(AppColors.background.ignoresSafeArea())
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(AppColors.background, for: .navigationBar)
@@ -66,7 +65,10 @@ struct PaywallView: View {
                     }
                 }
             }
-            .task { await subscription.loadOfferings() }
+            .task {
+                await subscription.refreshStatus()
+                await subscription.loadOfferings()
+            }
             .alert("エラー", isPresented: Binding(
                 get: { subscription.errorMessage != nil },
                 set: { if !$0 { subscription.errorMessage = nil } }
@@ -78,95 +80,106 @@ struct PaywallView: View {
         }
     }
 
-    // MARK: - Sections
+    // MARK: - Title Section
 
-    private var heroSection: some View {
+    private var titleSection: some View {
+        VStack(spacing: 14) {
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Text("Stride")
+                    .font(.custom("Avenir-Black", size: 36))
+                Text("PRO")
+                    .font(.custom("Avenir-Black", size: 13))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 9)
+                    .padding(.vertical, 4)
+                    .background(goldGradient, in: Capsule())
+                    .offset(y: -8)
+            }
+
+            Text("すべての機能を\nアンロックしよう")
+                .font(.system(size: 24, weight: .bold, design: .rounded))
+                .multilineTextAlignment(.center)
+                .lineSpacing(4)
+        }
+    }
+
+    // MARK: - Features List
+
+    private var featuresGrid: some View {
         VStack(spacing: 16) {
-            // Color-swatch mosaic
-            LazyVGrid(
-                columns: Array(repeating: GridItem(.flexible(), spacing: 6), count: 4),
-                spacing: 6
-            ) {
-                ForEach(previewGradients.indices, id: \.self) { i in
-                    previewGradients[i]
-                        .frame(height: 44)
-                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                }
-            }
-            .padding(.horizontal, 20)
-            .padding(.top, 24)
-
-            // Badge
-            Label("プレミアム", systemImage: "crown.fill")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(.white)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 5)
-                .background(
-                    LinearGradient(
-                        colors: [Color(red: 0.95, green: 0.76, blue: 0.25), Color(red: 0.90, green: 0.55, blue: 0.10)],
-                        startPoint: .leading, endPoint: .trailing
-                    ),
-                    in: Capsule()
-                )
-
-            Text("すべてのカラーテーマを\nアンロックしよう")
-                .font(.title2.weight(.bold))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 24)
-
-            Text("グラデーション・単色・パステルの\n全テーマが使い放題")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 24)
+            featureRow(
+                icon: "calendar",
+                gradientColors: [.orange, .yellow],
+                title: "過去１年間のデータが閲覧可能"
+            )
+            featureRow(
+                icon: "paintpalette.fill",
+                gradientColors: [.pink, .purple],
+                title: "より多くのカラーデザインが利用可能"
+            )
+            featureRow(
+                icon: "square.2.layers.3d.fill",
+                gradientColors: [.indigo, .blue],
+                title: "より多くのウィジェットが利用可能\u{00A0}(予定)"
+            )
         }
+        .padding(.horizontal, 28)
     }
 
-    private var featuresSection: some View {
-        VStack(spacing: 0) {
-            ForEach(features) { feature in
-                HStack(spacing: 14) {
-                    Image(systemName: feature.icon)
-                        .font(.body.weight(.semibold))
-                        .foregroundStyle(feature.color)
-                        .frame(width: 32)
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(feature.title)
-                            .font(.subheadline.weight(.semibold))
-                        Text(feature.description)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    Spacer()
-                }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 12)
-
-                if feature.id != features.last?.id {
-                    Divider().padding(.leading, 70)
-                }
+    private func featureRow(icon: String, gradientColors: [Color], title: String) -> some View {
+        HStack(spacing: 14) {
+            ZStack {
+                Circle()
+                    .fill(
+                        LinearGradient(
+                            colors: gradientColors.map { $0.opacity(0.2) },
+                            startPoint: .topLeading, endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: 40, height: 40)
+                Image(systemName: icon)
+                    .font(.system(size: 18))
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: gradientColors,
+                            startPoint: .topLeading, endPoint: .bottomTrailing
+                        )
+                    )
             }
+            Text(title)
+                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                .foregroundStyle(.primary)
         }
-        .background(AppColors.secondaryBackground, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-        .padding(.horizontal, 20)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
+
+    // MARK: - Plan Selector (3 cards side by side)
 
     private var planSelector: some View {
-        VStack(spacing: 10) {
-            planCard(
-                plan: .annual,
-                title: "年間プラン",
-                badge: "お得",
-                priceLabel: annualPriceLabel,
-                perMonthLabel: annualPerMonthLabel
-            )
+        HStack(spacing: 10) {
             planCard(
                 plan: .monthly,
-                title: "月間プラン",
-                badge: nil,
+                title: "月間",
                 priceLabel: monthlyPriceLabel,
-                perMonthLabel: nil
+                subLabel: "いつでも解約",
+                badge: nil,
+                isRecommended: false
+            )
+            planCard(
+                plan: .annual,
+                title: "年間",
+                priceLabel: annualPriceLabel,
+                subLabel: annualPerMonthLabel ?? "いつでも解約",
+                badge: "おすすめ",
+                isRecommended: true
+            )
+            planCard(
+                plan: .lifetime,
+                title: "買い切り",
+                priceLabel: lifetimePriceLabel,
+                subLabel: "一回限りの支払い",
+                badge: nil,
+                isRecommended: false
             )
         }
     }
@@ -174,66 +187,72 @@ struct PaywallView: View {
     private func planCard(
         plan: Plan,
         title: String,
-        badge: String?,
         priceLabel: String,
-        perMonthLabel: String?
+        subLabel: String,
+        badge: String?,
+        isRecommended: Bool
     ) -> some View {
         let isSelected = selectedPlan == plan
         return Button {
-            withAnimation(.spring(duration: 0.2)) { selectedPlan = plan }
+            withAnimation(.spring(duration: 0.25, bounce: 0.2)) { selectedPlan = plan }
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
         } label: {
-            HStack {
-                VStack(alignment: .leading, spacing: 3) {
-                    HStack(spacing: 6) {
-                        Text(title)
-                            .font(.subheadline.weight(.semibold))
-                        if let badge {
-                            Text(badge)
-                                .font(.caption2.weight(.bold))
-                                .foregroundStyle(.white)
-                                .padding(.horizontal, 7)
-                                .padding(.vertical, 2)
-                                .background(Color.orange, in: Capsule())
-                        }
-                    }
-                    if let perMonthLabel {
-                        Text(perMonthLabel)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-                Spacer()
-                Text(priceLabel)
-                    .font(.subheadline.weight(.semibold))
+            VStack(spacing: 8) {
+                Text(title)
+                    .font(.system(size: 18, weight: .bold, design: .rounded))
 
-                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .foregroundStyle(isSelected ? Color.accentColor : Color.secondary.opacity(0.4))
-                    .font(.title3)
+                Text(priceLabel)
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+
+                Text(subLabel)
+                    .font(.system(size: 11, design: .rounded))
+                    .foregroundStyle(.secondary)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.8)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 14)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, isRecommended ? 22 : 18)
+            .padding(.horizontal, 4)
             .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(AppColors.secondaryBackground)
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .fill(isSelected && isRecommended
+                          ? Color.accentColor.opacity(0.08)
+                          : AppColors.secondaryBackground)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        RoundedRectangle(cornerRadius: 14, style: .continuous)
                             .stroke(
-                                isSelected ? Color.accentColor : Color.clear,
-                                lineWidth: 2
+                                isSelected ? Color.accentColor : Color.secondary.opacity(0.15),
+                                lineWidth: isSelected ? 2 : 1
                             )
                     )
             )
+            .overlay(alignment: .top) {
+                if let badge {
+                    Text(badge)
+                        .font(.system(size: 10, weight: .bold, design: .rounded))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(goldGradient, in: Capsule())
+                        .offset(y: -10)
+                }
+            }
         }
         .buttonStyle(.plain)
     }
 
+    // MARK: - CTA
+
     private var ctaButton: some View {
         Button {
             Task {
-                let pkg: RevenueCat.Package? = selectedPlan == .annual ? subscription.annualPackage : subscription.monthlyPackage
+                let pkg: RevenueCat.Package? = switch selectedPlan {
+                case .annual: subscription.annualPackage
+                case .monthly: subscription.monthlyPackage
+                case .lifetime: subscription.lifetimePackage
+            }
                 guard let pkg else { return }
-                try? await subscription.purchase(pkg)
+                await subscription.purchase(pkg)
                 if subscription.isPremium { dismiss() }
             }
         } label: {
@@ -242,59 +261,62 @@ struct PaywallView: View {
                     ProgressView()
                         .tint(.white)
                 } else {
-                    Text("プレミアムを始める")
-                        .font(.headline)
+                    Text("Subscribe")
+                        .font(.system(size: 17, weight: .bold, design: .rounded))
                 }
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 52)
+            .frame(height: 54)
             .foregroundStyle(.white)
-            .background(
-                LinearGradient(
-                    colors: [Color.accentColor, Color.accentColor.opacity(0.8)],
-                    startPoint: .leading, endPoint: .trailing
-                ),
-                in: RoundedRectangle(cornerRadius: 14, style: .continuous)
-            )
+            .background(ctaGradient, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .shadow(color: Color.blue.opacity(0.35), radius: 12, y: 6)
         }
         .disabled(subscription.isLoading || currentPackage == nil)
     }
 
+    // MARK: - Footer
+
     private var legalFooter: some View {
-        VStack(spacing: 10) {
+        HStack(spacing: 20) {
             Button {
                 Task { await subscription.restore() }
             } label: {
-                Text("購入を復元する")
-                    .font(.footnote)
+                Text("復元")
+                    .font(.system(size: 12, design: .rounded))
                     .foregroundStyle(.secondary)
             }
             .disabled(subscription.isLoading)
 
-            Text("購読は自動更新されます。\nApp Storeアカウントに課金されます。")
-                .font(.caption2)
-                .foregroundStyle(Color.secondary.opacity(0.7))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 32)
+            Text("利用規約")
+                .font(.system(size: 12, design: .rounded))
+                .foregroundStyle(.secondary)
+
+            Text("プライバシー")
+                .font(.system(size: 12, design: .rounded))
+                .foregroundStyle(.secondary)
         }
     }
 
     // MARK: - Helpers
 
     private var currentPackage: RevenueCat.Package? {
-        selectedPlan == .annual ? subscription.annualPackage : subscription.monthlyPackage
+        switch selectedPlan {
+        case .annual: subscription.annualPackage
+        case .monthly: subscription.monthlyPackage
+        case .lifetime: subscription.lifetimePackage
+        }
     }
 
     private var monthlyPriceLabel: String {
         if let pkg = subscription.monthlyPackage {
-            return pkg.storeProduct.localizedPriceString + " / 月"
+            return pkg.storeProduct.localizedPriceString
         }
         return "---"
     }
 
     private var annualPriceLabel: String {
         if let pkg = subscription.annualPackage {
-            return pkg.storeProduct.localizedPriceString + " / 年"
+            return pkg.storeProduct.localizedPriceString
         }
         return "---"
     }
@@ -303,37 +325,13 @@ struct PaywallView: View {
         guard let pkg = subscription.annualPackage else { return nil }
         let monthly = pkg.storeProduct.price / 12
         let formatted = pkg.storeProduct.priceFormatter?.string(from: monthly as NSDecimalNumber) ?? ""
-        return "約 \(formatted) / 月"
+        return String(format: String(localized: "約 %@/月"), formatted)
+    }
+
+    private var lifetimePriceLabel: String {
+        if let pkg = subscription.lifetimePackage {
+            return pkg.storeProduct.localizedPriceString
+        }
+        return "---"
     }
 }
-
-// MARK: - Feature Data
-
-private struct Feature: Identifiable {
-    let id = UUID()
-    let icon: String
-    let color: Color
-    let title: String
-    let description: String
-}
-
-private let features: [Feature] = [
-    Feature(
-        icon: "paintpalette.fill",
-        color: .pink,
-        title: "全カラーテーマ",
-        description: "グラデーション・単色・パステル 25種類以上"
-    ),
-    Feature(
-        icon: "square.2.layers.3d.fill",
-        color: .indigo,
-        title: "ウィジェットもカラフルに",
-        description: "ロック画面ウィジェットにも全テーマ適用"
-    ),
-    Feature(
-        icon: "sparkles",
-        color: .orange,
-        title: "今後の新テーマも無料",
-        description: "サブスク期間中に追加されるテーマも自動解放"
-    ),
-]

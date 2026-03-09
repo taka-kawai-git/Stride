@@ -9,7 +9,7 @@ import SwiftUI
 import RevenueCat
 
 // TODO: Replace with your actual RevenueCat API key from the RevenueCat dashboard
-private let kRevenueCatAPIKey = "appl_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+private let kRevenueCatAPIKey = "appl_tJBesXkyZveDpQcDgAhfbTvLtPa"
 
 @MainActor
 @main

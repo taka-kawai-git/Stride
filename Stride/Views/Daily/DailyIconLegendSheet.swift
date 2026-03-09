@@ -14,12 +14,12 @@ struct DailyIconLegendSheet: View {
         let description: String
     }
 
-    private let items: [LegendItem] = [
-        LegendItem(imageName: "ThinkingFace",  range: "0〜24%",   description: "まだまだこれから"),
-        LegendItem(imageName: "ThumbsUp",      range: "25〜49%",  description: "いい調子！"),
-        LegendItem(imageName: "Trophy",        range: "50〜74%",  description: "もうひと踏ん張り！"),
-        LegendItem(imageName: "PartyPopper",   range: "75〜100%", description: "目標達成！"),
-    ]
+    private var items: [LegendItem] {[
+        LegendItem(imageName: "ThinkingFace",  range: "0〜24%",   description: String(localized: "まだまだこれから")),
+        LegendItem(imageName: "ThumbsUp",      range: "25〜49%",  description: String(localized: "いい調子！")),
+        LegendItem(imageName: "Trophy",        range: "50〜74%",  description: String(localized: "もうひと踏ん張り！")),
+        LegendItem(imageName: "PartyPopper",   range: "75〜100%", description: String(localized: "目標達成！")),
+    ]}
 
     @State private var contentHeight: CGFloat = 0
 
